@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 // const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
+const generateRandomPassword = require(('../utils/generatePassword'))
 
 
 
@@ -13,36 +14,47 @@ const addUser = async (req, res) => {
 	// 	return res.status(400).json({ errors: errors.array() });
 	// }
 
-	const { user_name, first_name, last_name, email, password, role} = req.body;
+	const {fname, lname, _email, _role} = req.body;
 
-	// Sanitize the user input
-	  const sanitizedData = {
-		user_name: xss(user_name),
-		first_name: xss(first_name),
-		last_name: xss(last_name),
-	    email: xss(email),
-	    password: xss(password),
+	// * Sanitize the user input
+	  const {first_name, last_name, email, role} = {
+		first_name: xss(fname),
+		last_name: xss(lname),
+	    email: xss(_email),
+		role: xss(_role)
 	  };
 
-	//! I should generate a username and a password.
 	
 	//! Check if the user who s making the req is an admin
 	// ....
+	if (false)
+		res.status(403).json({ "message": "you don't have enough privilege" })
 
-	// Check if the user already exist
+	// * Check if the user already exist
 	const userExist = await User.findOne({email: email});
 
-	// res.render('register', { errors: [{ msg: "User already exist." }] });
 	if (userExist)
 		res.status(409).json({ message: "Email address is already in use." }); //! check for a better way to send the error msg
 	else {
 		try {
 			
-			// {
-			// 	"status": 201,
-			// 		"message": "user created successfully"
-			// }
-
+			const users = User.find({},"user_name")
+			const username_list = users.map(user => user.user_name);
+			const user_name = generateUniqueUsername(first_name, last_name, username_list)
+			const password = generateRandomPassword();
+			
+			const newUser = new User({
+				user_name: user_name,
+				first_name,
+				last_name,
+				email,
+				password: password,
+				role,
+				active:true
+			});
+			
+			await newUser.save();
+			
 			const mailOptions = {
 				from: process.env.EMAIL, // Your email address
 				to: email, // User's email
@@ -50,30 +62,14 @@ const addUser = async (req, res) => {
 				text: `Your username: ${user_name}\nYour password: ${password}`,
 			};
 
-			try {
-				const newUser = new User({
-					user_name,
-					first_name,
-					last_name,
-					email,
-					password,
-					role
-				});
+			//* Send the user's credentials
+			await transporter.sendMail(mailOptions);
 
-				await newUser.save();
-
-				res.status(201).json({ message: 'User registered successfully' });
-				// Send the user's credentials
-				await transporter.sendMail(mailOptions);
-				res.status(200).json({ message: 'Email sent successfully' });
-			} catch (error) {
-				console.error(error);
-				res.status(500).json({ error: 'Email sending failed' });
-			}
+			res.status(201).json({ message: 'User created successfully' });
 		}
 		catch (error) {
-			res.status(400).json({ message : error.message });
-		}c
+			res.status(500).json({ message: error.message });
+		}
 	}
 };
 
