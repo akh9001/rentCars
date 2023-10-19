@@ -8,7 +8,7 @@ function generateUniqueUsername(firstName, lastName, existingUsernames) {
 
 	// Check if the generated username is already in use
 	while (existingUsernames?.includes(uniqueUsername)) {
-		console.log(existingUsernames.includes(uniqueUsername))
+		// console.log(existingUsernames.includes(uniqueUsername))
 		// Replace the first character with the first two characters of the last name
 		firstChars = fname.slice(0, counter);
 		uniqueUsername = `${firstChars}${lname}`;

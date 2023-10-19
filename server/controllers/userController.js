@@ -44,6 +44,7 @@ const addUser = async (req, res) => {
 			const username_list = users?.map(user => user.user_name);
 			const user_name = generateUniqueUsername(first_name, last_name, username_list)
 			const password = generateRandomPassword(10);
+			// console.log("password", password)
 			const newUser = new User({
 				user_name: user_name,
 				first_name,
@@ -63,7 +64,7 @@ const addUser = async (req, res) => {
 				subject: 'Your Credentials',
 				text: `Your username: ${user_name} \n Your password: ${password}`,
 			};
-			console.log("mailoption", mailOptions)
+			// console.log("mailoption", mailOptions)
 			//* Send the user's credentials
 			await transporter.sendMail(mailOptions);
 
@@ -83,8 +84,7 @@ const login = async (req, res) => {
 		const {user_name, password} = req.body;
 	
 		// * Check if the user already exist
-		const userExist = await User.findOne({ user_name: user_name });
-	
+		const userExist = await User.findOne({ user_name: user_name }).select('+password');
 		if (!userExist || !userExist.comparePassword(password))
 			res.status(401).json({
 				message: "invalid credentials" });
@@ -141,24 +141,20 @@ const refreshToken = async (req, res) => {
 	}
 }
 
-const logout = (req, res) => {
-}
-
 const deleteUser = async (req, res) => {
 	try{
-		console.log("Halima")
 		//! only admin can delete a user
 			// res.status(403).json({ message: 'you don\'t have enough privilege' })
 		
 		const deletedUser = await User.findOneAndDelete({ _id: new ObjectId(req.params.id) });
 
 		if (deletedUser) {
-			console.log('User deleted:', deletedUser);
+			// console.log('User deleted:', deletedUser);
 			res.status(200).json({ message: 'User deleted successfully' })
 		}
 		else {
-			console.log('User not found with the provided ID.');
-			res.status(404).json({ message: 'invalid user id' })
+			// console.log('User not found with the provided ID.');
+			res.status(404).json({ message: 'User not found' })
 		}
 	}
 	catch (error)
@@ -168,11 +164,21 @@ const deleteUser = async (req, res) => {
 	}
 }
 
+const getAllUsers = async (req, res) => {
+	try{
+		const users = await User.find({});
+		res.status(400).json({data: users});
+	}
+	catch(error)
+	{
+		res.status(500).json({message: error.message})
+	}
+}
 
 module.exports = {
 	addUser,
 	login,
 	refreshToken,
-	logout,
-	deleteUser
+	deleteUser,
+	getAllUsers
 };
