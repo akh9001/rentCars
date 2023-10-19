@@ -1,5 +1,6 @@
 const express = require('express');
-const {register, login, logout } = require('../controller/userController')
+const { addUser, login, refreshToken, logout } = require('../controllers/userController');
+const { deleteUser } = require('../controllers/userController')
 const router = express.Router();
 
 // implement register route
@@ -9,6 +10,11 @@ router.post('/', addUser);
 router.post('/login', login);
 
 // implement logout route
-router.get('/logout', logout);
+router.post('/logout', logout);
+
+// Implement token refresh logic here to issue a new JWT token
+router.post('/refresh-token', refreshToken)
+
+router.delete('/:id', deleteUser)
 
 module.exports = router;

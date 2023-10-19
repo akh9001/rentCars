@@ -3,8 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 const generateRandomPassword = require(('../utils/generatePassword'))
-
-
+const generateUniqueUsername = require('../utils/generateUsername')
+const transporter = require('../utils/mailer')
+const { ObjectId } = require('mongodb');
 
 const addUser = async (req, res) => {
 	// Check for validation errors
@@ -14,15 +15,15 @@ const addUser = async (req, res) => {
 	// 	return res.status(400).json({ errors: errors.array() });
 	// }
 
-	const {fname, lname, _email, _role} = req.body;
+	const { first_name, last_name, email, role } = req.body;
 
 	// * Sanitize the user input
-	  const {first_name, last_name, email, role} = {
-		first_name: xss(fname),
-		last_name: xss(lname),
-	    email: xss(_email),
-		role: xss(_role)
-	  };
+	//   const {first_name, last_name, email, role} = {
+	// 	first_name: xss(fname),
+	// 	last_name: xss(lname),
+	//     email: xss(_email),
+	// 	role: xss(_role)
+	//   };
 
 	
 	//! Check if the user who s making the req is an admin
@@ -38,11 +39,11 @@ const addUser = async (req, res) => {
 	else {
 		try {
 			
-			const users = User.find({},"user_name")
-			const username_list = users.map(user => user.user_name);
+			const users = await User.find({},"user_name")
+			//! then you should check if the instruction bellow is necessary or not.
+			const username_list = users?.map(user => user.user_name);
 			const user_name = generateUniqueUsername(first_name, last_name, username_list)
-			const password = generateRandomPassword();
-			
+			const password = generateRandomPassword(10);
 			const newUser = new User({
 				user_name: user_name,
 				first_name,
@@ -54,14 +55,15 @@ const addUser = async (req, res) => {
 			});
 			
 			await newUser.save();
+			console.log("new user", newUser)
 			
 			const mailOptions = {
 				from: process.env.EMAIL, // Your email address
 				to: email, // User's email
 				subject: 'Your Credentials',
-				text: `Your username: ${user_name}\nYour password: ${password}`,
+				text: `Your username: ${user_name} \n Your password: ${password}`,
 			};
-
+			console.log("mailoption", mailOptions)
 			//* Send the user's credentials
 			await transporter.sendMail(mailOptions);
 
@@ -73,53 +75,104 @@ const addUser = async (req, res) => {
 	}
 };
 
-// const findUser = (email, filePath) => {
-// 	let users = readDataFromFile(filePath);
+const login = async (req, res) => {
+	// * Authentication :
 
-// 	return users?.find(element => element.email === email)
-// }
+	try
+	{
+		const {user_name, password} = req.body;
+	
+		// * Check if the user already exist
+		const userExist = await User.findOne({ user_name: user_name });
+	
+		if (!userExist || !userExist.comparePassword(password))
+			res.status(401).json({
+				message: "invalid credentials" });
+		else{
+			id = userExist._id;
+			user = {
+				id: userExist._id,
+				user_name : userExist.user_name,
+				role: userExist.role
+			};
+			const accessToken = jwt.sign(user, process.env.JWT_TOKEN_SECRET,{ expiresIn: '15m' })
+			const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
+	
+			res.status(200).json({
+				access_token: accessToken,
+				token_type: "Bearer Token",
+				expires_in: "15min",
+				refresh_token: refreshToken,
+				message: "login success",
+				user : userExist
+			})
+		}
+	}
+	catch(error)
+	{
+		res.status(500).json({message: error.message})
+	}
+}
 
-// const login = async (req, res) => {
-// 	const { email, password } = req.body;
-// 	let user = findUser(email, usersFilePath);
+const generateAccessToken = async (user) =>{
+	return jwt.sign(user, process.env.JWT_TOKEN_SECRET, { expiresIn: '15m' });
+}
 
-// 	// ! You should redo it using the middleware
-// 	if (!user)
-// 		res.render('login', { errors: [{ msg: "User Not Found! Please check your email" }] })
-// 	else {
-// 		try {
-// 			if (await bcrypt.compare(password, user.password)) {
-// 				const payload = { email: email }
-// 				const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET)
-// 				// //* How to pass the access token from the middleware ??
-// 				// res.json({accessToken: accessToken})
-// 				// * Set the token as a cookie with a specific name (e.g., 'token').
-// 				res.cookie('authToken', accessToken,
-// 					{
-// 						maxAge: 3600000, // maxAge is in milliseconds (1 hour in this example)
-// 						httpOnly: true, // Cookie is accessible only via HTTP/HTTPS
-// 						secure: false, // Set to true in a production environment with HTTPS
-// 					});
-// 				res.render('home', { email: email, accessToken: accessToken })
-// 			}
-// 			else
-// 				throw new Error("Not Allowed")
-// 		} catch (error) {
-// 			console.log(error.message)
-// 			res.render('login', { errors: [{ msg: "Wrong email or Password" }] })
-// 		}
-// 	}
-// }
+const generateRefreshToken = async (user) => {
+	return jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
+}
+
+const refreshToken = async (req, res) => {
+
+	const refreshToken = req.body.token;
+	if (!refreshToken) return res.status(401);
+
+	try {
+
+		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+			if (err) return res.status(403);
+			const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+			res.json({ access_token: accessToken });
+		});
+	} catch (err) {
+		// Handle any errors that might occur during the verification process
+		console.error('Error during token verification:', err);
+		res.status(500); // Or use a different HTTP status code as needed
+	}
+}
 
 const logout = (req, res) => {
-	// Clear the 'token' cookie by setting it to an empty string and setting an expiration date in the past.
-	res.cookie('authToken', '', { expires: new Date(0) });
-	// ? Or you can use this method
-	//    res.clearCookie('authToken');
 }
+
+const deleteUser = async (req, res) => {
+	try{
+		console.log("Halima")
+		//! only admin can delete a user
+			// res.status(403).json({ message: 'you don\'t have enough privilege' })
+		
+		const deletedUser = await User.findOneAndDelete({ _id: new ObjectId(req.params.id) });
+
+		if (deletedUser) {
+			console.log('User deleted:', deletedUser);
+			res.status(200).json({ message: 'User deleted successfully' })
+		}
+		else {
+			console.log('User not found with the provided ID.');
+			res.status(404).json({ message: 'invalid user id' })
+		}
+	}
+	catch (error)
+	{
+		console.log("Error :", error.message)
+		res.status(500);
+	}
+}
+
 
 module.exports = {
 	addUser,
 	login,
-	logout
+	refreshToken,
+	logout,
+	deleteUser
 };

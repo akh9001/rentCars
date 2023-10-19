@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const { isEmail } = require("validator")
 
 // Define the user schema
@@ -32,7 +33,8 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		minlength: 8,
 		maxlength: 15,
-		required: true
+		required: true,
+		select: false
 	},
 	// address: {
 	// 	type: String,
@@ -85,7 +87,8 @@ userSchema.pre('save', async function (next) {
 			const saltRounds = 10;
 			// Hash the password
 			const salt = await bcrypt.genSalt(saltRounds);
-			this.password = await bcrypt.hash(password, salt)
+			console.log(this.password)
+			this.password = await bcrypt.hash(this.password, salt)
 		}
 		next();
 	}
@@ -97,9 +100,11 @@ userSchema.pre('save', async function (next) {
 });
 
 // Add a method to the schema to compare passwords
-UserSchema.methods.comparePassword = async function (enteredPassword) {
+userSchema.methods.comparePassword = async function (enteredPassword) {
+	const result = await bcrypt.compare(enteredPassword, this.password);
+	console.log("result", result)
 	//compare pwd entered and from the db
-	return await bcrypt.compare(enteredPassword, this.password);
+	return result;
 }
 
 // Create a User model based on the schema

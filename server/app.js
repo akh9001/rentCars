@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes")
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
+app.use(express.json());
 app.use('/users', userRoutes);
 
 // Example route
