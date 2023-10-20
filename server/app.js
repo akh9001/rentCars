@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 // Connect to MongoDB
 connectDB();
 app.use(express.json())
-app.use("/user",router)
+app.use("/customers",router)
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);

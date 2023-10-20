@@ -1,21 +1,25 @@
 const { default: mongoose } = require("mongoose");
 
-
 const customerSchema = new mongoose.Schema({
   first_name: {
     type: String,
-    required: true
+    required: true,
   },
   last_name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true,
+    required: "Email address is required",
     unique: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
+    unique: true,
+    match: [
+      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+      "Please fill a valid email address",
+    ],
   },
   password: {
     type: String,
@@ -24,22 +28,22 @@ const customerSchema = new mongoose.Schema({
   },
   creation_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   last_login: {
     type: Date,
-    default: null
+    default: null,
   },
   valid_account: {
     type: Boolean,
-    default: true
+    default: false, // after validation false should be true
   },
   active: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 });
 
-const Customer = mongoose.model('Customer', customerSchema);
+const Customer = mongoose.model("Customer", customerSchema);
 
 module.exports = Customer;
