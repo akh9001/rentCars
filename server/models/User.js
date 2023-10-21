@@ -103,7 +103,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.comparePassword = async function (enteredPassword) {
 
 	const result = await bcrypt.compare(enteredPassword, this.password);
-	console.log("result", result)
+	// console.log("result", result)
 	//compare pwd entered and from the db
 	return result;
 }

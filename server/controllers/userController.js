@@ -97,7 +97,8 @@ const login = async (req, res) => {
 			};
 			const accessToken = jwt.sign(user, process.env.JWT_TOKEN_SECRET,{ expiresIn: '15m' })
 			const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
-	
+			userExist.last_login = Date.now();
+			await userExist.save();
 			res.status(200).json({
 				access_token: accessToken,
 				token_type: "Bearer Token",
@@ -120,25 +121,6 @@ const generateAccessToken = async (user) =>{
 
 const generateRefreshToken = async (user) => {
 	return jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
-}
-
-const refreshToken = async (req, res) => {
-
-	const refreshToken = req.body.token;
-	if (!refreshToken) return res.status(401);
-
-	try {
-
-		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-			if (err) return res.status(403);
-			const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-			res.json({ access_token: accessToken });
-		});
-	} catch (err) {
-		// Handle any errors that might occur during the verification process
-		console.error('Error during token verification:', err);
-		res.status(500); // Or use a different HTTP status code as needed
-	}
 }
 
 const deleteUser = async (req, res) => {
@@ -165,20 +147,135 @@ const deleteUser = async (req, res) => {
 }
 
 const getAllUsers = async (req, res) => {
-	try{
-		const users = await User.find({});
-		res.status(400).json({data: users});
+	const page = parseInt(req.query.page) || 1; // Get the page number from query params
+	const perPage = 10; // Number of users per page
+	// Sort direction based on the 'sort' query parameter (default is ascending)
+	const sortDirection = req.query.sort === 'DESC' ? -1 : 1;
+
+	try {
+		// console.log("user.role")
+		const users = await User.find()
+			.sort({ user_name: sortDirection, first_name: sortDirection, last_name: sortDirection })
+			.skip((page - 1) * perPage)
+			.limit(perPage);
+		// console.log(users)
+		res.status(200).json({ data: users });
+	} catch (error) {
+		res.status(500).json({ message: 'Error while fetching users' });
 	}
-	catch(error)
-	{
-		res.status(500).json({message: error.message})
+}
+
+const getUSerById = async (req, res) => {
+	const userId = req.params.id;
+	try {
+		const user = await User.findById(userId);
+
+		if (user) {
+			res.status(200).json({ data: user });
+		} else {
+			res.status(404).json({ message: 'User not found with the provided ID' });
+		}
+	} catch (error) {
+		res.status(500).json({ message: 'Error while fetching the user' });
 	}
+};
+
+const search = async (req, res) => {
+	const page = parseInt(req.query.page) || 1;
+	const limit = 10;
+	const startIndex = (page - 1) * limit;
+
+	// Get the search query from the 'query' query parameter
+	const searchQuery = req.query.query || '';
+
+	// Sort direction based on the 'sort' query parameter (default is ascending)
+	const sortDirection = req.query.sort === 'DESC' ? -1 : 1;
+
+	try {
+		const users = await User.find({
+			// Define your search criteria based on the 'searchQuery' parameter
+			$or: [
+				{ user_name: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive username search
+				// Add more search criteria as needed
+			],
+		})
+		.sort({ user_name: sortDirection, first_name: sortDirection, last_name: sortDirection })
+		.skip(startIndex)
+		.limit(limit);
+		res.status(200).json({ data: users });
+	} catch (error) {
+		console.error('Error while fetching users:', error);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+const updateUser = async (req, res) => {
+	// try
+	// {
+	// 	const { first_name, last_name, email, role, active} = req.body;
+	// 	const filter = { _id: req.params.id };
+	// 	const update = { first_name, last_name, email, role, active };
+	// 	const opts = { new: true };
+
+	// 	let user = await User.findOneAndUpdate(filter, update, opts);
+	// 	res.status(200).json({ data: user });
+	// }
+	// catch(error)
+	// {
+	// 	res.status(500).json({ message: 'Internal server error' });
+	// }
+	// Route for updating user data
+		const userId = req.params.id;
+		const updatedData = req.body;
+
+		try {
+			// Check if the user with the specified ID exists
+			const user = await User.findById(userId);
+
+			if (!user) {
+				return res.status(404).json({ message: 'User not found' });
+			}
+
+			// Check for username and email uniqueness
+			const existingUserWithUsername = await User.findOne({ username: updatedData.user_name });
+			const existingUserWithEmail = await User.findOne({ email: updatedData.email });
+			console.log("existingUserWithUsername", existingUserWithUsername)
+			console.log("existingUserWithEmail", existingUserWithEmail)
+			if (existingUserWithUsername && existingUserWithUsername.id !== userId)
+				return res.status(400).json({ message: 'Username is already in use' });
+
+			if ( existingUserWithEmail && existingUserWithEmail.id !== userId)
+				return res.status(400).json({ message: 'Email is already in use' });
+
+			// Update the user data and lastUpdate date
+			user.user_name = updatedData.user_name ? updatedData.user_name : user.user_name;
+			user.email = updatedData.email ? updatedData.email : user.email;
+			user.role = updatedData.role ? updatedData.role : user.role;
+			user.active = updatedData.active !== undefined ? updatedData.active : user.active;
+			user.first_name = updatedData.first_name ? updatedData.first_name : user.first_name;
+			user.last_name = updatedData.last_name ? updatedData.last_name : user.last_name;
+			user.last_update = new Date(); // Update lastUpdate date
+			console.log("user", user)
+			try {
+				const savedUser = await user.save();
+				res.status(200).json({ message: savedUser });
+			}
+			catch (error) {
+				console.error('Error while updating user:', error);
+				res.status(500).json({ message: error.message});
+			}
+		} catch (error) {
+			console.error('Error while updating user:', error);
+			res.status(500).json({ message: 'Internal server error' });
+		}
 }
 
 module.exports = {
 	addUser,
 	login,
-	refreshToken,
 	deleteUser,
-	getAllUsers
+	getAllUsers,
+	getUSerById,
+	updateUser,
+	search
 };

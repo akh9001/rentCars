@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 // * middleware function to protect routes that require authentication with JWT:
 
@@ -13,9 +14,27 @@ const authentication = (req, res, next) =>{
 	jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, user) => {
 		if (err) return res.status(403).json({ message: 'Forbidden'});
 		req.user = user;
-		console.log("The user : ",user)
 		next();
 	});
+}
+
+const refreshToken = async (req, res) => {
+
+	const refreshToken = req.body.token;
+	if (!refreshToken) return res.status(401);
+
+	try {
+
+		jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN_SECRET, (err, user) => {
+			if (err) return res.status(403);
+			const accessToken = jwt.sign(user, process.env.JWT_TOKEN_SECRET, { expiresIn: '15h' });
+			res.status(200).json({ access_token: accessToken });
+		});
+	} catch (err) {
+		// Handle any errors that might occur during the verification process
+		console.error('Error during token verification:', err);
+		res.status(500); // Or use a different HTTP status code as needed
+	}
 }
 
 // * middleware function to protect routes that require authorization with JWT:
@@ -33,10 +52,9 @@ const checkUserRole = (requiredRoles) => {
 		if (!requiredRoles.includes(user.role)) {
 			return res.status(403).json({ message: "Access denied. Insufficient privileges." });
 		}
-
 		// User has the required role, so allow them to proceed
 		next();
 	}
 }
 
-module.exports = { authentication, checkUserRole }
+module.exports = { authentication, checkUserRole, refreshToken }
