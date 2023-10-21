@@ -251,7 +251,7 @@ const updateUser = async (req, res) => {
 			user.user_name = updatedData.user_name ? updatedData.user_name : user.user_name;
 			user.email = updatedData.email ? updatedData.email : user.email;
 			user.role = updatedData.role ? updatedData.role : user.role;
-			user.active = updatedData.active !== undefined ? updatedData.active : user.active;
+			user.active = updatedData.active !== undefin ? updatedData.active : user.active;
 			user.first_name = updatedData.first_name ? updatedData.first_name : user.first_name;
 			user.last_name = updatedData.last_name ? updatedData.last_name : user.last_name;
 			user.last_update = new Date(); // Update lastUpdate date
