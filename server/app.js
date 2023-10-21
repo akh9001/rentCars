@@ -8,11 +8,6 @@ require("dotenv").config();
 app.use(express.json());
 app.use('/users', userRoutes);
 
-// Example route
-app.get("/", (req, res) => {
-  res.send("Hello, Express!");
-});
-
 // Connect to MongoDB
 connectDB();
 
