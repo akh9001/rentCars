@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
 const connectDB = require("./config/database");
+const userRoutes = require("./routes/userRoutes")
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 const router = require("./routes/customerRoutes")
 
-// Example route
-app.get("/", (req, res) => {
-  res.send("Hello, Express!");
-});
+app.use(express.json());
+app.use('/users', userRoutes);
 
 // Connect to MongoDB
 connectDB();
