@@ -9,7 +9,7 @@ require("dotenv").config();
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use("/customers", customerRoutes)
-
+connectDB()
 app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
