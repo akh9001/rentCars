@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   // there is one left I found difficulties to make it = < Validating a customer account.>
   register, //Creating a new customer account.
@@ -9,7 +10,7 @@ const {
   getCustomerById, //Getting a customer by ID.
   updateCustomerById, //Updating the customer's data.
   deleteCustomerById, //Deleting the customer's account.
-  searchCustomerProfile, //Getting the customer's profile
+  searchCustomerProfile //Getting the customer's profile
 } = require("../controllers/customerController");
 
 // Register route
@@ -21,8 +22,8 @@ router.post("/login", login);
 //getting customer's profile  => <http://localhost:3000/customers/searchprofile?first_name=<name>>
 router.get("/searchprofile", searchCustomerProfile);
 
-//search for customer by name  => http://localhost:3000/customers?first_name=name
-router.get("/search", searchCustomerByName);
+//search for customer by name => http://localhost:3000/customers?first_name=name
+router.get('/search', searchCustomerByName);
 
 //get list of customers
 router.get("/", getCustomers);

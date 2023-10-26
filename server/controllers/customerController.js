@@ -1,11 +1,14 @@
 const bcrypt = require("bcrypt");
 const Customer = require("../models/Customer");
+const nodemailer = require('nodemailer')
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
-const SECRET_KEY = "SECRET_KEY";
+const SECRET_KEY = "JWT_SECRET";
 
-// Register
+
+
+//Register
 const register = async (req, res) => {
   try {
     const { first_name, last_name, email, password } = req.body;
@@ -33,6 +36,7 @@ const register = async (req, res) => {
 };
 
 //Login
+
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
