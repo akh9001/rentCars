@@ -22,11 +22,13 @@ const carSchema = new mongoose.Schema({
 	},
 	price : {
 		type: number,
-		default: [true, "The price field is required!"]
+		default: [true, "The price field is required!"],
+		min: [0, 'Price should be positive']
 	},
 	discount_price : {
 		type: number,
-		default: false
+		default: false,
+		min: [0, 'The discount price should be positive']
 	},
 	specifications: {
 		type: Map,
@@ -52,11 +54,13 @@ const carSchema = new mongoose.Schema({
 	owner : // I may need to add the store 
 	{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: [true, "The Owner field is required!"]
 	},
 	subcategory: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Subcategory'
+		ref: 'Subcategory',
+		required: [true, "The subcategory field is required!"]
 	},
 	rented_by: {
 		type: mongoose.Schema.Types.ObjectId,

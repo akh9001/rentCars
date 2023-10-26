@@ -109,21 +109,42 @@ const getCarById = async (req, res) => {
 
 const updateCar = async (req, res) => {
 	try {
-		const productId = req.params.id;
+		const id = req.params.id;
 		const updatedData = req.body; // Assuming you send updated product data in the request body
 
-		// Check if the product name is unique
-		const existingProduct = await Product.findOne({ name: updatedData.name });
-		if (existingProduct && existingProduct._id.toString() !== productId) {
-			return res.status(400).json({ message: 'Product name must be unique' });
+		// Check if the car exist
+		const existingCar = await Car.findById(id);
+		if (existingCar) {
+			return res.status(404).json({ message: 'invalid product id' });
 		}
+		// Check if the Car vin is unique
+		const existingProduct = await Car.findOne({ vin: updatedData.vin });
+		if (existingProduct && existingProduct._id.toString() !== id) {
+			return res.status(400).json({ message: 'The Vehicle Identification Number (VIN) should be unique' });
+		}
+		// Update the car data
+		const updatedCar = await Car.findByIdAndUpdate(id, updatedData, { new: true });
 
-		// Update the product data
-		const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
-
-		res.status(200).json(updatedProduct);
+		res.status(200).json({ message: "Car updated successfully"});
 	} catch (error) {
-		res.status(500).json({ message: 'Internal server error' });
+		res.status(500).json({ message: error.message });
+	}
+}
+
+const deleteCar = async (req, res) => {
+	try{
+		const deletedCar = await User.findOneAndDelete({ _id: new ObjectId(req.params.id) });
+
+		if (deletedCar) {
+			res.status(200).json({ message: 'Car deleted successfully' })
+		}
+		else {
+			res.status(404).json({ message: 'Car not found' })
+		}
+	}
+	catch(error)
+	{
+		res.status(500).json({ message: error.message });
 	}
 }
 
