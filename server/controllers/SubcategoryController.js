@@ -4,29 +4,29 @@ const Category = require('../models/category');
 // Create a new subcategory
 const createSubcategory = async (req, res) => {
   try {
-    const { subcategoryName, categoryID } = req.body;
+    const { subcategory_name,  category_id } = req.body;
 
-    if (!subcategoryName || !categoryID) {
+    if (!subcategory_name || ! category_id) {
       return res.status(400).json({ message: 'Subcategory name and category ID are required' });
     }
 
     // Check if the subcategory name is unique
-    const existingSubcategory = await Subcategory.findOne({ subcategoryName });
+    const existingSubcategory = await Subcategory.findOne({ subcategory_name });
 
     if (existingSubcategory) {
       return res.status(400).json({ message: 'Subcategory name already exists' });
     }
 
     // Check if the category exists
-    const category = await Category.findById(categoryID);
+    const category = await Category.findById( category_id);
 
     if (!category) {
       return res.status(400).json({ message: 'Category not found' });
     }
 
     const newSubcategory = new Subcategory({
-      subcategoryName,
-      categoryID,
+      subcategory_name,
+       category_id,
     });
 
     const savedSubcategory = await newSubcategory.save();
@@ -63,7 +63,7 @@ const searchSubcategories = async (req, res) => {
     const limitPerPage = 10;
     const skipVal = (page - 1) * limitPerPage;
 
-    const subcategories = await Subcategory.find({ subcategoryName: new RegExp(`^${query}`, 'i') })
+    const subcategories = await Subcategory.find({ subcategory_name: new RegExp(`^${query}`, 'i') })
       .limit(limitPerPage)
       .skip(skipVal);
 
@@ -85,7 +85,7 @@ const getSubcategory = async (req, res) => {
     }
 
     // Fetch the associated category
-    const category = await Category.findById(subcategory.categoryID);
+    const category = await Category.findById(subcategory. category_id);
 
     res.status(200).json({ status: 200, data: { ...subcategory._doc, category: category.category_name } });
   } catch (error) {
@@ -98,7 +98,7 @@ const getSubcategory = async (req, res) => {
 const updateSubcategory = async (req, res) => {
   try {
     const id = req.params.id;
-    const { subcategoryName, categoryID, active } = req.body;
+    const { subcategoryName,  category_id, active } = req.body;
 
     // Check if the subcategory name is unique
     const existingSubcategory = await Subcategory.findOne({ subcategoryName, _id: { $ne: id } });
@@ -109,7 +109,7 @@ const updateSubcategory = async (req, res) => {
 
     const updatedSubcategory = await Subcategory.findByIdAndUpdate(
       id,
-      { subcategoryName, categoryID, active },
+      { subcategoryName,  category_id, active },
       { new: true }
     );
 

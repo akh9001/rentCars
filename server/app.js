@@ -11,8 +11,8 @@ require("dotenv").config();
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/customers', customerRoutes);
-app.use('/ategories', categoryRoutes); 
-app.use('/subcategories', subcategoryRoutes); 
+app.use('/v1/api', categoryRoutes); 
+app.use('/v1/api', subcategoryRoutes); 
 connectDB();
 app.listen(port, () => {
   console.log("Server is running on port " + port);

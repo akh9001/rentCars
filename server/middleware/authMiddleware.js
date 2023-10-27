@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
-// * middleware function to protect routes that require authentication with JWT:
+// * function to protect routes that require authentication with JWT:
 
 const authentication = (req, res, next) =>{
 	// console.log(req.headers);
