@@ -1,0 +1,24 @@
+const express = require('express');
+const router = express.Router();
+const SubcategoryController = require('../controllers/SubcategoryController');
+const { checkUserRole } = require('../middleware/auth');
+
+// POST http://localhost:0000/v1/subcategories
+router.post('/v1/subcategories', checkUserRole(['admin', 'manager']), SubcategoryController.createSubcategory);
+
+// GET http://localhost:0000/v1/subcategories?page=1
+router.get('/v1/subcategories', SubcategoryController.listAllSubcategories);
+
+// GET http://localhost:0000/v1/subcategories?query=pants&page=1
+router.get('/v1/subcategories/search', SubcategoryController.searchSubcategories);
+
+// GET http://localhost:0000/v1/subcategories/{id}
+router.get('/v1/subcategories/:id', SubcategoryController.getSubcategory);
+
+// PUT http://localhost:0000/v1/subcategories/{id}
+router.put('/v1/subcategories/:id', checkUserRole(['admin', 'manager']), SubcategoryController.updateSubcategory);
+
+// DELETE http://localhost:0000/v1/subcategories/{id}
+router.delete('/v1/subcategories/:id', checkUserRole(['admin', 'manager']), SubcategoryController.deleteSubcategory);
+
+module.exports = router;
