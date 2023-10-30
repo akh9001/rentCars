@@ -8,11 +8,11 @@ const {
 }  = require('../controllers/orderController');
 
 // create order
-router.post("/orders", createOrder);
+router.post("/", createOrder);
 //list orders
-router.get("/orders", listOrders);
+router.get("/", listOrders);
 // get order by id
-router.get("/orders:id", getOrderById);
+router.get("/:id", getOrderById);
 //update order
 router.put('/:id', updateOrderStatus);
 
