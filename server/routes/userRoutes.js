@@ -13,7 +13,6 @@ router.post('/login', login);
 // * Implement token refresh logic here to issue a new JWT token
 router.post('/refresh-token', refreshToken)
 
-
 // * implement get all users route
 router.get('/', authentication, checkUserRole(["admin"]), getAllUsers);
 

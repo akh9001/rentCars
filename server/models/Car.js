@@ -21,12 +21,12 @@ const carSchema = new mongoose.Schema({
 		default: false
 	},
 	price : {
-		type: number,
+		type: Number,
 		default: [true, "The price field is required!"],
 		min: [0, 'Price should be positive']
 	},
 	discount_price : {
-		type: number,
+		type: Number,
 		default: false,
 		min: [0, 'The discount price should be positive']
 	},
@@ -36,14 +36,14 @@ const carSchema = new mongoose.Schema({
 		required: [true, "The specifications are required!"],
 		validate: {
 			validator: function (specificationsMap) {
-				const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Engine Type", "Luggage Capacity", "passenger Capacity"];
+				const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Engine Type", "Luggage Capacity", "Passenger Capacity"];
 				const keys = Array.from(specificationsMap.keys());
 				return requiredKeys.every((key) => keys.includes(key));
 			},
-			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type', , 'passenger Capacity' and 'Luggage Capacity'.",
+			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type' , 'passenger Capacity' and 'Luggage Capacity'.",
 		},
 	},
-	image : {
+	images : {
 		type: [String],
 		required: true
 	},
@@ -57,16 +57,16 @@ const carSchema = new mongoose.Schema({
 		ref: 'User',
 		required: [true, "The Owner field is required!"]
 	},
-	subcategory: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Subcategory',
-		required: [true, "The subcategory field is required!"]
-	},
-	rented_by: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Customer',
-		default: null
-	},
+	// subcategory: {
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: 'Subcategory',
+	// 	required: [true, "The subcategory field is required!"]
+	// },
+	// rented_by: {
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: 'Customer',
+	// 	default: null
+	// },
 	reviews: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Review',

@@ -2,12 +2,34 @@
 
 const { ObjectId } = require('mongodb');
 const Car = require('../models/Car')
+const extractOriginalNames = require('../utils/extractOriginalName')
+const fs = require('fs');
 const perPage = 10
+
+const removeFile = async (filePaths) => {
+	filePaths.forEach((filePath) => {
+	fs.unlink(filePath, (err) => {
+		if (err) {
+			console.error('Error removing file:', err);
+			errors.push({ path: filePath, error: err.message });
+		}
+	});
+	})
+};
 
 const addCar = async (req, res) => {
 	try{
-			//TODO Validator
-		const { vin, name, brand, available, price, discount_price, features, image, subcategory } = req.body;
+		//TODO Validator
+		if (req.fileValidationError) {
+			return next(req.fileValidationError);
+		}
+		if (!req.files || req.files?.length === 0) {
+			return res.status(400).json({ message: 'No files uploaded' });
+		}
+
+		const { vin, name, brand, available, price, discount_price, specifications, subcategory } = req.body;
+		// console.log(req.body)
+		// console.log({ vin, name, brand, available, price, discount_price, specifications, subcategory })
 		const newCar = new Car({
 			vin,
 			name,
@@ -15,16 +37,19 @@ const addCar = async (req, res) => {
 			available,
 			price,
 			discount_price,
-			features,
-			image,
-			subcategory
+			specifications: JSON.parse(specifications),
+			images: extractOriginalNames(req.files),
+			owner: new ObjectId(req.user.id)
+			// subcategory
 		});
+		// console.console.log(newCar)
 		await newCar.save();
 		res.status(201).json({ message: "product created successfully"})
 	}
 	catch(error)
 	{
-		console.log(error.message)
+		console.error(error.message)
+		removeFile(extractOriginalNames(req.files))
 		res.status(500).json({message: error.message});
 	}
 }
