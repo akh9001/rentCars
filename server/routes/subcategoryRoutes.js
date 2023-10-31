@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const SubcategoryController = require('../controllers/SubcategoryController');
+const SubcategoryController = require('../controllers/subcategoryController');
 const { checkUserRole } = require('../middleware/authMiddleware');
 
 // POST http://localhost:0000/v1/subcategories

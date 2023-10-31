@@ -57,16 +57,16 @@ const carSchema = new mongoose.Schema({
 		ref: 'User',
 		required: [true, "The Owner field is required!"]
 	},
-	// subcategory: {
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	ref: 'Subcategory',
-	// 	required: [true, "The subcategory field is required!"]
-	// },
-	// rented_by: {
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	ref: 'Customer',
-	// 	default: null
-	// },
+	subcategory: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Subcategory',
+		required: [true, "The subcategory field is required!"]
+	},
+	rented_by: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Customer',
+		default: null
+	},
 	reviews: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Review',
