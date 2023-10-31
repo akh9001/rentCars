@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 script.sh
+
+# Some testing staff
+trush/

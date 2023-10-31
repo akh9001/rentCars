@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
 		select: false
 	},
 	// address: {
+	// 	street: String,
+	// 	city: String,
+	// 	zipCode: String,
+	// },
+	// address: {
 	// 	type: String,
 	// },
 	// city: {
