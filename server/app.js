@@ -7,15 +7,18 @@ const carRoutes = require("./routes/carRoutes")
 const multer = require('multer');
 const categoryRoutes = require("./routes/categoryRoutes");
 const subcategoryRoutes = require("./routes/subcategoryRoutes"); 
+const orderRoutes = require("./routes/orderRoutes")
 const port = process.env.PORT || 3000;
 require("dotenv").config();
+
 
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use("/customers", customerRoutes);
 app.use("/cars", carRoutes);
-app.use('/v1/api', categoryRoutes); 
-app.use('/v1/api', subcategoryRoutes);
+app.use('/categories', categoryRoutes); 
+app.use('/subcategories', subcategoryRoutes);
+app.use("/orders", orderRoutes)
 
 // Catch-all route for invalid routes
 app.all('*', (req, res) => {

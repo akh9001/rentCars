@@ -1,38 +1,99 @@
 const bcrypt = require("bcrypt");
 const Customer = require("../models/Customer");
+const nodemailer = require('nodemailer')
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const { v4: uuidv4 } = require("uuid");
-const SECRET_KEY = "SECRET_KEY";
+const SECRET_KEY = "JWT_SECRET";
 
-// Register
+//Register
 const register = async (req, res) => {
   try {
     const { first_name, last_name, email, password } = req.body;
     const existingCustomerByEmail = await Customer.findOne({ email });
+
     if (existingCustomerByEmail) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     const customer = new Customer({
       uuid: uuidv4(),
       first_name,
       last_name,
       email,
       password: hashedPassword,
+      isActive: false,
     });
 
     await customer.save();
 
-    res.status(201).json({ message: "Customer registered successfully" });
+    // Set up email transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const verificationToken = jwt.sign(
+      { customerId: customer._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    const verificationLink = `https://localhost:3000/verify-account?token=${verificationToken}`;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Please verify your account",
+      text: `Click on the link to verify your account: ${verificationLink}`,
+      html: `<a href="${verificationLink}">Click here to verify your account</a>`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Verification email sent: " + info.response);
+      }
+    });
+
+    res.status(201).json({
+      message:
+        "Customer registered successfully. Please activate your email to activate your account.",
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+//verify account
+
+const verifyAccount = async (req, res) => {
+  try {
+    const { token } = req.body;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const customer = await Customer.findById(decoded.customerId);
+
+    if (!customer) {
+      return res.status(400).json({ message: "Invalid or expired token." });
+    }
+
+    // customer.isActive = true;
+    await customer.save();
+    res.status(200).json({ message: "Account successfully activated!" });
+  } catch (error) {
+    console.error("Error detail:", error);
+    res.status(500).json({ message: "Error activating your account." });
+  }
+};
+
+
 //Login
+
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -94,7 +155,13 @@ const searchCustomerByName = async (req, res) => {
 // GET all customers
 const getCustomers = async (req, res) => {
   try {
-    const customers = await Customer.find();
+    const page = parseInt(req.query.page) || 1;
+    const perPage = 2;
+    const sortDirection = req.query.sort === 'DESC'? -1 : 1;
+    const customers = await Customer.find()
+    .sort({first_name: sortDirection, last_name: sortDirection })
+    .skip((page - 1) * perPage)
+    .limit(perPage);
     res.status(200).json(customers);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -181,6 +248,7 @@ const searchCustomerProfile = async (req, res) => {
 
 module.exports = {
   register,
+  verifyAccount,
   login,
   searchCustomerByName,
   getCustomers,
