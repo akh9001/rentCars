@@ -70,7 +70,6 @@ const searchCategory = async (req, res) => {
 	try {
 		const { limitPerPage, skipVal } = Pagination(req);
 		const queryObject = req.query.category_name;
-
 		const categories = await Category.find({ category_name: new RegExp(`^${queryObject}`, 'i') })
 			.sort({ category_name: 1 }) // Use 1 for ascending order
 			.limit(limitPerPage)

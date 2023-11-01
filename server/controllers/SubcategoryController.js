@@ -59,11 +59,11 @@ const listAllSubcategories = async (req, res) => {
 // Search for subcategories
 const searchSubcategories = async (req, res) => {
 	try {
-		const { query, page } = req.query;
+		const { subcategory_name, page } = req.query;
 		const limitPerPage = 10;
 		const skipVal = (page - 1) * limitPerPage;
 
-		const subcategories = await Subcategory.find({ subcategory_name: new RegExp(`^${query}`, 'i') })
+		const subcategories = await Subcategory.find({ subcategory_name: new RegExp(`^${subcategory_name}`, 'i') })
 			.limit(limitPerPage)
 			.skip(skipVal);
 
