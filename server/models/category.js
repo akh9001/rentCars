@@ -10,6 +10,7 @@ const categorySchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+	// subcategory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subcategory' }],
 });
 
 const Category = mongoose.model('Category', categorySchema);

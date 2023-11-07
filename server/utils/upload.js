@@ -8,7 +8,6 @@ const uploadDir = process.env.UPLOAD_DIRECTORY;
 if (!fs.existsSync(uploadDir)) {
 	fs.mkdirSync(uploadDir);
 }
-
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, uploadDir); 
@@ -21,3 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 module.exports = upload;
+// if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+// 	cb(null, './files/images/');
+// } else {
+// 	cb({ message: 'this file is neither a video or image file' }, false)

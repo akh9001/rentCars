@@ -22,7 +22,7 @@ const carSchema = new mongoose.Schema({
 	},
 	price : {
 		type: Number,
-		default: [true, "The price field is required!"],
+		required: [true, "The price field is required!"],
 		min: [0, 'Price should be positive']
 	},
 	discount_price : {
@@ -40,7 +40,7 @@ const carSchema = new mongoose.Schema({
 				const keys = Array.from(specificationsMap.keys());
 				return requiredKeys.every((key) => keys.includes(key));
 			},
-			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type' , 'passenger Capacity' and 'Luggage Capacity'.",
+			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type' , 'Passenger Capacity' and 'Luggage Capacity'.",
 		},
 	},
 	images : {
