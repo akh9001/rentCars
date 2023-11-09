@@ -287,7 +287,7 @@ export default function DashboardOrders() {
   );
 
   return (
-    <Box className="p-24 relative w-full">
+    <Box className="large:p-24 small:px-8 small:py-20 relative w-full">
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>

@@ -19,11 +19,11 @@ export default function SideBar(props) {
   const toggleSidebar = props.toggleSidebar;
 
   return (
-  <div className={`fixed grid grid-cols-5 h-full sm:grid-cols-5 ${
+  <div className={`fixed grid large:grid-cols-5 h-full small:grid-cols-4 ${
     sidebarVisible ? "w-full" : "w-0"
   }`}>
     <div
-      className='large:col-span-1 col-span-2 bg-white shadow-md pt-10 border-r border-gray-300 sidebar'
+      className='small:col-span-2 large:col-span-1 bg-white shadow-md pt-10 border-r border-gray-300 sidebar'
      
     >
        
@@ -56,7 +56,7 @@ export default function SideBar(props) {
       )}
     
       </div>
-      <div className="large:col-span-4 col-span-1 bg-black opacity-40" onClick={toggleSidebar}></div>
+      <div className="large:col-span-4 small:col-span-2 bg-black opacity-40" onClick={toggleSidebar}></div>
     </div>
   );
 }

@@ -56,13 +56,13 @@ export default function AdminNavbar() {
       <div className="flex">
         <button onClick={toggleSidebar} className="ml-4 z-50 p-4 cursor-pointer">
           {sidebarVisible ? (
-            <AiOutlineCloseSquare size={25} color='#8c8c8c' className=' relative left-48' />
+            <AiOutlineCloseSquare size={25} color='#8c8c8c' className='relative left-48' />
           ) : (
             <AiOutlineMenu size={25}  />
           )}
         </button>
         <p className="Logo">
-        {sidebarVisible ? (<span className='relative right-12 z-50'><strong>Rent</strong>Car</span>
+        {sidebarVisible ? (<span className='relative right-12 small:right-14 z-50'><strong>Rent</strong>Car</span>
            ): (<span><strong>Rent</strong>Car</span>)
         }
         </p>

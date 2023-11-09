@@ -37,7 +37,7 @@ export default function GeneralDashboard() {
       <div className='w-full large:flex large:justify-between large:items-center'>
         <h1 className='font-bold text-3xl'>General dashboard</h1>
 
-        <div className="flex ">
+        <div className="flex small:mt-5">
           <button
             className="flex items-center hover:shadow-lg border-zinc-500 text-xs large:text-sm shadow-sm border hover:bg-slate-100 rounded-md px-3 py-1 m-1"
             onClick={toggleDateRange}
@@ -55,7 +55,7 @@ export default function GeneralDashboard() {
                 onChange={handleSelect}
                 moveRangeOnFirstSelection={false}
                 ranges={selectedRange}
-                className=" absolute z-30 top-44 right-34 shadow-md"
+                className=" absolute z-30 top-44 small:top-52 right-34 shadow-md"
               />
           )}
           <button className=' flex hover:shadow-lg items-center border-zinc-500 text-xs large:text-sm shadow-sm border hover:bg-slate-100 rounded-md px-3 py-1 m-1'>

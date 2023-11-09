@@ -31,14 +31,14 @@ const carCallouts = [
 export default function CarAgency() {
   return (
     <div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 small:px-6 large:px-8 ">
+        <div className="mx-auto max-w-2xl py-16 small:py-24 large:max-w-none large:py-32">
           <h2 className="text-2xl font-bold text-gray-900">Car Collection</h2>
 
-          <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+          <div className="mt-6 space-y-12 large:grid large:grid-cols-3 large:gap-x-6 large:space-y-0">
             {carCallouts.map((callout) => (
               <div key={callout.name} className="group relative">
-                <div className="relative shadow-md h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                <div className="relative shadow-md h-80 w-full overflow-hidden rounded-lg bg-white small:aspect-h-1 small:aspect-w-2 large:aspect-h-1 large:aspect-w-1 group-hover:opacity-75 small:h-64">
                   <img
                     src={callout.imageSrc}
                     alt={callout.imageAlt}
