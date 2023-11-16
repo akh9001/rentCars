@@ -6,6 +6,7 @@ import { LuSettings } from 'react-icons/lu';
 import { AiOutlineCloseSquare, AiOutlineMenu } from 'react-icons/ai';
 import profil from '../../Assets/profile.jpg';
 import SideBar from './SideBar';
+import { Link } from 'react-router-dom';
 
 export default function AdminNavbar() {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -61,11 +62,13 @@ export default function AdminNavbar() {
             <AiOutlineMenu size={25}  />
           )}
         </button>
-        <p className="Logo">
+        <Link to="/dashboard">
+          <p className="Logo" to="/dashboard">
         {sidebarVisible ? (<span className='relative right-12 small:right-14 z-50'><strong>Rent</strong>Car</span>
            ): (<span><strong>Rent</strong>Car</span>)
         }
         </p>
+        </Link>
       </div>
       <ul className="flex items-center mx-8">
         <li className="relative cursor-pointer" onClick={toggleNotification}>
@@ -101,13 +104,13 @@ export default function AdminNavbar() {
                 <p className="text-gray-500">ayoub@gmail.com</p>
               </div>
             </li>
-            <li className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
+            <Link to="/Commercial-terms" className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
               <HiOutlineNewspaper size={20} color="#3E3E3E" className="mr-2" />{' '}
               Commercial terms
-            </li>
-            <li className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
+            </Link>
+            <Link to="/seller-settings" className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
               <LuSettings size={20} color="#3E3E3E" className="mr-2" />Settings
-            </li>
+            </Link>
             <li className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover-bg-zinc-100">
               <IoIosHelpBuoy size={20} color="#3E3E3E" className="mr-2" />Help
             </li>
