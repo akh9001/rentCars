@@ -3,7 +3,7 @@ import { BiPhotoAlbum } from "react-icons/bi";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import {addCar} from '../../../slices/carSlice';
 import { useSelector } from 'react-redux';
 
@@ -49,8 +49,8 @@ export default function AddCar(props) {
 	});
 	
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const { loading, error } = useSelector((state) => state.car);
+	// const navigate = useNavigate();
+	const { error } = useSelector((state) => state.car); // loading,
 
 	const handleAddCarEvent = async (e) => {
 		const formData = new FormData();
