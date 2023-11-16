@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-		"./src/**/*.{js,jsx,ts,tsx}",
+		"./src/**/*.{html,js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -9,7 +9,10 @@ module.exports = {
 			  'bg': "url('./assets/login.jpg')",
 		  }
 	},
+	screens: {
+		'small': '320px',
+		'large': '1024px',
+	},
   },
   plugins: [],
 }
-
