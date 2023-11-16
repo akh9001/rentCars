@@ -1,7 +1,7 @@
 import React from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { CiShare1 } from "react-icons/ci";
-import Car from "../../../Assets/iris 1.png";
+import Car from "../../../assets/iris 1.png";
 
 export default function TopPlacements() {
   const carData = [

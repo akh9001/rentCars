@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import Car from "../../../Assets/iris 1.png";
+import Car from "../../../assets/iris 1.png";
 
 
 export default function TopPlacementsByCategories() {

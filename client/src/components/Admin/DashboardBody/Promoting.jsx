@@ -1,6 +1,6 @@
 import React from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
-import shape from "../../../Assets/shape2.png"
+import shape from "../../../assets/shape2.png"
 
 export default function Promoting(params) {
     return(

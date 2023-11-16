@@ -1,7 +1,7 @@
 import React from "react";
-import LuxuryCar from "../Assets/LuxuryCar.jpg"
-import SuvCar from "../Assets/SuvCar.jpg"
-import ElectricCar from "../Assets/ElectricCar.jpg"
+import LuxuryCar from "../assets/LuxuryCar.jpg"
+import SuvCar from "../assets/SuvCar.jpg"
+import ElectricCar from "../assets/ElectricCar.jpg"
 
 
 const carCallouts = [

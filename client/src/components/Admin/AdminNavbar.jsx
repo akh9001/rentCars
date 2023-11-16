@@ -4,7 +4,7 @@ import { HiOutlineNewspaper } from 'react-icons/hi';
 import { IoIosHelpBuoy } from 'react-icons/io';
 import { LuSettings } from 'react-icons/lu';
 import { AiOutlineCloseSquare, AiOutlineMenu } from 'react-icons/ai';
-import profil from '../../Assets/profile.jpg';
+import profil from '../../assets/profile.jpg';
 import SideBar from './SideBar';
 
 export default function AdminNavbar() {
