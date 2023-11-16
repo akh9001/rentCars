@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { FiEdit3 } from "react-icons/fi";
-import profile from "../Assets/profile.jpg";
+import profile from "../assets/profile.jpg";
 
 export default function DashboardSettings() {
   const [name, setName] = useState("John Doe");

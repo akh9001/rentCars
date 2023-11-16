@@ -1,5 +1,5 @@
 import React from "react";
-import superCar from "../../../Assets/landingImage.jpg";
+import superCar from "../../../assets/landingImage.jpg";
 import FilterSearch from "./FilterSearch";
 
 const WelcomeSection = () => {
