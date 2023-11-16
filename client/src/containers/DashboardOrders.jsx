@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/system'; 
+import SearchBar from '../components/Layout/SearchBar';
 
 const orders = [
     createData(1, 'Order #123', 'John Doe', 'In Progress', '2023-11-05'),
@@ -310,6 +311,7 @@ export default function DashboardOrders() {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
+                    
                   <TableRow
                     hover
                     onClick={(event) => handleClick(event, row.id)}

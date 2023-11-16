@@ -23,6 +23,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {IoAddOutline} from 'react-icons/io5'
 import AddProduct from '../components/Admin/DashboardBody/AddProduct';
+import SearchBar from '../components/Layout/SearchBar';
 
 function createData(id, name, calories, fat, carbs, protein) {
   return {
@@ -130,8 +131,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
-        
+    <TableHead>        
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -323,6 +323,7 @@ export default function DashboardProducts() {
   };
   return (
     <Box className="large:p-24 small:px-8 small:py-20 relative w-full">
+ 
         {
             AddCar && <div className='bg-white w-full h-full absolute left-0 z-30 '>
                 <AddProduct toggleAddCarClose={toggleAddCarClose} />
