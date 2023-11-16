@@ -23,8 +23,7 @@ export default function SearchFilter() {
   };
 
   return (
-<div className="flex items-center justify-center space-x-4 bg-white shadow-md h-full py-4 w-10/12 bg-white-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-80 border border-gray-100 mx-auto
-    ">
+<div className="absolute flex items-center justify-center space-x-4 bg-white shadow-md  py-4 px-8 top-92 bg-white-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-80 border border-gray-100">
       <div className="w-48 bg-white p-3 rounded-md">
         <Autocomplete
           options={cities}
