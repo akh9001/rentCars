@@ -7,7 +7,7 @@ import DashboardOrders from './containers/DashboardOrders';
 import DashboardSettings from './containers/DashboardSettings';
 import AdminNavbar from './components/Admin/AdminNavbar';
 import SideBar from './components/Admin/SideBar';
-import { Footer } from './components/Footer';
+import Footer  from './components/Footer';
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
@@ -92,7 +92,10 @@ function App() {
         <Route
           path="/admin-login"
           element={
-            <Login />
+			<>
+				<Login />
+				{/* <Footer /> */}
+			</>
             }
         />
 
