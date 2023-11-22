@@ -9,9 +9,26 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const subcategoryRoutes = require("./routes/subcategoryRoutes"); 
 const orderRoutes = require("./routes/orderRoutes")
 const port = process.env.PORT || 3000;
+const cors = require('cors');
 require("dotenv").config();
 
+// Read allowed origins from environment variable
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+// If ALLOWED_ORIGINS is not set, it defaults to an empty array
 
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (allowedOrigins.length === 0 || allowedOrigins.indexOf(origin) !== -1 || !origin) {
+			console.log('Origin: ' + origin);
+			callback(null, true);
+		} else {
+			console.log('not allowed: ' + origin);
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use("/customers", customerRoutes);

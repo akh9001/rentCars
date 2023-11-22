@@ -59,9 +59,11 @@ const login = async (req, res) => {
 	
 		// * Check if the user already exist
 		const userExist = await User.findOne({ user_name: user_name }).select('+password');
-		if (!userExist || !userExist.comparePassword(password))
+		if (!userExist || !(await userExist.comparePassword(password)))
+		{
 			res.status(401).json({
 				message: "invalid credentials" });
+		}
 		else{
 			id = userExist._id;
 			user = {
@@ -79,7 +81,7 @@ const login = async (req, res) => {
 				expires_in: "15min",
 				refresh_token: refreshToken,
 				message: "login success",
-				user : userExist
+				// user : userExist
 			})
 		}
 	}
