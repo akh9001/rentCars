@@ -7,102 +7,102 @@ import DashboardOrders from './containers/DashboardOrders';
 import DashboardSettings from './containers/DashboardSettings';
 import AdminNavbar from './components/Admin/AdminNavbar';
 import SideBar from './components/Admin/SideBar';
-import Footer  from './components/Footer';
+import Footer from './components/Footer';
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-      <Route
-          path="/"
-          element={
-            <>
-              <LandingPage/>
-            </>
-          }
-        />
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<>
+							<LandingPage />
+						</>
+					}
+				/>
 
-        <Route
-          path="/dashboard"
-          element={
-            <>
-              <AdminNavbar />
-              <SideBar />
-              <GeneralDashboard />
-            </>
-          }
-        />
-        <Route
-          path="/dashboard-products"
-          element={
-            <>
-              <AdminNavbar />
-              <SideBar />
-              <DashboardProducts />
-            </>
-          }
-        />
+				<Route
+					path="/dashboard"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<GeneralDashboard />
+						</>
+					}
+				/>
+				<Route
+					path="/dashboard-products"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardProducts />
+						</>
+					}
+				/>
 
-        <Route
-          path="/dashboard-categories"
-          element={
-            <>
-              <AdminNavbar />
-              <SideBar />
-              <DashboardCategories />
-            </>
-          }
-        />
+				<Route
+					path="/dashboard-categories"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardCategories />
+						</>
+					}
+				/>
 
-        <Route
-          path="/dashboard-orders"
-          element={
-            <>
-              <AdminNavbar />
-              <SideBar />
-              <DashboardOrders />
-            </>
-          }
-        />
+				<Route
+					path="/dashboard-orders"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardOrders />
+						</>
+					}
+				/>
 
-        <Route
-          path="/seller-settings"
-          element={
-            <>
-            <AdminNavbar />
-            <SideBar />
-            <DashboardSettings/>
-            </>
-            }
-        />
+				<Route
+					path="/seller-settings"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardSettings />
+						</>
+					}
+				/>
 
-        <Route
-          path="/Commercial-terms"
-          element={
-            <>
-            <AdminNavbar />
-            <SideBar />
-            <DashboardCommercialTerms/>
-            </>
-            }
-        />
-        <Route
-          path="/admin-login"
-          element={
-			<>
-				<Login />
-				{/* <Footer /> */}
-			</>
-            }
-        />
+				<Route
+					path="/Commercial-terms"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardCommercialTerms />
+						</>
+					}
+				/>
+				<Route
+					path="/admin-login"
+					element={
+						<>
+							<Login />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
 
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  );
+			</Routes>
+			<Footer />
+		</BrowserRouter>
+	);
 }
 
 export default App;
