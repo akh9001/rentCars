@@ -46,7 +46,7 @@ const StepCard = ({ icon, title, description }) => (
             </div>
         </div>
         <div className='relative flex justify-center items-center bg-gray-100 w-1/2 rounded-2xl m-6'>
-        <img src={carVisual} alt="Luxury Car" className="absolute h-[480px] right-96 " />
+        <img src={carVisual} alt="Luxury Car" className="absolute h-[90%] right-96 " />
 
                 <img src={pattern} alt='pattern' className='w-full p-6' />
         </div>
