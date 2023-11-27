@@ -21,7 +21,7 @@ export default function PerformanceOverview() {
                         <BiInfoCircle className="float-right text-zinc-500" />
                         <BsBoxSeam size={25} />
                         <p className="mt-2">Total Items order</p>
-                        <h2 className="font-bold text-4xl mt-4">2 676 </h2>
+                        <h2 className="font-bold text-4xl mt-4">2 676</h2>
                     </div>
                 </div>
 

@@ -5,7 +5,7 @@ const ChartRevenue = () => {
   const [chartOptions, setChartOptions] = useState({
     series: [
       {
-        name: 'series1',
+        name: 'Revenues',
         data: [31, 40, 28, 51, 42, 109, 100],
       },
     ],

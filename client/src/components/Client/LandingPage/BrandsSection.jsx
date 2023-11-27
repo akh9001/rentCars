@@ -10,7 +10,7 @@ import Porsh from "../../../Assets/porsh.png"
 export default function BrandsSection(params) {
   return (
     <div className="bg-[#E6E6E6]">
-    <div className=" px-36 py-12">
+    <div className=" large:px-36 px-4 py-12">
       <div className="flex justify-between p-3">
         <h1 className="text-center text-2xl font-bold">Brands</h1>
         <div className="flex items-center font-medium">

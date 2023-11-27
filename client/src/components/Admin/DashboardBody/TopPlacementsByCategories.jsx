@@ -8,7 +8,7 @@ export default function TopPlacementsByCategories() {
     
     const data = [
         {
-          title: "Cars by revenue",
+          title: "Cars by categories",
           items: [
             { name: "S 500 Sedan", price: "320 DH" },
             { name: "S 600 Sedan", price: "350 DH" },
@@ -19,7 +19,7 @@ export default function TopPlacementsByCategories() {
           ],
         },
         {
-            title: "Cars by revenue",
+            title: "Cars by brands",
             items: [
               { name: "S 500 Sedan", price: "320 DH" },
               { name: "S 600 Sedan", price: "350 DH" },
@@ -30,7 +30,7 @@ export default function TopPlacementsByCategories() {
             ],
           },
           {
-            title: "Cars by revenue",
+            title: "Cars by brands",
             items: [
               { name: "S 500 Sedan", price: "320 DH" },
               { name: "S 600 Sedan", price: "350 DH" },

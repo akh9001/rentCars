@@ -1,9 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
-import profile1 from '../../../Assets/profile.jpg'
-import profile2 from '../../../Assets/profile.jpg'
+import profile1 from '../../../Assets/profile.jpg';
 import { FaStar, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
-
 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
@@ -16,7 +14,6 @@ function SamplePrevArrow(props) {
   );
 }
 
-// Custom arrow for the next button
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -27,28 +24,51 @@ function SampleNextArrow(props) {
     />
   );
 }
+
 const Testimonials = [
   {
     id: 1,
     content: "This service is fantastic! My journey was seamless and comfortable, highly recommended.",
     author: "Jane Doe",
     rating: 5,
-    image: profile1, // Replace with the actual image path
+    image: profile1,
   },
   {
     id: 2,
     content: "I was really impressed with the quality of the vehicles and the professionalism of the service.",
     author: "John Smith",
     rating: 4,
-    image:  profile1, // Replace with the actual image path
+    image: profile1,
   },
   // Add more testimonials as needed
 ];
 
 const settings = {
-  // ... other settings ...
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: true
+      }
+    },
+  ],
 };
 
 const StarRating = ({ rating }) => {
@@ -64,10 +84,10 @@ const StarRating = ({ rating }) => {
 const TestimonialSlider = () => {
   return (
     <div className="container mx-auto px-4 py-8">
-                  <h1 className='font-bold text-center text-2xl p-10'>What Our Customers Say</h1>
+      <h1 className='font-bold text-center text-2xl p-10'>What Our Customers Say</h1>
       <Slider {...settings}>
         {Testimonials.map((testimonial) => (
-          <div key={testimonial.id} className=" outline-none">
+          <div key={testimonial.id} className="outline-none">
             <div className="bg-white rounded-lg max-w-3xl p-8 text-center m-auto border-2">
               <img src={testimonial.image} alt={testimonial.author} className="w-24 h-24 mx-auto object-cover rounded-full mb-2" />
               <h5 className="text-gray-800 font-bold">{testimonial.author}</h5>

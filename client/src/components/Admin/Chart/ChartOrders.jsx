@@ -5,7 +5,7 @@ const ChartOrders = () => {
   const [chartOptions, setChartOptions] = useState({
     series: [
       {
-        name: 'series2',
+        name: 'Orders',
         data: [11, 32, 45, 32, 34, 52, 41],
       },
     ],

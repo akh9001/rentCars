@@ -4,8 +4,8 @@ import carVisual from "../../../Assets/topViewCar.png"
 
 
 const StepCard = ({ icon, title, description }) => (
-    <div className="flex items-center space-x-4 border rounded-lg hover:bg-zinc-100 duration-300 border-zinc-200 p-6">
-      <div className="p-4 bg-gray-200 rounded-full">{icon}</div>
+    <div className="large:flex flex-col  items-start space-x-4 border rounded-lg hover:bg-zinc-100 duration-300 border-zinc-200 p-6">
+      <div className="p-4 large:ml-4 large:mb-2 large:bg-gray-200 rounded-full">{icon}</div>
       <div>
         <h4 className="font-bold text-lg">{title}</h4>
         <p className="text-sm text-gray-600">{description}</p>
@@ -18,7 +18,7 @@ const StepCard = ({ icon, title, description }) => (
     <div>
          <div className="text-center pt-16 m-auto max-w-2xl ">
                 <h2 className="text-3xl font-bold">How it works</h2>
-                <p className="text-gray-600 mt-4">
+                <p className="text-gray-600 mt-4 px-12">
                     Renting a luxury car has never been easier. Our streamlined process makes it simple for you to book and confirm your vehicle of choice online.
                 </p>
             </div>
@@ -45,7 +45,7 @@ const StepCard = ({ icon, title, description }) => (
             />
             </div>
         </div>
-        <div className='relative flex justify-center items-center bg-gray-100 w-1/2 rounded-2xl m-6'>
+        <div className='relative large:flex hidden justify-center items-center bg-gray-100 w-1/2 rounded-2xl m-6'>
         <img src={carVisual} alt="Luxury Car" className="absolute h-[90%] right-96 " />
 
                 <img src={pattern} alt='pattern' className='w-full p-6' />
