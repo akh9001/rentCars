@@ -36,10 +36,8 @@ const addCar = async (req, res) => {
 		if (!req.files || req.files?.length === 0) {
 			return res.status(400).json({ message: 'No files uploaded' });
 		}
-
+		
 		const { vin, name, brand, available, price, discount_price, specifications, subcategory } = req.body;
-		// console.log(req.body)
-		// console.log({ vin, name, brand, available, price, discount_price, specifications, subcategory })
 		const newCar = new Car({
 			vin,
 			name,
@@ -50,11 +48,22 @@ const addCar = async (req, res) => {
 			specifications: JSON.parse(specifications),
 			images: extractOriginalNames(req.files),
 			owner: new ObjectId(req.user.id),
-			subcategory : new ObjectId(subcategory)
+			subcategory: new ObjectId((subcategory ? subcategory : "6565f5196b3b9274e1fa1a57"))
 		});
-		// console.log(newCar)
-		await newCar.save();
-		res.status(201).json({ message: "product created successfully"})
+		try{
+			await newCar.save();
+			res.status(201).json({ message: "product created successfully"})
+		}
+		catch(error)
+		{
+			console.error("addCar : ", error)
+			removeFile(extractOriginalNames(req.files))
+			if (error.code === 11000) {
+				res.status(400).json({ message: 'The Vehicle Identification Number (VIN) should be unique' });
+			}
+			else
+			res.status(400).json({ message: error.message });
+		}
 	}
 	catch(error)
 	{

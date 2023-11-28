@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+//root url
+// path: client/src/slices/authSlice.js
 const HOST_URL = 'http://localhost:3001/users/login';
 
 export const loginUser = createAsyncThunk(
@@ -9,8 +11,8 @@ export const loginUser = createAsyncThunk(
 		const response = await axios.post(HOST_URL, userCrendentials);
 		const data = await response.data;
 		// console.log("response data",response.data);
-		localStorage.setItem('token', JSON.stringify(data.access_token));
-		localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token));
+		localStorage.setItem('token', data.access_token);
+		localStorage.setItem('refresh_token', data.refresh_token);
 		return data;
 	},
 );

@@ -8,6 +8,7 @@ import DashboardSettings from './containers/DashboardSettings';
 import AdminNavbar from './components/Admin/AdminNavbar';
 import SideBar from './components/Admin/SideBar';
 import Footer from './components/Footer';
+import AddProduct from './components/Admin/DashboardBody/AddProduct'
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
@@ -94,6 +95,15 @@ function App() {
 					element={
 						<>
 							<Login />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
+				<Route
+					path="/add-car"
+					element={
+						<>
+							<AddProduct />
 							{/* <Footer /> */}
 						</>
 					}

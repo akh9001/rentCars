@@ -6,7 +6,7 @@ const carSchema = new mongoose.Schema({
 	vin:{
 		type: String,
 		require: [true, "The Vehicle Identification Number (VIN) is required"],
-		unique: true
+		unique: [true, "The VIN must be unique"]
 	},
 	name: {
 		type: String,
