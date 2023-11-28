@@ -11,6 +11,7 @@ import styles from './styles/styles';
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
+import ProductPage from "./containers/Client/ProductPage";
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
       <Route
           path="/"
           element={
-            <>
               <LandingPage/>
-            </>
           }
         />
 
@@ -87,6 +86,13 @@ function App() {
             <SideBar />
             <DashboardCommercialTerms/>
             </>
+            }
+        />
+
+        <Route
+          path="/product"
+          element={
+               <ProductPage/>
             }
         />
 

@@ -20,3 +20,14 @@
   transition-duration: 0.1s; 
   transition-timing-function: ease-in; 
 }
+
+/* In your global CSS file or inside a <style> tag in your component */
+.slick-prev, .slick-next {
+  z-index: 50; /* Ensure the arrows are above other elements */
+  /* Use Tailwind's shadow utility class by specifying it in a global stylesheet */
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -4px rgba(255, 255, 255, 0.1);
+}
+.slick-prev:before, .slick-next:before {
+  font-size: 200px; /* Use a font size that makes sense for your design */
+  color: black; /* This will set the arrow color */
+}

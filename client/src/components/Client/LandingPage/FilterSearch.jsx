@@ -124,7 +124,7 @@ export default function SearchFilter() {
       <div className="flex-1 min-w-[200px]">
         <button
           onClick={handleFindVehicle}
-          className="w-full flex items-center justify-center font-medium text-sm bg-black text-white px-6 py-2 hover:bg-zinc-900 duration-300 rounded-md cursor-pointer"
+          className="w-full flex items-center justify-center font-medium text-sm bg-black text-white p-6 hover:bg-zinc-900 duration-300 rounded-md cursor-pointer"
         >
           Find a Vehicle
           <FiArrowRight className="ml-2" />
