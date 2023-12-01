@@ -71,7 +71,7 @@ const login = async (req, res) => {
 				user_name : userExist.user_name,
 				role: userExist.role
 			};
-			const accessToken = jwt.sign(user, process.env.JWT_TOKEN_SECRET,{ expiresIn: '15m' })
+			const accessToken = jwt.sign(user, process.env.JWT_TOKEN_SECRET,{ expiresIn: '24h' })
 			const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
 			userExist.last_login = Date.now();
 			await userExist.save();
