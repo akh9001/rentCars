@@ -12,6 +12,8 @@ import AddProduct from './components/Admin/DashboardBody/AddProduct'
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
+import LoginCustomer from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
 	return (
@@ -104,6 +106,24 @@ function App() {
 					element={
 						<>
 							<AddProduct />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
+				<Route
+					path="/login"
+					element={
+						<>
+							<LoginCustomer />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<>
+							<Register />
 							{/* <Footer /> */}
 						</>
 					}

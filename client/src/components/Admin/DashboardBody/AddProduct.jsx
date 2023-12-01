@@ -50,7 +50,7 @@ export default function AddCar(props) {
 	
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
-	const { error } = useSelector((state) => state.car); // loading
+	const { error } = useSelector((state) => state.car); // loading,
 
 	const handleAddCarEvent = async (e) => {
 		const formData = new FormData();
