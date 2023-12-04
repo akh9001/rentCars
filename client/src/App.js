@@ -14,19 +14,21 @@ import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
+import BestSelling from "./containers/Client/BestSelling";
+import ProductPage from "./containers/Client/ProductPage";
+import FAQPage from "./containers/Client/FAQPage";
+import ContactUs from "./containers/Client/ContactUs";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<>
-							<LandingPage />
-						</>
-					}
-				/>
+  return (
+    <BrowserRouter>
+      <Routes>
+      <Route
+          path="/"
+          element={
+              <LandingPage/>
+          }
+        />
 
 				<Route
 					path="/dashboard"
@@ -129,10 +131,54 @@ function App() {
 					}
 				/>
 
-			</Routes>
-			<Footer />
-		</BrowserRouter>
-	);
+        <Route
+          path="/product"
+          element={
+               <ProductPage/>
+            }
+        />
+
+        {/* <Route
+          path="/best-selling"
+          element={
+              <BestSelling/>
+            }
+        /> */}
+        
+        {/* <Route
+          path="/catalog"
+          element={
+              <Catalog/>
+            }
+        /> */}
+
+        <Route
+          path="/faq"
+          element={
+              <FAQPage/>
+            }
+        />
+
+        <Route
+          path="/contact-us"
+          element={
+              <ContactUs/>
+            }
+        />
+
+        {/* <Route
+					path="/register"
+					element={
+						<>
+							<Register />
+						</>
+					}
+				/> */}
+
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;

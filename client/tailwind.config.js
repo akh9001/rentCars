@@ -10,10 +10,10 @@ module.exports = {
 			'bg_sm': "url('./assets/login_sm.jpg')",
 		  }
 	},
-	// screens: {
-	// 	'small': '320px',
-	// 	'large': '1024px',
-	// },
+	screens: {
+		'small': '320px',
+		'large': '1024px',
+	},
   },
   plugins: [],
 }

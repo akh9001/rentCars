@@ -1,67 +1,48 @@
-import React from "react";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
-import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
-import { FiArrowRight } from "react-icons/fi";
-import { FiMapPin } from "react-icons/fi";
-import InputAdornment from '@mui/material/InputAdornment';
+import React from 'react';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { makeStyles } from '@material-ui/core/styles';
+import { FiArrowRight } from 'react-icons/fi';
 
+const useStyles = makeStyles({
+  customInput: {
+    '& .MuiOutlinedInput-root': {
+      padding: 0,
+      '& .MuiOutlinedInput-input': {
+        padding: '10px 14px',
+      },
+    },
+    '& .MuiInputLabel-outlined': {
+      transform: 'translate(14px, 14px) scale(1)',
+    },
+    '& .MuiInputLabel-shrink': {
+      transform: 'translate(14px, -6px) scale(0.75)',
+    },
+  },
+});
 
-
-const cities = ["Casablanca", "Rabat", "Marrakech", "Tangier", "Fes", "Agadir", "Essaouira", "Chefchaouen", "Ouarzazate"];
+const cities = [
+  "Casablanca", "Rabat", "Marrakech", "Tangier", "Fes", "Agadir",
+  "Essaouira", "Chefchaouen", "Ouarzazate",
+];
 
 export default function SearchFilter() {
+  const classes = useStyles();
   const [pickUpLocation, setPickUpLocation] = React.useState(null);
   const [dropOffLocation, setDropOffLocation] = React.useState(null);
   const [pickUpDate, setPickUpDate] = React.useState(null);
   const [dropOffDate, setDropOffDate] = React.useState(null);
 
   const handleFindVehicle = () => {
-    // Handle the logic when the user clicks "Find a Vehicle"
-    console.log("Find a Vehicle clicked!");
+    console.log('Find a Vehicle clicked!');
   };
 
   return (
-<div className="absolute flex items-center justify-center space-x-4 bg-white shadow-md  py-4 px-8 top-92 bg-white-800 rounded-md bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-80 border border-gray-100">
-      <div className="w-48 bg-white p-3 rounded-md">
-        <Autocomplete
-          options={cities}
-          getOptionLabel={(option) => option}
-          value={pickUpLocation}
-          onChange={(event, newValue) => setPickUpLocation(newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              
-              label="Pick-up Location"
-              variant="standard"
-              placeholder="Select Pick-up Location"
-              style={{ width: '100%' }}
-            />
-          )}
-        />
-      </div>
-
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div className="w-48 bg-white p-3 rounded-md">
-          <KeyboardDatePicker
-            disableToolbar
-            variant="standard"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="pick-up-date"
-            label="Pick-up Date"
-            value={pickUpDate}
-            style={{ width: '100%' }}
-            onChange={(date) => setPickUpDate(date)}
-            KeyboardButtonProps={{
-              "aria-label": "change pick-up date",
-            }}
-          />
-        </div>
-
-        <div className="w-48 bg-white p-3 rounded-md">
+    <div className="flex flex-wrap justify-center items-center space-x-2 space-y-2 sm:space-y-0 bg-white shadow-md py-4 px-4 sm:px-8 rounded-md m-8">
+    
+      <div className="flex-1 min-w-[200px] border-solid border border-zinc-500 p-3 rounded-md">
           <Autocomplete
             options={cities}
             getOptionLabel={(option) => option}
@@ -70,41 +51,85 @@ export default function SearchFilter() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Drop-off Location "
+                label="Pick-up Location"
                 variant="standard"
-                placeholder="Select Drop-off Location"
-                style={{ width: '100%' }}
-               
+                placeholder="Select Pick-up Location"
+                InputProps={{ ...params.InputProps, classes: { root: classes.customInput } }}
               />
             )}
           />
         </div>
 
-        <div className="w-48 bg-white px-3 rounded-md">
+        
+
+
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <div className="flex-1 min-w-[200px] border-solid border border-zinc-500 px-3 rounded-md">
           <KeyboardDatePicker
             disableToolbar
-            variant="standard"
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="pick-up-date"
+            label="Pick-up Date"
+            value={pickUpDate}
+            fullWidth
+            onChange={setPickUpDate}
+            KeyboardButtonProps={{
+              'aria-label': 'change pick-up date',
+            }}
+            InputProps={{ className: classes.customInput }}
+            inputProps={{ style: { padding: '10px 14px' } }}
+          />
+        </div>
+
+        <div className="flex-1 min-w-[200px] border-solid border border-zinc-500 p-3 rounded-md">
+          <Autocomplete
+            options={cities}
+            getOptionLabel={(option) => option}
+            value={dropOffLocation}
+            onChange={(event, newValue) => setDropOffLocation(newValue)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Drop-off Location"
+                variant="standard"
+                placeholder="Select Drop-off Location"
+                InputProps={{ ...params.InputProps, classes: { root: classes.customInput } }}
+              />
+            )}
+          />
+        </div>
+
+        <div className="flex-1 min-w-[200px] border-solid border border-zinc-500 px-3 rounded-md">
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
             format="MM/dd/yyyy"
             margin="normal"
             id="drop-off-date"
             label="Drop-off Date"
             value={dropOffDate}
-            style={{ width: '100%' }}
-            onChange={(date) => setDropOffDate(date)}
+            fullWidth
+            onChange={setDropOffDate}
             KeyboardButtonProps={{
-              "aria-label": "change drop-off date",
+              'aria-label': 'change drop-off date',
             }}
+            InputProps={{ className: classes.customInput }}
+            inputProps={{ style: { padding: '10px 14px' } }}
           />
         </div>
       </MuiPickersUtilsProvider>
 
-      <button
-        onClick={handleFindVehicle}
-        className="flex items-center font-medium text-sm bg-black text-white px-6 py-7 hover:bg-zinc-900 duration-300 rounded-md cursor-pointer"
-      >
-        Find a Vehicle
-        <FiArrowRight className="ml-2" />
-      </button>
+      <div className="flex-1 min-w-[200px]">
+        <button
+          onClick={handleFindVehicle}
+          className="w-full flex items-center justify-center font-medium text-sm bg-black text-white p-6 hover:bg-zinc-900 duration-300 rounded-md cursor-pointer"
+        >
+          Find a Vehicle
+          <FiArrowRight className="ml-2" />
+        </button>
+      </div>
     </div>
   );
 }
