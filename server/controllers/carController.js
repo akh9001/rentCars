@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const Car = require('../models/Car')
 const extractOriginalNames = require('../utils/extractOriginalName')
 const fs = require('fs');
-const perPage = 10
+const perPage = 25
 
 const removeFile = async (filePaths) => {
 	const dir = __dirname;

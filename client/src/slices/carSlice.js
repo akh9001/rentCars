@@ -34,9 +34,9 @@ const axiosConfig = {
 	},
 };
 const HOST_URL = 'http://localhost:3001/cars/';
-console.log("process.env.HOST_URL",process.env.HOST_URL);
+// console.log("process.env.HOST_URL",process.env.HOST_URL);
 export const addCar = createAsyncThunk(
-	'/cars/',
+	'car/cars/',
 	async (carData) => {
 		const response = await axios.post(HOST_URL, carData, axiosConfig);
 		const data = await response.data;

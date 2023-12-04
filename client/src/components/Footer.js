@@ -8,7 +8,7 @@ import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
 	return (
-		<footer className="  left-0 z-20 w-full flex justify-between items-center p-4 bg-stone-950 opacity-100 text-white">
+		<footer className="fixed bottom-0  left-0 z-20 w-full flex justify-between items-center p-4 bg-stone-950 opacity-100 text-white">
 			<p className="text-3xl text-slate-50 md:ml-20 mx-10">
 				<strong>Rent</strong>Car
 			</p>

@@ -19,7 +19,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS
 const corsOptions = {
 	origin: function (origin, callback) {
 		if (allowedOrigins.length === 0 || allowedOrigins.indexOf(origin) !== -1 || !origin) {
-			console.log('Origin: ' + origin);
+			// console.log('Origin: ' + origin);
 			callback(null, true);
 		} else {
 			console.log('not allowed: ' + origin);

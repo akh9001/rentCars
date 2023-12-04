@@ -77,7 +77,7 @@ export default function TopPlacementsByCategories() {
 
     <div className=" relative border rounded-2xl border-zinc-400 p-10 my-10 w-full h-68 overflow-hidden">
     
-    <div class="absolute top-0 bottom-0 left-0 w-10 z-30 bg-gradient-to-r from-white to-transparent"></div>
+    <div className="absolute top-0 bottom-0 left-0 w-10 z-30 bg-gradient-to-r from-white to-transparent"></div>
 
         <div className="flex items-center justify-between col-span-6 row-span-1 ">
             <h1 className="font-bold text-xl py-4">Top Performance</h1>
@@ -118,7 +118,7 @@ export default function TopPlacementsByCategories() {
           </ul>
         ))}
        </div>
-       <div class="absolute top-0 bottom-0 right-0 w-10 z-30 bg-gradient-to-r from-transparent to-white"></div>
+       <div className="absolute top-0 bottom-0 right-0 w-10 z-30 bg-gradient-to-r from-transparent to-white"></div>
 
     </div>
 
