@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -295,140 +295,140 @@ export default function DashboardProducts() {
 		setAddCar(!AddCar);
 		console.log(AddCar);
 	};
-	if (status === 'loading') {
-		return <div>Loading...</div>;
-	}
-	// else 
-	if (error) {
-		return <div>Error: {error}</div>;
-	}
-	else if (status === 'succeeded')
-	{
+	// if (status === 'loading') {
+	// 	return <div>Loading...</div>;
+	// }
+	// // else 
+	// if (error) {
+	// 	return <div>Error: {error}</div>;
+	// }
+	// else if (status === 'succeeded')
+	// {
+	// 	return (
+	// 		<TableContainer component={Paper}>
+	// 			<Table>
+	// 				<TableHead>
+	// 					<TableRow>
+	// 						<TableCell>ID</TableCell>
+	// 						<TableCell>Name</TableCell>
+	// 						<TableCell>VIN</TableCell>
+	// 						<TableCell>Brand</TableCell>
+	// 						<TableCell>Discount Price</TableCell>
+	// 						<TableCell>Price</TableCell>
+	// 					</TableRow>
+	// 				</TableHead>
+	// 				<TableBody>
+	// 					{rows.map(row => (
+	// 						<TableRow key={row.id}>
+	// 							<TableCell>{row.id}</TableCell>
+	// 							<TableCell>{row.name}</TableCell>
+	// 							<TableCell>{row.vin}</TableCell>
+	// 							<TableCell>{row.brand}</TableCell>
+	// 							<TableCell>{row.discount_price}</TableCell>
+	// 							<TableCell>{row.price}</TableCell>
+	// 						</TableRow>
+	// 					))}
+	// 				</TableBody>
+	// 			</Table>
+	// 		</TableContainer>
+	// 	);
+	// }
 		return (
-			<TableContainer component={Paper}>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>ID</TableCell>
-							<TableCell>Name</TableCell>
-							<TableCell>VIN</TableCell>
-							<TableCell>Brand</TableCell>
-							<TableCell>Discount Price</TableCell>
-							<TableCell>Price</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{rows.map(row => (
-							<TableRow key={row.id}>
-								<TableCell>{row.id}</TableCell>
-								<TableCell>{row.name}</TableCell>
-								<TableCell>{row.vin}</TableCell>
-								<TableCell>{row.brand}</TableCell>
-								<TableCell>{row.discount_price}</TableCell>
-								<TableCell>{row.price}</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+			<Box className="large:p-24 small:px-8 small:py-20 relative w-full">
+	
+				{
+					AddCar && <div className='bg-white w-full h-full absolute left-0 z-30 '>
+						<AddProduct toggleAddCarClose={toggleAddCarClose} />
+					</div>
+				}
+				<Paper sx={{ width: '100%', mb: 2 }}>
+					<EnhancedTableToolbar numSelected={selected.length} />
+					<TableContainer>
+						<Table
+							sx={{ minWidth: 750 }}
+							aria-labelledby="tableTitle"
+							size={dense ? 'small' : 'medium'}
+						>
+							<EnhancedTableHead
+								numSelected={selected.length}
+								order={order}
+								orderBy={orderBy}
+								onSelectAllClick={handleSelectAllClick}
+								onRequestSort={handleRequestSort}
+								rowCount={rows.length}
+							/>
+							<TableBody>
+								{visibleRows.map((row, index) => {
+									const isItemSelected = isSelected(row._id);
+									const labelId = `enhanced-table-checkbox-${index}`;
+	
+									return (
+										<TableRow
+											hover
+											onClick={(event) => handleClick(event, row._id)}
+											role="checkbox"
+											aria-checked={isItemSelected}
+											tabIndex={-1}
+											key={row._id}
+											selected={isItemSelected}
+											sx={{ cursor: 'pointer' }}
+										>
+											<TableCell padding="checkbox">
+												<Checkbox
+													color="primary"
+													checked={isItemSelected}
+													inputProps={{
+														'aria-labelledby': labelId,
+													}}
+												/>
+											</TableCell>
+											<TableCell
+												component="th"
+												id={labelId}
+												scope="row"
+												padding="none"
+											>
+												{row.name}
+											</TableCell>
+											<TableCell align="right">{row.vin}</TableCell>
+											<TableCell align="right">{row.brand}</TableCell>
+											<TableCell align="right">{row.discount_price}</TableCell>
+											<TableCell align="right">{row.price}</TableCell>
+										</TableRow>
+									);
+								})}
+								{emptyRows > 0 && (
+									<TableRow
+										style={{
+											height: (dense ? 33 : 53) * emptyRows,
+										}}
+									>
+										<TableCell colSpan={6} />
+									</TableRow>
+								)}
+							</TableBody>
+						</Table>
+					</TableContainer>
+					<TablePagination
+						rowsPerPageOptions={[5, 10, 25]}
+						component="div"
+						count={rows.length}
+						rowsPerPage={rowsPerPage}
+						page={page}
+						onPageChange={handleChangePage}
+						onRowsPerPageChange={handleChangeRowsPerPage}
+					/>
+				</Paper>
+				<FormControlLabel
+					control={<Switch checked={dense} onChange={handleChangeDense} />}
+					label="Dense padding"
+				/>
+	
+				<button onClick={toggleAddCar} className="bg-zinc-800 float-right large:w-1/6 small:w-1/3 justify-center flex items-center hover:bg-zinc-600 duration-300 text-white small:text-xs large:text-sm  font-medium small:py small:px-1 py-2 px-4 border border-gray-400 rounded shadow">
+					<IoAddOutline size={18} className='mr-2' />   Add a car
+				</button>
+			</Box>
+	
 		);
-	}
-		// return (
-		// 	<Box className="large:p-24 small:px-8 small:py-20 relative w-full">
-	
-		// 		{
-		// 			AddCar && <div className='bg-white w-full h-full absolute left-0 z-30 '>
-		// 				<AddProduct toggleAddCarClose={toggleAddCarClose} />
-		// 			</div>
-		// 		}
-		// 		<Paper sx={{ width: '100%', mb: 2 }}>
-		// 			<EnhancedTableToolbar numSelected={selected.length} />
-		// 			<TableContainer>
-		// 				<Table
-		// 					sx={{ minWidth: 750 }}
-		// 					aria-labelledby="tableTitle"
-		// 					size={dense ? 'small' : 'medium'}
-		// 				>
-		// 					<EnhancedTableHead
-		// 						numSelected={selected.length}
-		// 						order={order}
-		// 						orderBy={orderBy}
-		// 						onSelectAllClick={handleSelectAllClick}
-		// 						onRequestSort={handleRequestSort}
-		// 						rowCount={rows.length}
-		// 					/>
-		// 					<TableBody>
-		// 						{visibleRows.map((row, index) => {
-		// 							const isItemSelected = isSelected(row._id);
-		// 							const labelId = `enhanced-table-checkbox-${index}`;
-	
-		// 							return (
-		// 								<TableRow
-		// 									hover
-		// 									onClick={(event) => handleClick(event, row._id)}
-		// 									role="checkbox"
-		// 									aria-checked={isItemSelected}
-		// 									tabIndex={-1}
-		// 									key={row._id}
-		// 									selected={isItemSelected}
-		// 									sx={{ cursor: 'pointer' }}
-		// 								>
-		// 									<TableCell padding="checkbox">
-		// 										<Checkbox
-		// 											color="primary"
-		// 											checked={isItemSelected}
-		// 											inputProps={{
-		// 												'aria-labelledby': labelId,
-		// 											}}
-		// 										/>
-		// 									</TableCell>
-		// 									<TableCell
-		// 										component="th"
-		// 										id={labelId}
-		// 										scope="row"
-		// 										padding="none"
-		// 									>
-		// 										{row.name}
-		// 									</TableCell>
-		// 									<TableCell align="right">{row.vin}</TableCell>
-		// 									<TableCell align="right">{row.brand}</TableCell>
-		// 									<TableCell align="right">{row.discount_price}</TableCell>
-		// 									<TableCell align="right">{row.price}</TableCell>
-		// 								</TableRow>
-		// 							);
-		// 						})}
-		// 						{emptyRows > 0 && (
-		// 							<TableRow
-		// 								style={{
-		// 									height: (dense ? 33 : 53) * emptyRows,
-		// 								}}
-		// 							>
-		// 								<TableCell colSpan={6} />
-		// 							</TableRow>
-		// 						)}
-		// 					</TableBody>
-		// 				</Table>
-		// 			</TableContainer>
-		// 			<TablePagination
-		// 				rowsPerPageOptions={[5, 10, 25]}
-		// 				component="div"
-		// 				count={rows.length}
-		// 				rowsPerPage={rowsPerPage}
-		// 				page={page}
-		// 				onPageChange={handleChangePage}
-		// 				onRowsPerPageChange={handleChangeRowsPerPage}
-		// 			/>
-		// 		</Paper>
-		// 		<FormControlLabel
-		// 			control={<Switch checked={dense} onChange={handleChangeDense} />}
-		// 			label="Dense padding"
-		// 		/>
-	
-		// 		<button onClick={toggleAddCar} className="bg-zinc-800 float-right large:w-1/6 small:w-1/3 justify-center flex items-center hover:bg-zinc-600 duration-300 text-white small:text-xs large:text-sm  font-medium small:py small:px-1 py-2 px-4 border border-gray-400 rounded shadow">
-		// 			<IoAddOutline size={18} className='mr-2' />   Add a car
-		// 		</button>
-		// 	</Box>
-	
-		// );
 	// }
 }

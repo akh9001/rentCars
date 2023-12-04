@@ -1,9 +1,8 @@
 import React from 'react';
 import { SiInstagram } from "react-icons/si";
 import { TbBrandYoutube } from "react-icons/tb";
-import { BsTwitterX } from "react-icons/bs";
-
-
+// import { FaTwitter } from 'react-icons/fa';
+import { FaXTwitter } from "react-icons/fa6";
 
 
 const Footer = () => {
@@ -14,7 +13,7 @@ const Footer = () => {
 			</p>
 			<div className="flex flex-row items-center md:mr-40 mx-10">
 				<TbBrandYoutube className='m-2 w-5 h-6' />
-				<BsTwitterX className='m-2' />
+				<FaXTwitter className='m-2' />
 				<SiInstagram className='m-2' />
 			</div>
 		</footer>
