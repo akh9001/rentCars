@@ -40,7 +40,7 @@ const PlanCard = ({ icon, price, title, description, active, onClick }) => {
       <div className={`flex items-center overflow-hidden rounded-xl ${active ? ' shadow-xl' : '  shadow-sm'} cursor-pointer`}
              onClick={onClick}
       >
-        <div className={` flex justify-center items-center p-4  w-[30%] h-[100%] mr-4 ${active ? 'bg-black text-white' : 'bg-zinc-200 text-black'}`}>
+        <div className={`flex lg:flex-row justify-center m-4 lg:m-0 rounded-md lg:rounded-none items-center p-4 w-[30%] h-full mr-4 ${active ? 'bg-black text-white' : 'bg-zinc-200 text-black'}`}>
           {icon}
         </div>
         <div className="p-4">
@@ -66,7 +66,7 @@ const imageSliderSettings = {
 const ImageCarousel = ({ images }) => (
   <Slider {...imageSliderSettings}>
     {images.map((image, idx) => (
-      <div key={idx} className="h-[300px] w-full flex justify-center items-center">
+      <div key={idx} className="large:h-[400px] h-[250px] w-full flex justify-center items-center">
         <img src={image} alt={`Slide ${idx}`} className="rounded-xl w-full h-full object-cover" />
       </div>
     ))}
@@ -76,8 +76,8 @@ const ImageCarousel = ({ images }) => (
 
 
 const SpecItem = ({ icon, title }) => (
-  <div className="flex flex-col items-center justify-center">
-    <div className="text-white text-3xl mb-2">{icon}</div>
+  <div className="flex-col items-center justify-center my-4 lg:my-0">
+    <div className="text-white flex justify-center text-3xl mb-2">{icon}</div>
     <p className="text-white text-lg">{title}</p>
   </div>
 );
@@ -126,7 +126,7 @@ export default function ProductPage() {
   return (
     <div className="bg-zinc-200">
       <LightNavBar />
-      <div className="mx-36">
+      <div className="large:mx-36 mx-8">
         <div className="w-full flex justify-between">
           <div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-6 shadow-lg h-14 w-14">
             <AiOutlineLeft size={35} />
@@ -136,16 +136,16 @@ export default function ProductPage() {
           </div>
         </div>
 
-        <div className="flex flex-col bg-white rounded-t-xl justify-center py-28 px-44">
-          <div className="flex items-center justify-between w-full mb-6">
-            <div className="flex">
+        <div className="flex-col bg-white rounded-t-xl justify-center py-28 px-16 large:px-44">
+          <div className="flex flex-col lg:flex-row gap-4 items-center large:justify-between w-full mb-6">
+            <div className="gap-4 flex ">
               <Avatar
                 src={profile}
                 alt="Mohammed Folan"
                 sx={{ width: 72, height: 72 }}
               />
-              <div className="ml-8 mt-2 flex-col">
-                <span className="text-2xl font-semibold">Mohammed Folan</span>
+              <div className="large:ml-8 mt-2 flex-col">
+                <span className="large:text-2xl  font-semibold">Mohammed Folan</span>
                 <div>
                   <StarIcon className="text-yellow-400" />
                   <span className="text-sm text-gray-600">
@@ -161,7 +161,7 @@ export default function ProductPage() {
           </div>
           <div className="flex-col ml-0 gap-4 mb-6">
             <h3 className="font-bold text-4xl my-10">Pictures</h3>
-            <div className="container flex-col justify-center items-center mx-auto px-8 py-8 bg-black rounded-2xl ">
+            <div className="container relative flex-col z-10 justify-center items-center large:mx-auto large:px-10 px-8 py-8 bg-black rounded-2xl min-w-full">
               <ImageCarousel images={carImages} />
             </div>
           </div>
@@ -170,8 +170,8 @@ export default function ProductPage() {
 
           <div className="p-4">
             <h3 className="font-bold text-4xl my-10">Specs</h3>
-            <div className="w-full mx-6">
-              <div className=" bg-black flex justify-around p-14 my-6 rounded-lg">
+            <div className="w-full mx-auto">
+              <div className="bg-black flex flex-col lg:flex-row items-center justify-around p-4 large:p-14 my-6 rounded-lg">
                 <SpecItem icon={<FaTachometerAlt />} title="4,000" />
                 <SpecItem icon={<FaCar />} title="Auto" />
                 <SpecItem icon={<FaUserFriends />} title="4 Person" />
@@ -185,7 +185,7 @@ export default function ProductPage() {
          
     <div className="p-4">
       <h3 className="font-bold text-4xl my-10">Your Plan is <span className="font-light">{activePlan}</span> </h3>
-      <div className="flex justify-start gap-4">
+      <div className="flex flex-col lg:flex-row justify-start gap-4">
       <PlanCard
           icon={<IoTimeOutline className="text-4xl" />}
           price="300Dh"
@@ -219,35 +219,34 @@ export default function ProductPage() {
       <h3 className="font-bold text-4xl my-10">Location</h3>
       <div className="cursor-pointer hover:shadow-xl w-full border border-zinc-500 hover:bg-zinc-200 p-4 flex items-center justify-between rounded-lg my-8 shadow-sm"
            onClick={toggleMapRange}>
-        <MdLocationOn className="text-3xl mr-4" />
+        <MdLocationOn className="hidden lg:visible lg:text-3xl mr-4" />
         <p className="text-lg">
         {location.address}
         </p>
-        {isMapVisible ? <GrUp size={15} className="text-zinc-700 ml-2" /> : <GrDown size={15} className="text-zinc-700 ml-2" />}
+        {isMapVisible ? <GrUp size={25} className="text-zinc-700 ml-2" /> : <GrDown size={25} className="text-zinc-700 ml-2" />}
       </div>
+
       {isMapVisible && (
-        <LoadScript googleMapsApiKey="AIzaSyDEAiewKpy00NuPXHI-FeNtDeqmoDbjmFQ">
-          <GoogleMap
-            center={center}
-            zoom={15}
-          >
+        <LoadScript googleMapsApiKey="Map-google-api">
+            <GoogleMap center={center} zoom={15}>
             <Marker position={center} />
-          </GoogleMap>
+            </GoogleMap>
         </LoadScript>
       )}
+
     </div>
           <Divider className="w-full mb-6" />
           <div className="p-4 my-8">
           <h3 className="font-bold text-4xl my-10">Booking</h3>
-          <div className=" border border-zinc-500 rounded-xl flex justify-center items-center bg-zinc-50">
+          <div className=" border border-zinc-500 rounded-xl flex flex-col lg:flex-row justify-center items-center bg-zinc-50">
                    
                     <div className="flex relative m-auto">
                         <div className="flex-col justify-center items-center m-8  ">
                             <h3>Pick-up Date and Time</h3>
                          
-                            <button  className="flex items-center hover:shadow-lg border-zinc-500 text-xs large:text-sm shadow-sm border hover:bg-slate-100 rounded-md p-3 m-auto"
+                            <button  className={`flex items-center hover:shadow-lg border-zinc-500 text-xs large:text-sm shadow-sm border ${isDateRangeVisible ? ' bg-white text-black':' bg-none'} rounded-md p-3 m-auto`}
                                 onClick={toggleDateRange}>
-                                <BsCalendarDate size={15} className="text-zinc-700 mr-2" />
+                                <BsCalendarDate size={15} className={` mr-2 ${isDateRangeVisible ? 'text-[#3D91FF]'  : 'text-zinc-700' }`} />
                                 {selectedRange[0].endDate.toLocaleDateString()} - {selectedRange[0].startDate.toLocaleDateString()}
                                 
                                 {isDateRangeVisible ? <GrUp size={15} className="text-zinc-700 ml-2" /> : <GrDown size={15} className="text-zinc-700 ml-2" />}
@@ -271,9 +270,9 @@ export default function ProductPage() {
 
         <Divider className="w-full mb-6" />
 
-        <div className="flex items-center justify-between w-full my-16">
+        <div className="flex flex-col gap-8 lg:flex-row items-center justify-between w-full my-16">
             <h3>Total: </h3>
-            <p className="text-4xl font-bold italic">300 DH <span className="text-3xl font-normal text-zinc-400">/ Day</span></p>
+            <p className="large:text-4xl text-2xl font-bold italic">300 DH <span className="large:text-3xl font-normal text-zinc-400">/ Day</span></p>
             <button className="rounded-xl border border-black bg-yellow-400 hover:bg-yellow-500 font-semibold flex px-8 py-4 justify-center items-center">Pick Up <AiOutlineRight className="ml-2"/></button>
         </div>
 

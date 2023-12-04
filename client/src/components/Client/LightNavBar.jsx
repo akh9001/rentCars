@@ -12,6 +12,9 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 
+import Cart from '../../components/Layout/Cart'
+import Sidebar from "../Layout/Sidebar";
+
 const LightNavBar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +24,25 @@ const LightNavBar = () => {
     console.log(isOpen);
   };
 
+  const [isCartVisible, setIsCartVisible] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartVisible(!isCartVisible);
+  };
+
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
   return (
-    <nav className="flex items-center justify-between py-4 px-20 ">
-        <AiOutlineUser  color="#000" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
+    <nav className="relative flex items-center justify-between py-4 px-20 ">
+        <AiOutlineUser onClick={toggleSidebar}  color="#000" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
+          
+        {isSidebarVisible && <Sidebar/>}
+
+
           <button
           onClick={toggleMenu}
           className="block large:hidden text-black focus:outline-none"
@@ -112,8 +131,16 @@ const LightNavBar = () => {
       </div>
 
     
-      <AiOutlineShoppingCart color="#000" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
-    </nav>
+      <AiOutlineShoppingCart
+        color="#000"
+        size={20}
+        className="cursor-pointer hover:scale-150 duration-300"
+        onClick={toggleCart}
+      />
+      
+      {isCartVisible && <Cart toggleCart={toggleCart}  />}
+
+     </nav>
   );
 };
 
