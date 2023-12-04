@@ -1,4 +1,5 @@
 import {React, useState} from "react";
+import { Link } from 'react-router-dom';
 import {
   AiOutlineShoppingCart, 
   AiOutlineUser,
@@ -38,43 +39,37 @@ const LightNavBar = () => {
 
   return (
     <nav className="relative flex items-center justify-between py-4 px-20 ">
-        <AiOutlineUser onClick={toggleSidebar}  color="#000" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
-          
-        {isSidebarVisible && <Sidebar/>}
+    <AiOutlineUser onClick={toggleSidebar}  color="#000" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
+        
+    {isSidebarVisible && <Sidebar/>}
 
+    <button onClick={toggleMenu} className="block large:hidden text-black focus:outline-none">
+      {isOpen ? <AiOutlineClose/> : <AiOutlineMenu/> }
+    </button>
 
-          <button
-          onClick={toggleMenu}
-          className="block large:hidden text-black focus:outline-none"
-        >
-          {
-          isOpen ?
-           <AiOutlineClose/> : <AiOutlineMenu/> }
-        </button>
-   
-        <div className=" large:flex hidden  space-x-12 mx-auto items-center justify-between">
-          <a href="#" className="text-black font-light  text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            Home
-          </a>
-          <a href="#" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            Best selling
-          </a>
-          <a href="#" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            Catalog
-          </a>
-          <a className="Logo text-black" >
-            <strong>Rent</strong>Car
-          </a>
-          <a href="#" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            About Us
-          </a>
-          <a href="#" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            Join Us
-          </a>
-          <a href="#" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
-            Contact Us
-          </a>
-        </div>
+    <div className="large:flex hidden  space-x-12 mx-auto items-center justify-between">
+      <Link to="/" className="text-black font-light  text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        Home
+      </Link>
+      <Link to="/best-selling" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        Best selling
+      </Link>
+      <Link to="/catalog" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        Catalog
+      </Link>
+      <div className="Logo text-black">
+        <strong>Rent</strong>Car
+      </div>
+      <Link to="/Faq" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        FAQ
+      </Link>
+      <Link to="/join-us" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        Join Us
+      </Link>
+      <Link to="/contact-us" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+        Contact Us
+      </Link>
+    </div>
 
         <div
         className={`${
@@ -110,7 +105,7 @@ const LightNavBar = () => {
           className=" flex items-center text-black font-semibold text-xs py-2 px-4 hover:text-white hover:bg-black  duration-300"
         >
           <AiOutlineInfoCircle size={20} className="mr-2" />
-          About Us
+          FAQ
         </a>
 
         <a

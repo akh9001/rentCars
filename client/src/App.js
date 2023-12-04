@@ -11,7 +11,10 @@ import styles from './styles/styles';
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
+import BestSelling from "./containers/Client/BestSelling";
 import ProductPage from "./containers/Client/ProductPage";
+import FAQPage from "./containers/Client/FAQPage";
+import ContactUs from "./containers/Client/ContactUs";
 
 function App() {
   return (
@@ -95,6 +98,43 @@ function App() {
                <ProductPage/>
             }
         />
+
+        {/* <Route
+          path="/best-selling"
+          element={
+              <BestSelling/>
+            }
+        /> */}
+        
+        {/* <Route
+          path="/catalog"
+          element={
+              <Catalog/>
+            }
+        /> */}
+
+        <Route
+          path="/faq"
+          element={
+              <FAQPage/>
+            }
+        />
+
+        <Route
+          path="/contact-us"
+          element={
+              <ContactUs/>
+            }
+        />
+
+        {/* <Route
+					path="/register"
+					element={
+						<>
+							<Register />
+						</>
+					}
+				/> */}
 
       </Routes>
       <Footer />

@@ -124,7 +124,7 @@ export default function ProductPage() {
     
 
   return (
-    <div className="bg-zinc-200">
+    <div className="bg-[#F2F2F2]">
       <LightNavBar />
       <div className="large:mx-36 mx-8">
         <div className="w-full flex justify-between">

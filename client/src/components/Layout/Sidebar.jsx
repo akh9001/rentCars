@@ -32,7 +32,7 @@ const Sidebar = () => {
     <div className="flex flex-col h- p-4 bg-white border-r rounded-xl shadow-lg top-16 absolute z-50 w-64 dark:bg-gray-800 dark:border-gray-600">
       <UserProfileCard/>
 
-      <nav className="mt-6 flex-1">
+      <nav className="mt-6 flex-1 ">
         <List>
           <ListItem button>
             <ListItemIcon>
@@ -51,31 +51,31 @@ const Sidebar = () => {
             <List component="div" disablePadding className='ml-8'>
               <ListItem button className="pl-8">
                 <ListItemIcon>
-                  <Person className="text-gray-600" />
+                  <Person className="text-gray-600  " />
                 </ListItemIcon>
                 <ListItemText primary="Edit Profile" />
               </ListItem>
               <ListItem button className="pl-8">
                 <ListItemIcon>
-                  <Language className="text-gray-600" />
+                  <Language className="text-gray-600 " />
                 </ListItemIcon>
                 <ListItemText primary="Language" />
               </ListItem>
               <ListItem button className="pl-8">
                 <ListItemIcon>
-                  <Payment className="text-gray-600" />
+                  <Payment className="text-gray-600 " />
                 </ListItemIcon>
                 <ListItemText primary="Payments" />
               </ListItem>
               <ListItem button className="pl-8">
                 <ListItemIcon>
-                  <Notifications className="text-gray-600" />
+                  <Notifications className="text-gray-600 " />
                 </ListItemIcon>
                 <ListItemText primary="Notifications" />
               </ListItem>
               <ListItem button className="pl-8">
                 <ListItemIcon>
-                  <Lock className="text-gray-600" />
+                  <Lock className="text-gray-600 " />
                 </ListItemIcon>
                 <ListItemText primary="Password" />
               </ListItem>
@@ -83,7 +83,7 @@ const Sidebar = () => {
           </Collapse>
           <ListItem button>
             <ListItemIcon>
-              <HelpOutline className="text-gray-600" />
+              <HelpOutline className="text-gray-600 " />
             </ListItemIcon>
             <ListItemText primary="Help Center" />
           </ListItem>

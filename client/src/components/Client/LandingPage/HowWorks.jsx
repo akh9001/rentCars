@@ -4,7 +4,7 @@ import carVisual from "../../../Assets/topViewCar.png"
 
 
 const StepCard = ({ icon, title, description }) => (
-    <div className="large:flex flex-col  items-start space-x-4 border rounded-lg hover:bg-zinc-100 duration-300 border-zinc-200 p-6">
+    <div className="lg:flex flex-col  items-start space-x-4 border rounded-lg hover:bg-zinc-100 duration-300 border-zinc-200 p-6">
       <div className="p-4 large:ml-4 large:mb-2 large:bg-gray-200 rounded-full">{icon}</div>
       <div>
         <h4 className="font-bold text-lg">{title}</h4>
@@ -27,7 +27,7 @@ const StepCard = ({ icon, title, description }) => (
       <div className="flex justify-center items-center p-6">
         <div className='w-1/2 m-24'>
            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+            <div className="space-y-4 ">
             <StepCard
                 icon={<FaSearch />}
                 title="Browse and select"
