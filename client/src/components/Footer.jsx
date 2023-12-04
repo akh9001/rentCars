@@ -7,7 +7,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
 	return (
-		<footer className="absolute bottom-0 w-full flex justify-between items-center p-4 bg-stone-950 opacity-100 text-white">
+		<footer className="sticky bottom-0 z-50 w-full flex justify-between items-center p-4 bg-black opacity-100 text-white">
 			<p className="text-3xl text-slate-50 md:ml-20 mx-10">
 				<strong>Rent</strong>Car
 			</p>
