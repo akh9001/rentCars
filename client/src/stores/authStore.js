@@ -1,8 +1,8 @@
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../slices/authSlice';
-import carReducer from '../slices/carSlice'
-import listCarsReducer from '../slices/listCarSlice'
+import authReducer from '../slices/Admin/auth/authSlice';
+import carReducer from '../slices/Admin/Cars/carSlice'
+import listCarsReducer from '../slices/Admin/Cars/listCarSlice'
 
 const authStore = configureStore({
 	reducer: {
