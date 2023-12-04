@@ -18,17 +18,20 @@ import BestSelling from "./containers/Client/BestSelling";
 import ProductPage from "./containers/Client/ProductPage";
 import FAQPage from "./containers/Client/FAQPage";
 import ContactUs from "./containers/Client/ContactUs";
+import CarList from './components/CarList'
+import ShippingForm from './components/ShippingForm';
+import CheckoutForm from './components/CheckoutForm';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-      <Route
-          path="/"
-          element={
-              <LandingPage/>
-          }
-        />
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<LandingPage />
+					}
+				/>
 
 				<Route
 					path="/dashboard"
@@ -99,7 +102,6 @@ function App() {
 					element={
 						<>
 							<Login />
-							{/* <Footer /> */}
 						</>
 					}
 				/>
@@ -108,7 +110,6 @@ function App() {
 					element={
 						<>
 							<AddProduct />
-							{/* <Footer /> */}
 						</>
 					}
 				/>
@@ -117,7 +118,6 @@ function App() {
 					element={
 						<>
 							<LoginCustomer />
-							{/* <Footer /> */}
 						</>
 					}
 				/>
@@ -126,59 +126,57 @@ function App() {
 					element={
 						<>
 							<Register />
-							{/* <Footer /> */}
 						</>
 					}
 				/>
 
-        <Route
-          path="/product"
-          element={
-               <ProductPage/>
-            }
-        />
+				<Route
+					path="/product"
+					element={
+						<ProductPage />
+					}
+				/>
 
-        {/* <Route
+				{/* <Route
           path="/best-selling"
           element={
               <BestSelling/>
             }
         /> */}
-        
-        {/* <Route
+
+				{/* <Route
           path="/catalog"
           element={
               <Catalog/>
             }
         /> */}
 
-        <Route
-          path="/faq"
-          element={
-              <FAQPage/>
-            }
-        />
-
-        <Route
-          path="/contact-us"
-          element={
-              <ContactUs/>
-            }
-        />
-
-        {/* <Route
-					path="/register"
+				<Route
+					path="/faq"
 					element={
-						<>
-							<Register />
-						</>
+						<FAQPage />
 					}
-				/> */}
+				/>
 
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  );
+				<Route
+					path="/contact-us"
+					element={
+						<ContactUs />
+					}
+				/>
+
+				<Route
+					path="/car-list"
+					element={
+
+						<CarList />
+
+					}
+				/>
+			</Routes>
+			<Footer />
+		</BrowserRouter>
+	);
 }
 
 export default App;
