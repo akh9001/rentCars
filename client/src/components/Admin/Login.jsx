@@ -4,7 +4,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { loginUser } from '../../slices/authSlice'
+import { loginUser } from '../../slices/Admin/auth/authSlice'
 
 
 

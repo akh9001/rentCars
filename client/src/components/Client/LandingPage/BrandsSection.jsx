@@ -1,10 +1,10 @@
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import BrandsCard from "./Brands/BrandsCard";
-import bmw from "../../../Assets/bmw.png"
-import Mercedes from "../../../Assets/mercedes.png"
-import Renault from "../../../Assets/renault.png"
-import Porsh from "../../../Assets/porsh.png"
+import bmw from "../../../assets/bmw.png"
+import Mercedes from "../../../assets/mercedes.png"
+import Renault from "../../../assets/renault.png"
+import Porsh from "../../../assets/porsh.png"
 
 
 export default function BrandsSection(params) {

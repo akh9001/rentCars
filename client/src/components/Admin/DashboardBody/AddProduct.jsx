@@ -4,7 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
-import {addCar} from '../../../slices/carSlice';
+import {addCar} from '../../../slices/Admin/Cars/carSlice';
 import { useSelector } from 'react-redux';
 
 const carBrands = [
