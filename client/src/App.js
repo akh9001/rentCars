@@ -14,7 +14,11 @@ import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
-
+import CarList from './components/CarList'
+// import CheckoutForm from './components/CheckoutForm';
+import ShippingForm from './components/ShippingForm';
+import CheckoutForm from './components/CheckoutForm';
+// import OrdersList from './components/OrdersList'
 function App() {
 	return (
 		<BrowserRouter>
@@ -129,7 +133,18 @@ function App() {
 					}
 				/>
 
+			
+			
+			<Route
+          path="/car-list"
+          element={
+			
+			  <CarList/>
+              
+          }
+       		 />
 			</Routes>
+			 
 			<Footer />
 		</BrowserRouter>
 	);
