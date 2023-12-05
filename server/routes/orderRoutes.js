@@ -23,20 +23,21 @@
 const express = require('express');
 const router = express.Router();
 const rentalController = require('../controllers/orderController');
+const { authentication } = require('../middleware/authMiddleware');
 
 // Create a new order
-router.post('/', rentalController.createRental);
+router.post('/', authentication, rentalController.createRental);
 
 // Get all
-router.get('/', rentalController.getAllRentals);
+router.get('/', authentication, rentalController.getAllRentals);
 
 // Get a specific rental by ID
-router.get('/:rentalId', rentalController.getRentalById);
+router.get('/:rentalId', authentication, rentalController.getRentalById);
 
 // Update a rental by ID
-router.put('/:rentalId', rentalController.updateRental);
+router.put('/:rentalId', authentication, rentalController.updateRental);
 
 // Delete a rental by ID
-router.delete('/:rentalId', rentalController.deleteRental);
+router.delete('/:rentalId', authentication, rentalController.deleteRental);
 
 module.exports = router;

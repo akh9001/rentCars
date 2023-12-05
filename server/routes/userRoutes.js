@@ -26,6 +26,6 @@ router.get('/:id', authentication, checkUserRole(["admin", "manager"]), getUSerB
 router.put('/:id', authentication, checkUserRole(["admin"]), updateUser);
 
 // * Implement delete user route
-router.delete('/:id', deleteUser)
+router.delete('/:id', authentication, checkUserRole(["admin"]), deleteUser)
 
 module.exports = router;

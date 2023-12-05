@@ -112,15 +112,21 @@ const { ObjectId } = require('mongodb');
 exports.createRental = async (req, res) => {
 	try {
 		const rental = new Order({
-			customerId: new ObjectId(req.body.customerId),
+			customerId: new ObjectId(req.body.customerId ? req.body.customerId : req.user.id),
 			carId: new ObjectId(req.body.carId),
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			address: req.body.address,
+			city: req.body.city,
+			code_postal: req.body.code_postal,
+			country: req.body.country,
+			phone_number: req.body.phone_number,
 			startDate: req.body.startDate,
 			endDate: req.body.endDate,
 			totalDays: req.body.totalDays,
 			totalPrice: req.body.totalPrice,
 			status: req.body.status || 'pending'
 		});
-
 		const savedRental = await rental.save();
 		res.status(201).json(savedRental);
 	} catch (error) {
@@ -131,8 +137,16 @@ exports.createRental = async (req, res) => {
 // Controller to get all rentals
 exports.getAllRentals = async (req, res) => {
 	try {
-		const rentals = await Order.find();
-		res.status(200).json({data: rentals});
+		if (req.user.role === 'admin' || req.user.role === 'manager')
+		{
+			const rentals = await Order.find();
+			res.status(200).json({data: rentals});
+		}
+		else
+		{
+			const rentals = await Order.find({ customerId: req.user.id });
+			res.status(200).json({data: rentals});
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -141,8 +155,19 @@ exports.getAllRentals = async (req, res) => {
 // Controller to get a specific rental by ID
 exports.getRentalById = async (req, res) => {
 	try {
-		const rental = await Order.findById(req.params.rentalId);
-		res.status(200).json({ data: rental });
+		if (req.user.role === 'admin' || req.user.role === 'manager')
+		{
+			const rental = await Order.findById(req.params.rentalId);
+			res.status(200).json({ data: rental });
+		}
+		else {
+			//! This part isn t tested yet
+			const rental = await Order.findById(req.params.rentalId);
+			if (rental.customerId.toString() === req.user.id)
+				res.status(200).json({ data: rental });
+			else
+				res.status(401).json({ message: 'Unauthorized' });
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -159,12 +184,31 @@ exports.updateRental = async (req, res) => {
 		if (req.body.customerId) {
 			updateData.customerId = new ObjectId(updateData.customerId);
 		}
-		const updatedRental = await Order.findByIdAndUpdate(
-			req.params.rentalId,
-			updateData,
-			{ new: true }
-		);
-		res.status(200).json({ message: "Order updated successfully", data: updatedRental });
+		if (req.user.role === 'admin' || req.user.role === 'manager')
+		{
+			const updatedRental = await Order.findByIdAndUpdate(
+				req.params.rentalId,
+				updateData,
+				{ new: true }
+			);
+			res.status(200).json({ message: "Order updated successfully", data: updatedRental });
+		}
+		else
+		{
+			//! This part isn t tested yet
+			const rental = await Order.findById(req.params.rentalId);
+			if (rental.customerId.toString() === req.user.id)
+			{
+				const updatedRental = await Order.findByIdAndUpdate(
+					req.params.rentalId,
+					updateData,
+					{ new: true }
+				);
+				res.status(200).json({ message: "Order updated successfully", data: updatedRental });
+			}
+			else
+				res.status(401).json({ message: 'Unauthorized' });
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -173,6 +217,10 @@ exports.updateRental = async (req, res) => {
 // Controller to delete a rental by ID
 exports.deleteRental = async (req, res) => {
 	try {
+		const rental = await Order.findById(req.params.rentalId);
+		//! this line isn t tested yet
+		if (rental.customerId.toString() !== req.user.id && req.user.role !== 'admin' && req.user.role !== 'manager')
+			return res.status(401).json({ message: 'Unauthorized' });
 		await Order.findByIdAndDelete(req.params.rentalId);
 		res.status(200).json({ message: 'Order deleted successfully' });
 	} catch (error) {
