@@ -74,13 +74,13 @@ const CarDetailsPopup = ({ car, onClose, onAddToCart }) => {
               />
               <button
                 onClick={handleSaveReview}
-                className="p-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300"
+                className="p-2 bg-gray-800 text-white rounded hover:bg-green-600 transition duration-300"
               >
                 Save Review
               </button>
               <button
                 onClick={handleCancelReview}
-                className="ml-2 p-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300"
+                className="ml-2 p-2 bg-red-700 text-white rounded hover:bg-gray-600 transition duration-300"
               >
                 Cancel
               </button>
