@@ -1,8 +1,8 @@
 // CartItem.js
 import React from 'react';
-import { IconButton, Button } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Delete as DeleteIcon, Add as AddIcon, Remove as RemoveIcon } from '@mui/icons-material';
-import mercedes from "../../assets/iris 1.png"
+// import mercedes from "../../assets/iris 1.png"
 import sedan from "../../assets/iris-2.png"
 
 

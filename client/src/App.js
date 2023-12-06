@@ -14,13 +14,14 @@ import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
-import BestSelling from "./containers/Client/BestSelling";
+// import BestSelling from "./containers/Client/BestSelling";
 import ProductPage from "./containers/Client/ProductPage";
 import FAQPage from "./containers/Client/FAQPage";
 import ContactUs from "./containers/Client/ContactUs";
 import CarList from './components/CarList'
-import ShippingForm from './components/ShippingForm';
+// import ShippingForm from './components/ShippingForm';
 import CheckoutForm from './components/CheckoutForm';
+import OrdersList from './components/OrdersList'
 
 function App() {
 	return (
@@ -170,6 +171,27 @@ function App() {
 					element={
 
 						<CarList />
+
+					}
+				/>
+				{/* 
+					// TODO   
+					is this the right one ?
+
+				*/}
+				<Route
+					path="/checkout"
+					element={
+
+						<CheckoutForm />
+
+					}
+				/>
+				<Route
+					path="/order-list"
+					element={
+
+						<OrdersList />
 
 					}
 				/>

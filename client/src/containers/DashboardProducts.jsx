@@ -218,7 +218,7 @@ export default function DashboardProducts() {
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	// const [rows, setRows] = useState([]);
 	const dispatch = useDispatch();
-	const { rows, status, error } = useSelector((state) => state.listCars);
+	const { rows } = useSelector((state) => state.listCars);
 
 	useEffect(() => {
 		// Dispatch the action to fetch cars from the database
@@ -284,7 +284,7 @@ export default function DashboardProducts() {
 				page * rowsPerPage,
 				page * rowsPerPage + rowsPerPage,
 			),
-		[order, orderBy, page, rowsPerPage],
+		[order, orderBy, page, rowsPerPage, rows],
 	);
 	const [AddCar, setAddCar] = useState(false);
 	const toggleAddCar = () => {

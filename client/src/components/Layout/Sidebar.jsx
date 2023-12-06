@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Avatar, List, ListItem, ListItemIcon, ListItemText, Collapse } from '@mui/material';
 import { CiShoppingCart, CiSettings } from "react-icons/ci";
 import { ExpandLess, ExpandMore, Person, Language, Payment, Notifications, Lock, HelpOutline } from '@mui/icons-material';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+// import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
 const UserProfileCard = () => {
-    const [openProfile, setOpenProfile] = useState(false);
+    // const [openProfile, setOpenProfile] = useState(false);
     
     return (
       <div className="flex items-center bg-white rounded-lg shadow p-4">

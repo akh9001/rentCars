@@ -30,7 +30,7 @@ const cities = [
 
 export default function SearchFilter() {
   const classes = useStyles();
-  const [pickUpLocation, setPickUpLocation] = React.useState(null);
+//   const [pickUpLocation, setPickUpLocation] = React.useState(null);
   const [dropOffLocation, setDropOffLocation] = React.useState(null);
   const [pickUpDate, setPickUpDate] = React.useState(null);
   const [dropOffDate, setDropOffDate] = React.useState(null);

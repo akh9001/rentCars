@@ -82,6 +82,10 @@ const rentalSchema = new mongoose.Schema({
 		type: String,
 		enum: ['pending', 'confirmed', 'completed', 'cancelled'],
 		default: 'pending'
+	},
+	orderDate: {
+		type: Date,
+		default: Date.now
 	}
 });
 

@@ -3,7 +3,7 @@ import React from 'react';
 import CartItem from './CartItem';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import mercedes from "../../assets/iris 1.png"
-import sedan from "../../assets/iris-2.png"
+// import sedan from "../../assets/iris-2.png"
 
 
 const Cart = ({ toggleCart }) => {
