@@ -87,6 +87,12 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Help Center" />
           </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <HelpOutline className="text-gray-600 " />
+            </ListItemIcon>
+            <ListItemText primary="Log Out" />
+          </ListItem>
         </List>
       </nav>
     </div>

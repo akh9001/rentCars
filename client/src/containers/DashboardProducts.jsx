@@ -22,10 +22,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { IoAddOutline } from 'react-icons/io5'
-import AddProduct from '../components/Admin/DashboardBody/AddProduct';
 // import SearchBar from '../components/Layout/SearchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { listCars } from '../slices/Admin/Cars/listCarSlice';
+import { Link } from 'react-router-dom';
+
 
 
 function descendingComparator(a, b, orderBy) {
@@ -286,15 +287,7 @@ export default function DashboardProducts() {
 			),
 		[order, orderBy, page, rowsPerPage],
 	);
-	const [AddCar, setAddCar] = useState(false);
-	const toggleAddCar = () => {
-		setAddCar(!AddCar);
-		console.log(AddCar);
-	};
-	const toggleAddCarClose = () => {
-		setAddCar(!AddCar);
-		console.log(AddCar);
-	};
+	
 	// if (status === 'loading') {
 	// 	return <div>Loading...</div>;
 	// }
@@ -336,11 +329,6 @@ export default function DashboardProducts() {
 		return (
 			<Box className="large:p-24 small:px-8 small:py-20 relative w-full">
 	
-				{
-					AddCar && <div className='bg-white w-full h-full absolute left-0 z-30 '>
-						<AddProduct toggleAddCarClose={toggleAddCarClose} />
-					</div>
-				}
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<EnhancedTableToolbar numSelected={selected.length} />
 					<TableContainer>
@@ -424,9 +412,12 @@ export default function DashboardProducts() {
 					label="Dense padding"
 				/>
 	
-				<button onClick={toggleAddCar} className="bg-zinc-800 float-right large:w-1/6 small:w-1/3 justify-center flex items-center hover:bg-zinc-600 duration-300 text-white small:text-xs large:text-sm  font-medium small:py small:px-1 py-2 px-4 border border-gray-400 rounded shadow">
-					<IoAddOutline size={18} className='mr-2' />   Add a car
-				</button>
+				<Link 
+					type='button'
+					to="add-car" 
+					className="bg-zinc-800 float-right large:w-1/6 small:w-1/3 justify-center flex items-center hover:bg-zinc-600 duration-300 text-white small:text-xs large:text-sm  font-medium small:py small:px-1 py-2 px-4 border border-gray-400 rounded shadow">
+						<IoAddOutline size={18} className='mr-2' />   Add a car
+				</Link>
 			</Box>
 	
 		);

@@ -23,7 +23,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto py-8 h-full ">
+    <div className="w-11/12 mx-auto py-24 h-full ">
       <h2 className="text-3xl font-bold text-gray-900 mb-8">FAQ</h2>
       <div className="mx-auto space-y-4">
         {/* single Faq */}

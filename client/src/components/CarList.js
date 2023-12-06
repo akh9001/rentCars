@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import LightNavBar from './Client/LightNavBar';
+import CarsCard from './Client/LandingPage/Cars/CarsCard';
+// import { useDispatch, useSelector } from "react-redux";
+// import { addTocart } from "../redux/actions/cart";
+// import { toast } from "react-toastify";
+import car from '../assets/ElectricCar.jpg'
 
 const carsData = [
-  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: '/images/mercedes_c_class.jpg' },
+  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: car},
   { id: 3, model: 'Volkswagen', car: 'Jetta', description: 'Sleek compact sedan with modern technology.', image: '/images/volkswagen_jetta.jpg' },
   { id: 4, model: 'Volkswagen', car: 'Passat', description: 'Comfortable midsize sedan with spacious interior.', image: '/images/volkswagen_passat.jpg' },
   { id: 5, model: 'Toyota', car: 'Camry', description: 'Reliable and fuel-efficient midsize sedan.', image: '/images/toyota_camry.jpg' },
@@ -25,7 +31,7 @@ const carsData = [
 
 
 // CarList component
-const CarList = () => {
+const CarList = (data) => {
   const [selectedModel, setSelectedModel] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -39,6 +45,23 @@ const CarList = () => {
     setSearchTerm(e.target.value);
   };
 
+  // const addToCartHandler = (id) => {
+  //   const isItemExists = cart && cart.find((i) => i._id === id);
+  //   if (isItemExists) {
+  //     toast.error("Item already in cart!");
+  //   } else {
+  //     if (data.stock < 1) {
+  //       toast.error("Product stock limited!");
+  //     } else {
+  //       const cartData = { ...data, qty: 1 };
+  //       dispatch(addTocart(cartData));
+  //       toast.success("Item added to cart successfully!");
+  //     }
+  //   }
+  // };
+  // const { cart } = useSelector((state) => state.cart);
+  // const dispatch = useDispatch();
+  
   // Filter the cars based on selected model and search term
   const filteredCars = carsData.filter((car) => {
     return (
@@ -52,6 +75,8 @@ const CarList = () => {
 
   // Render the component
   return (
+    <div className='bg-[#F2F2F2]'>
+      <LightNavBar/>
     <div className="flex flex-col w-full">
       <div className="flex items-center space-x-4 p-8 bg-[#F2F2F2]">
         <input
@@ -80,19 +105,22 @@ const CarList = () => {
           Sorry, No matching cars found.
         </p>
       ) : (
-        <div className="grid grid-cols-4 md:grid-row-2  m-4">
-          {filteredCars.map((car) => (
-            <div key={car.id} className="p-8 m-2 border border-gray-300 rounded">
-              {/* Display car information */}
-              <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
-              <p>
-                Car Model: {car.model}, Car Type: {car.car}
-              </p>
-              <p>Description: {car.description}</p>
-            </div>
+        <div className="grid grid-cols-3 md:grid-row-2 gap-4 m-14">
+        {filteredCars.map((car) => (
+          <CarsCard
+            key={car.id}
+            carImage={car.image}
+            carModel={`${car.model} ${car.car}`}
+            transmission="Manual" 
+            seats="5" 
+            fuelType="Petrol" 
+            // addToCartHandler={addToCartHandler}
+            // data={data}
+          />
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

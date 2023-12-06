@@ -83,7 +83,7 @@ const StarRating = ({ rating }) => {
 
 const TestimonialSlider = () => {
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="container mx-auto px-4 py-8 mb-10">
 			<h1 className='font-bold text-center text-2xl p-10'>What Our Customers Say</h1>
 			<Slider {...settings}>
 				{Testimonials.map((testimonial) => (

@@ -8,11 +8,14 @@ module.exports = {
 		  backgroundImage: {
 			'bg': "url('./assets/login.jpg')",
 			'bg_sm': "url('./assets/login_sm.jpg')",
-		  }
-	},
+		  },
+	
 	screens: {
 		'small': '320px',
 		'large': '1024px',
+		'sm': '640px',
+        'lg': '1024px',
+	},
 	},
   },
   plugins: [],
