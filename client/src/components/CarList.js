@@ -1,7 +1,9 @@
+// CarList component
 import React, { useState } from 'react';
+import CarDetailsPopup from './CarDetailsPopup'; // Adjust the import path accordingly
 
 const carsData = [
-  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: '/images/mercedes_c_class.jpg' },
+  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: './assets/carpic.jpg' },
   { id: 3, model: 'Volkswagen', car: 'Jetta', description: 'Sleek compact sedan with modern technology.', image: '/images/volkswagen_jetta.jpg' },
   { id: 4, model: 'Volkswagen', car: 'Passat', description: 'Comfortable midsize sedan with spacious interior.', image: '/images/volkswagen_passat.jpg' },
   { id: 5, model: 'Toyota', car: 'Camry', description: 'Reliable and fuel-efficient midsize sedan.', image: '/images/toyota_camry.jpg' },
@@ -21,25 +23,35 @@ const carsData = [
   { id: 19, model: 'Hyundai', car: 'Sonata', description: 'Midsize sedan with a sleek design and user-friendly features.', image: '/images/hyundai_sonata.jpg' },
   { id: 20, model: 'Hyundai', car: 'Elantra', description: 'Compact car offering good fuel efficiency and modern technology.', image: '/images/hyundai_elantra.jpg' },
   // ... add more cars as needed
-];
+  ];
 
-
-// CarList component
 const CarList = () => {
   const [selectedModel, setSelectedModel] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCar, setSelectedCar] = useState(null);
 
-  // Event handler for changing the selected model filter
   const handleFilterChange = (e) => {
     setSelectedModel(e.target.value);
   };
 
-  // Event handler for changing the search term
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filter the cars based on selected model and search term
+  const handleCarClick = (car) => {
+    setSelectedCar(car);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedCar(null);
+  };
+
+  const handleAddToCart = (car) => {
+    // Implement the logic to add the car to the cart
+    console.log(`Added ${car.model} ${car.car} to the cart`);
+    handleClosePopup();
+  };
+
   const filteredCars = carsData.filter((car) => {
     return (
       (selectedModel === 'All' || car.model === selectedModel) &&
@@ -50,16 +62,15 @@ const CarList = () => {
     );
   });
 
-  // Render the component
   return (
     <div className="flex flex-col w-full">
-      <div className="flex items-center space-x-4 p-8 bg-[#F2F2F2]">
+      <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 p-8 bg-[#F2F2F2]">
         <input
           type="text"
           placeholder="Search by Car Name"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded outline-white w-full"
+          className="p-2 border border-gray-300 rounded outline-white w-full md:w-64"
         />
         <select
           value={selectedModel}
@@ -80,9 +91,13 @@ const CarList = () => {
           Sorry, No matching cars found.
         </p>
       ) : (
-        <div className="grid grid-cols-4 md:grid-row-2  m-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-4">
           {filteredCars.map((car) => (
-            <div key={car.id} className="p-8 m-2 border border-gray-300 rounded">
+            <div
+              key={car.id}
+              className="p-8 border border-gray-300 rounded cursor-pointer"
+              onClick={() => handleCarClick(car)}
+            >
               {/* Display car information */}
               <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
               <p>
@@ -93,9 +108,12 @@ const CarList = () => {
           ))}
         </div>
       )}
+
+      {selectedCar && (
+        <CarDetailsPopup car={selectedCar} onClose={handleClosePopup} onAddToCart={handleAddToCart} />
+      )}
     </div>
   );
 };
 
-// Export the component
 export default CarList;

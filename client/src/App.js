@@ -15,9 +15,9 @@ import LandingPage from "./containers/Client/LandingPage";
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
 import CarList from './components/CarList'
-// import CheckoutForm from './components/CheckoutForm';
-import ShippingForm from './components/ShippingForm';
 import CheckoutForm from './components/CheckoutForm';
+import ShippingForm from './components/ShippingForm';
+import ProductCard from './components/ProductCard';
 // import OrdersList from './components/OrdersList'
 function App() {
 	return (
@@ -142,6 +142,17 @@ function App() {
 			  <CarList/>
               
           }
+       		 />
+		<Route
+          path="/shipping"
+          element={
+			<>
+		  <ShippingForm/>
+		  <CheckoutForm/>
+		  <ProductCard/>
+		  </>
+		}
+		   
        		 />
 			</Routes>
 			 
