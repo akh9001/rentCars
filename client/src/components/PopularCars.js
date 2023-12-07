@@ -1,9 +1,11 @@
 // CarList component
 import React, { useState } from 'react';
 import CarDetailsPopup from './CarDetailsPopup'; // Adjust the import path accordingly
+import jeep from '../assets/jeep.jpg'
+
 
 const carsData = [
-    { id: 1, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: '' },
+    { id: 1, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image:jeep },
     { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: './assets/carpic.jpg' },
     { id: 3, model: 'Volkswagen', car: 'Jetta', description: 'Sleek compact sedan with modern technology.', image: '/images/volkswagen_jetta.jpg' },
     { id: 4, model: 'Volkswagen', car: 'Passat', description: 'Comfortable midsize sedan with spacious interior.', image: '/images/volkswagen_passat.jpg' },
@@ -41,10 +43,10 @@ const CarList = () => {
         {carsData.map((car) => (
           <div key={car.id} className="p-8 border border-gray-300 rounded cursor-pointer" onClick={() => handleCarClick(car)}>
             <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
-            <p>
+            <p className='font-medium'>
               Car Model: {car.model}, Car Type: {car.car}
             </p>
-            <p>Description: {car.description}</p>
+            <p className='mt-3'>Description: {car.description}</p>
 
             {/* Rent Now button */}
             <button onClick={() => handleRentNow(car)} className="mt-4 bg-black text-white p-2 rounded hover:bg-gray-700 focus:outline-none">
