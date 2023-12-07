@@ -14,10 +14,9 @@ import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
-import CarList from './components/CarList'
-import CheckoutForm from './components/CheckoutForm';
-import ShippingForm from './components/ShippingForm';
-import ProductCard from './components/ProductCard';
+import CarList from './components/CarList';
+import PopularCars from "./components/PopularCars"
+import NavBar from './components/Client/NavBar';
 // import OrdersList from './components/OrdersList'
 function App() {
 	return (
@@ -118,8 +117,7 @@ function App() {
 					path="/login"
 					element={
 						<>
-							<LoginCustomer />
-							{/* <Footer /> */}
+						   <LoginCustomer />
 						</>
 					}
 				/>
@@ -128,7 +126,6 @@ function App() {
 					element={
 						<>
 							<Register />
-							{/* <Footer /> */}
 						</>
 					}
 				/>
@@ -138,21 +135,21 @@ function App() {
 			<Route
           path="/car-list"
           element={
-			
+			<>
+			  <NavBar/>
 			  <CarList/>
-              
+            </>
           }
        		 />
-		<Route
-          path="/shipping"
+			 <Route
+          path="/popular-cars"
           element={
 			<>
-		  <ShippingForm/>
-		  <CheckoutForm/>
-		  <ProductCard/>
+			<NavBar/>
+			<PopularCars/>
 		  </>
-		}
-		   
+              
+          }
        		 />
 			</Routes>
 			 

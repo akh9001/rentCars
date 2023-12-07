@@ -25,6 +25,7 @@ const carsData = [
   // ... add more cars as needed
   ];
 
+
 const CarList = () => {
   const [selectedModel, setSelectedModel] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,9 +47,9 @@ const CarList = () => {
     setSelectedCar(null);
   };
 
-  const handleAddToCart = (car) => {
-    // Implement the logic to add the car to the cart
-    console.log(`Added ${car.model} ${car.car} to the cart`);
+  const handleRentNow = (car) => {
+    // Implement the logic for renting the car
+    console.log(`Renting ${car.model} ${car.car}`);
     handleClosePopup();
   };
 
@@ -93,24 +94,24 @@ const CarList = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-4">
           {filteredCars.map((car) => (
-            <div
-              key={car.id}
-              className="p-8 border border-gray-300 rounded cursor-pointer"
-              onClick={() => handleCarClick(car)}
-            >
-              {/* Display car information */}
+            <div key={car.id} className="p-8 border border-gray-300 rounded cursor-pointer" onClick={() => handleCarClick(car)}>
               <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
               <p>
                 Car Model: {car.model}, Car Type: {car.car}
               </p>
               <p>Description: {car.description}</p>
+
+              {/* Rent Now button */}
+              <button onClick={() => handleRentNow(car)} className="mt-4 bg-black text-white p-2 rounded hover:bg-gray-700 focus:outline-none">
+                Rent Now
+              </button>
             </div>
           ))}
         </div>
       )}
 
       {selectedCar && (
-        <CarDetailsPopup car={selectedCar} onClose={handleClosePopup} onAddToCart={handleAddToCart} />
+        <CarDetailsPopup car={selectedCar} onClose={handleClosePopup} onAddToCart={handleRentNow} />
       )}
     </div>
   );

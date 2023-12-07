@@ -22,7 +22,7 @@ function Login() {
 				/>
 			</div>
 			<div className="text-start ms-4 px-6  lg:pr-[10rem] ">
-				<h1 className="text-4xl lg:text-4xl font-extrabold text-gray-800 mb-2">
+				<h1 className="text-4xl lg:text-4xl font-extrabold text-gray-800 mb-2 mt-8">
 					Let’s Sign you in
 				</h1>
 				<p className="text-base lg:text-lg text-gray-600 mb-1">
