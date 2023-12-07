@@ -1,12 +1,18 @@
 // CarList component
 import React, { useState } from 'react';
 import CarDetailsPopup from './CarDetailsPopup'; // Adjust the import path accordingly
+import car from '../assets/ElectricCar.jpg'
+import amg from '../assets/amg.jpg'
+import range from '../assets/range.jpg'
+import jeep from '../assets/jeep.jpg'
+
+
 
 const carsData = [
-  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: './assets/carpic.jpg' },
-  { id: 3, model: 'Volkswagen', car: 'Jetta', description: 'Sleek compact sedan with modern technology.', image: '/images/volkswagen_jetta.jpg' },
-  { id: 4, model: 'Volkswagen', car: 'Passat', description: 'Comfortable midsize sedan with spacious interior.', image: '/images/volkswagen_passat.jpg' },
-  { id: 5, model: 'Toyota', car: 'Camry', description: 'Reliable and fuel-efficient midsize sedan.', image: '/images/toyota_camry.jpg' },
+  { id: 2, model: 'Mercedes', car: 'C-Class', description: 'Compact executive car with elegant design.', image: car },
+  { id: 3, model: 'Volkswagen', car: 'Jetta', description: 'Sleek compact sedan with modern technology.', image: amg },
+  { id: 4, model: 'Volkswagen', car: 'Passat', description: 'Comfortable midsize sedan with spacious interior.', image: range },
+  { id: 5, model: 'Toyota', car: 'Camry', description: 'Reliable and fuel-efficient midsize sedan.', image:jeep },
   { id: 6, model: 'Toyota', car: 'Corolla', description: 'Popular compact car known for efficiency.', image: '/images/toyota_corolla.jpg' },
   { id: 7, model: 'Ford', car: 'Mustang', description: 'Iconic muscle car with powerful performance.', image: '/images/ford_mustang.jpg' },
   { id: 8, model: 'Ford', car: 'Escape', description: 'Compact SUV offering versatility and efficiency.', image: '/images/ford_escape.jpg' },
@@ -95,11 +101,11 @@ const CarList = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-4">
           {filteredCars.map((car) => (
             <div key={car.id} className="p-8 border border-gray-300 rounded cursor-pointer" onClick={() => handleCarClick(car)}>
-              <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
-              <p>
+              <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 w-full rounded  object-cover" />
+              <p className='font-medium'>
                 Car Model: {car.model}, Car Type: {car.car}
               </p>
-              <p>Description: {car.description}</p>
+              <p className='mt-3'>Description: {car.description}</p>
 
               {/* Rent Now button */}
               <button onClick={() => handleRentNow(car)} className="mt-4 bg-black text-white p-2 rounded hover:bg-gray-700 focus:outline-none">
