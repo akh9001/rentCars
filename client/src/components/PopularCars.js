@@ -42,7 +42,7 @@ const CarList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-4">
         {carsData.map((car) => (
           <div key={car.id} className="p-8 border border-gray-300 rounded cursor-pointer" onClick={() => handleCarClick(car)}>
-            <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 object-cover" />
+            <img src={car.image} alt={`${car.model} ${car.car}`} className="mb-4 max-h-40 rounded object-cover" />
             <p className='font-medium'>
               Car Model: {car.model}, Car Type: {car.car}
             </p>
