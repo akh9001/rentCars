@@ -14,6 +14,7 @@ const {
   searchCustomerProfile //Getting the customer's profile
 } = require("../controllers/customerController");
 const { verify } = require("jsonwebtoken");
+const { authentication, checkUserRole } = require('../middleware/authMiddleware');
 
 // Register route
 router.post("/register", register);
@@ -28,18 +29,18 @@ router.post("/login", login);
 router.get("/profile", searchCustomerProfile);
 
 //search for customer by name => http://localhost:3000/customers?first_name=name
-router.get('/search', searchCustomerByName);
+router.get('/search', authentication, checkUserRole(["admin", "manager"]), searchCustomerByName);
 
 //get list of customers
-router.get("/", getCustomers);
+router.get("/", authentication, checkUserRole(["admin", "manager"]), getCustomers);
 
 //get customer by id
-router.get("/:id", getCustomerById);
+router.get("/:id", authentication, getCustomerById);
 
 //update customer by id
-router.put("/:id", updateCustomerById);
+router.put("/:id", authentication, updateCustomerById);
 
 //delete customer by id
-router.delete("/:id", deleteCustomerById);
+router.delete("/:id", authentication, checkUserRole(["admin"]), deleteCustomerById);
 
 module.exports = router;

@@ -22,7 +22,7 @@ import CarList from './components/CarList'
 // import ShippingForm from './components/ShippingForm';
 import CheckoutForm from './components/CheckoutForm';
 import OrdersList from './components/OrdersList'
-
+import ActivationPage from './components/verifyEmail'
 function App() {
 	return (
 		<BrowserRouter>
@@ -195,8 +195,16 @@ function App() {
 
 					}
 				/>
+				<Route
+					path="/verify-account/:token"
+					element={
+
+						<ActivationPage />
+
+					}
+				/>
 			</Routes>
-			<Footer />
+			{/* <Footer /> */}
 		</BrowserRouter>
 	);
 }

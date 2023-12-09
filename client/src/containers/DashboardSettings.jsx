@@ -38,7 +38,7 @@ export default function DashboardSettings() {
       
       <div className="relative flex justify-center " >
         <img
-          alt="Profile Image"
+          alt="Profile"
           src={profileImage}
           className="w-32 h-32 mb-4 cursor-pointer object-cover rounded-full"
           onClick={handleAvatarClick}

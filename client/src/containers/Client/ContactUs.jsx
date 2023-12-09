@@ -28,7 +28,7 @@ const ContactUs = () => {
 				<div className="flex-1 hidden lg:block">
 					<img
 						src={CarImage}
-						alt="Contact Image"
+						alt="Contact"
 						className="h-full w-full object-cover rounded-tr-2xl"
 					/>
 				</div>

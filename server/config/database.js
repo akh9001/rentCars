@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 // 	}
 // }
 const connectDB = async () => {
-	const maxRetries = 5;
+	const maxRetries = 25;
 	let currentRetry = 0;
 
 	while (currentRetry < maxRetries) {
@@ -34,7 +34,7 @@ const connectDB = async () => {
 
 	if (currentRetry === maxRetries) {
 		console.error('Failed to connect to MongoDB after multiple attempts. Exiting process.');
-		process.exit(1);
+		// process.exit(1);
 	}
 };
 module.exports = connectDB

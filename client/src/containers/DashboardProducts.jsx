@@ -66,25 +66,25 @@ const headCells = [
 		_id: 'vin',
 		numeric: true,
 		disablePadding: false,
-		label: 'Price (per day)',
+		label: 'VIN',
 	},
 	{
 		_id: 'brand',
 		numeric: true,
 		disablePadding: false,
-		label: 'Type',
+		label: 'Brand',
 	},
 	{
 		_id: 'discount_price',
 		numeric: true,
 		disablePadding: false,
-		label: 'Capacity',
+		label: 'Discount Price',
 	},
 	{
 		_id: 'price',
 		numeric: true,
 		disablePadding: false,
-		label: 'Transmission',
+		label: 'Price',
 	},
 ];
 

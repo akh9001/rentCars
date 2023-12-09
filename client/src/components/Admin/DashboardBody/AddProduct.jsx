@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { BiPhotoAlbum } from "react-icons/bi";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -30,6 +30,7 @@ const luggageCapacityOptions = ["Small", "Medium", "Large"];
 
 
 export default function AddCar(props) {
+	const formRef = useRef(null);
 	const [carData, setCarData] = useState({
 		vin: "",
 		name: "",
@@ -50,7 +51,7 @@ export default function AddCar(props) {
 	
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
-	const { error } = useSelector((state) => state.car); // loading,
+	const { error, data } = useSelector((state) => state.car); // loading,
 
 	const handleAddCarEvent = async (e) => {
 		const formData = new FormData();
@@ -65,7 +66,7 @@ export default function AddCar(props) {
 			}
 		}
 		for (const image of carData.images) {
-			console.log("image : ", image);
+			// console.log("image : ", image);
 			formData.append("images", image);
 		}
 		formData.append("specifications", JSON.stringify(carData.specifications));
@@ -77,6 +78,26 @@ export default function AddCar(props) {
 		.then((res)=> {
 			// if (res.payload)
 			// 	navigate('/dashboard')
+			// console.error(data.message)
+			if (data.message ==="product created successfully") {
+				setCarData({
+					vin: "",
+					name: "",
+					brand: "",
+					price: "",
+					specifications: {
+						"Fuel Type": "",
+						"Model Year": "",
+						"Vehicle Type": "",
+						"Gear Type": "",
+						"Engine Type": "",
+						"Luggage Capacity": "",
+						"Passenger Capacity": "",
+					},
+					images: [],
+					subcategory: "",
+				});
+			}
 		})
 		.catch((err) => {
 			console.log("#####Error : ", error);
@@ -93,7 +114,7 @@ export default function AddCar(props) {
 				[specType]: value,
 			},
 		}));
-		console.log(carData.specifications);
+		// console.log(carData.specifications);
 	};
 
 //! Handle image upload
@@ -108,7 +129,7 @@ export default function AddCar(props) {
 	};
 
 	return (
-		<form className="px-28 py-10" onSubmit={handleAddCarEvent}>
+		<form className="px-28 py-10" ref={formRef} onSubmit={handleAddCarEvent}>
 			<div className="space-y-12">
 				<div className="border-b border-gray-900/10 pb-12">
 					<h2 className="text-2xl font-semibold leading-7 text-gray-900">Add Your Car</h2>
@@ -284,6 +305,11 @@ export default function AddCar(props) {
 			{error && (
 				<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded " role="alert">
 					<span>{error} !</span>
+
+				</div>)}
+			{data && (
+				<div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded " role="alert">
+					<span>Car was created successfully</span>
 
 				</div>)}
 		</form>
