@@ -1,5 +1,5 @@
 import axios from "axios";
-import { server } from "../../server";
+// import { server } from "../../server";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -7,7 +7,7 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: "LoadUserRequest",
     });
-    const { data } = await axios.get(`${server}/user/getuser`, {
+    const { data } = await axios.get(`http://localhost:3000/user/getuser`, {
       withCredentials: true,
     });
     dispatch({
@@ -28,7 +28,7 @@ export const loadSeller = () => async (dispatch) => {
     dispatch({
       type: "LoadSellerRequest",
     });
-    const { data } = await axios.get(`${server}/shop/getSeller`, {
+    const { data } = await axios.get(`http://localhost:3000/shop/getSeller`, {
       withCredentials: true,
     });
     dispatch({
@@ -52,7 +52,7 @@ export const updateUserInformation =
       });
 
       const { data } = await axios.put(
-        `${server}/user/update-user-info`,
+        `http://localhost:3000/user/update-user-info`,
         {
           email,
           password,
@@ -89,7 +89,7 @@ export const updatUserAddress =
       });
 
       const { data } = await axios.put(
-        `${server}/user/update-user-addresses`,
+        `http://localhost:3000/user/update-user-addresses`,
         {
           country,
           city,
@@ -124,7 +124,7 @@ export const deleteUserAddress = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.delete(
-      `${server}/user/delete-user-address/${id}`,
+      `http://localhost:3000/user/delete-user-address/${id}`,
       { withCredentials: true }
     );
 
@@ -150,7 +150,7 @@ export const getAllUsers = () => async (dispatch) => {
       type: "getAllUsersRequest",
     });
 
-    const { data } = await axios.get(`${server}/user/admin-all-users`, {
+    const { data } = await axios.get(`http://localhost:3000/user/admin-all-users`, {
       withCredentials: true,
     });
 

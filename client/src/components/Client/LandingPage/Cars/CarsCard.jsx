@@ -3,7 +3,10 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { RiWheelchairFill } from "react-icons/ri";
 import { TbEngine, TbManualGearbox } from "react-icons/tb";
 
-export default function CarsCard({ carImage, carModel, transmission, seats, fuelType, addToCartHandler }) {
+export default function CarsCard({ carImage, carModel, transmission, seats, fuelType, addToCartHandler,data }) {
+
+  
+    
     return (
         <div className="relative bg-white cursor-pointer duration-300 rounded-xl shadow-md p-6">
             <div className="mt-1">
@@ -15,7 +18,7 @@ export default function CarsCard({ carImage, carModel, transmission, seats, fuel
                     className="cursor-pointer hover:bg-slate-100 rounded-full"
                     color="#444"
                     title="Add to cart"
-                    // onClick={() => addToCartHandler(data._id)}
+                    onClick={() => addToCartHandler(data._id)}
 
                 /> 
             </div>

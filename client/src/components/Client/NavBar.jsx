@@ -16,7 +16,7 @@ import {
 import Cart from '../../components/Layout/Cart'
 import Sidebar from "../Layout/Sidebar";
 
-const NavBar = () => {
+const NavBar = ({active, setActive}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -37,7 +37,7 @@ const NavBar = () => {
     <nav className="relative flex items-center justify-between py-4 px-20 bg-black ">
       <AiOutlineUser onClick={toggleSidebar} color="#fff" size={20} className="cursor-pointer hover:scale-150 duration-300"/>
       
-      {isSidebarVisible && <Sidebar/>}
+      {isSidebarVisible && <Sidebar active={active} setActive={setActive}/>}
 
       <button onClick={toggleMenu} className="block lg:hidden focus:outline-none">
         {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}

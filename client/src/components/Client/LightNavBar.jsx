@@ -12,13 +12,16 @@ import {
   AiOutlineMenu,
   AiOutlineClose,
 } from "react-icons/ai";
-
+import { useSelector } from 'react-redux';
 import Cart from '../../components/Layout/Cart'
+import { selectCartItems } from '../../slices/cartSlice';
 import Sidebar from "../Layout/Sidebar";
 
 const LightNavBar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const cartItems = useSelector(selectCartItems); 
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -32,6 +35,7 @@ const LightNavBar = () => {
   };
 
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -125,13 +129,16 @@ const LightNavBar = () => {
         </a>
       </div>
 
-    
-      <AiOutlineShoppingCart
+        <div>
+        <AiOutlineShoppingCart
         color="#000"
         size={20}
         className="cursor-pointer hover:scale-150 duration-300"
         onClick={toggleCart}
       />
+      <span className="relative bottom-8 left-3 bg-red-400 px-1 text-white text-xs rounded-full">{cartItems.length}</span>
+        </div>
+     
       
       {isCartVisible && <Cart toggleCart={toggleCart}  />}
 

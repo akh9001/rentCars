@@ -21,6 +21,8 @@ import ContactUs from "./containers/Client/ContactUs";
 import CarList from './components/CarList'
 import ShippingForm from './components/ShippingForm';
 import CheckoutForm from './components/CheckoutForm';
+import ProfilePage from './containers/Client/ProfilePage';
+// import trackOrder from './components/Client/Profile/TrackOrder'
 
 function App() {
 	return (
@@ -173,6 +175,18 @@ function App() {
 
 					}
 				/>
+				 <Route
+					path="/profile"
+					element={
+						<ProfilePage/>
+					}
+				/>
+				 {/* <Route
+					path="/trackOrder"
+					element={
+						<TrackOrder/>
+					}
+				/> */}
 			</Routes>
 			<Footer />
 		</BrowserRouter>
