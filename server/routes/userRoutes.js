@@ -2,7 +2,7 @@ const express = require('express');
 const { addUser, login, deleteUser, getAllUsers, getUSerById, search, updateUser } = require('../controllers/userController');
 const router = express.Router();
 const { authentication, checkUserRole, refreshToken } = require('../middleware/authMiddleware');
-
+const upload = require('../utils/upload')
 
 // * implement register route
 router.post('/', addUser);
@@ -23,7 +23,8 @@ router.get('/search/', authentication, checkUserRole(["admin", "manager"]), sear
 router.get('/:id', authentication, checkUserRole(["admin", "manager"]), getUSerById);
 
 // * Implement update a user by ID route
-router.put('/:id', authentication, checkUserRole(["admin"]), updateUser);
+// TODO the upload isnt tested yet
+router.put('/:id', authentication, checkUserRole(["admin", "manager"]), upload.single('image'), updateUser);
 
 // * Implement delete user route
 router.delete('/:id', authentication, checkUserRole(["admin"]), deleteUser)

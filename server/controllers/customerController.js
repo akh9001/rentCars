@@ -110,8 +110,10 @@ const login = async (req, res) => {
 				user_name: customer.user_name,
 				role: "customer"
 			};
-			const token = jwt.sign(user, SECRET_KEY, { expiresIn: "10h" }); // 10h means the token expires in 10 hours
+			const token = jwt.sign(user, process.env.JWT_TOKEN_SECRET, { expiresIn: "10h" }); // 10h means the token expires in 10 hours
 			const refreshToken = jwt.sign(user, process.env.JWT_REFRESH_TOKEN_SECRET);
+			customer.last_login = Date.now();
+			await customer.save();
 			res.status(200).json({ message: "Logged in successfully", access_token: token, refresh_token: refreshToken });
 		} else {
 			res.status(401).json({ message: "email or password is incorrect" });
@@ -165,7 +167,7 @@ const searchCustomerByName = async (req, res) => {
 const getCustomers = async (req, res) => {
 	try {
 		const page = parseInt(req.query.page) || 1;
-		const perPage = 2;
+		const perPage = 100;
 		const sortDirection = req.query.sort === 'DESC' ? -1 : 1;
 		const customers = await Customer.find()
 			.sort({ first_name: sortDirection, last_name: sortDirection })
@@ -199,14 +201,15 @@ const updateCustomerById = async (req, res) => {
 		const { id } = req.params;
 		const updateData = req.body;
 
+		if (req.file) {
+			updateData.image = req.file.filename;
+		}
 		const customer = await Customer.findByIdAndUpdate(id, updateData, {
 			new: true,
 		});
-
 		if (!customer) {
 			return res.status(404).json({ message: "Customer not found" });
 		}
-
 		res
 			.status(200)
 			.json({ message: "Customer updated successfully", customer });

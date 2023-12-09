@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const upload = require('../utils/upload')
+
 
 const {
   // there is one left I found difficulties to make it = < Validating a customer account.>
@@ -38,7 +40,7 @@ router.get("/", authentication, checkUserRole(["admin", "manager"]), getCustomer
 router.get("/:id", authentication, getCustomerById);
 
 //update customer by id
-router.put("/:id", authentication, updateCustomerById);
+router.put("/:id", authentication, upload.single('image'), updateCustomerById);
 
 //delete customer by id
 router.delete("/:id", authentication, checkUserRole(["admin"]), deleteCustomerById);
