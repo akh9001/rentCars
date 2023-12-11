@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+// import "core-js/stable/atob";
+
 
 //root url
 // path: client/src/slices/authSlice.js
@@ -22,7 +25,7 @@ const authSlice = createSlice({
 	initialState: {
 		loading: false,
 		token: null,
-		data: null,
+		user: null,
 		error:null
 	},
 	reducers: {},
@@ -30,8 +33,8 @@ const authSlice = createSlice({
 		builder
 		.addCase(loginUser.fulfilled, (state, action) => {
 			state.loading = false;
-			state.token = action.payload.token;
-			state.data = action.payload;
+			state.token = action.payload.access_token;
+			state.user = jwtDecode(state.token);;
 		})
 		.addCase(loginUser.pending, (state, action) => {
 			state.loading = true;

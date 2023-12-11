@@ -78,7 +78,7 @@ const login = async (req, res) => {
 			res.status(200).json({
 				access_token: accessToken,
 				token_type: "Bearer Token",
-				expires_in: "15min",
+				expires_in: "15min", //TODO you should change 
 				refresh_token: refreshToken,
 				message: "login success",
 				// user : userExist
@@ -214,6 +214,11 @@ const updateUser = async (req, res) => {
 			user.first_name = updatedData.first_name ? updatedData.first_name : user.first_name;
 			user.last_name = updatedData.last_name ? updatedData.last_name : user.last_name;
 			user.last_update = new Date(); // Update lastUpdate date
+			// * Handle image upload
+			// TODO the upload isnt tested yet
+			if (req.file) {
+				user.image = req.file.filename;
+			}
 			try {
 				const savedUser = await user.save();
 				res.status(200).json({ message: savedUser });

@@ -53,10 +53,10 @@ const userSchema = new mongoose.Schema({
 	// phone_number: {
 	// 	type: String,
 	// },
-	// avatar: {
-	// 	type: String,
-	// 	TODO I should add a default image
-	// },
+	image: {
+		type: String,
+		default: '../assets/avatar/Default_Profile_Picture.svg.png'
+	},
 	role:
 	{
 		type: String,

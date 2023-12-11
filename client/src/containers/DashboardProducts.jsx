@@ -68,25 +68,25 @@ const headCells = [
 		_id: 'vin',
 		numeric: true,
 		disablePadding: false,
-		label: 'Price (per day)',
+		label: 'VIN',
 	},
 	{
 		_id: 'brand',
 		numeric: true,
 		disablePadding: false,
-		label: 'Type',
+		label: 'Brand',
 	},
 	{
 		_id: 'discount_price',
 		numeric: true,
 		disablePadding: false,
-		label: 'Capacity',
+		label: 'Discount Price',
 	},
 	{
 		_id: 'price',
 		numeric: true,
 		disablePadding: false,
-		label: 'Transmission',
+		label: 'Price',
 	},
 ];
 
@@ -228,7 +228,7 @@ export default function DashboardProducts() {
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	// const [rows, setRows] = useState([]);
 	const dispatch = useDispatch();
-	const { rows, status, error } = useSelector((state) => state.listCars);
+	const { rows } = useSelector((state) => state.listCars);
 
 	useEffect(() => {
 		// Dispatch the action to fetch cars from the database
@@ -294,7 +294,7 @@ export default function DashboardProducts() {
 				page * rowsPerPage,
 				page * rowsPerPage + rowsPerPage,
 			),
-		[order, orderBy, page, rowsPerPage],
+		[order, orderBy, page, rowsPerPage, rows],
 	);
 	
 	// if (status === 'loading') {

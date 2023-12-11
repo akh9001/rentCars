@@ -2,22 +2,40 @@ import React, { useState } from 'react';
 import google from "../../src/assets/google.svg"
 import facebook from "../../src/assets/facebook.svg"
 import carpicture from '../../src/assets/carpicture.jpg'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { loginCustomer } from '../slices/Customer/loginSlice';
 import LightNavBar from './Client/LightNavBar';
 
 function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { error } = useSelector((state) => state.authCustomer);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Handle form submission logic here
+		let userCredentials = {
+			email: email,
+			password: password,
+		};
+		dispatch(loginCustomer(userCredentials))
+			.then((res) => {
+				if (res.payload) {
+					setEmail("");
+					setPassword("");
+					navigate('/')
+				}
+			})
 	};
 	//min-h-screen
 	return (
 		<div className='bg-[#F2F2F2]'>
-			<LightNavBar/>
+			<LightNavBar />
 			<div className="min-h-screen  p-2 md:p-3 lg:grid lg:grid-cols-2 items-center content-center	lg:gap-1 gap[0.25rem] ">
-				
+
 				<div className="lg:max-h-screen lg:flex hidden lg:pl-[11rem]">
 					<img
 						src={carpicture}
@@ -85,6 +103,12 @@ function Login() {
 							New customer?
 							<a className='ml-2 underline opacity-100 font-medium' href="./Register">Register</a>
 						</div>
+						{error && (
+							<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded " role="alert">
+								<span>{error} !</span>
+
+							</div>
+						)}
 					</form>
 				</div>
 			</div>

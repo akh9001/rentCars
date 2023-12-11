@@ -29,10 +29,10 @@ const location = {
 	lng: -7.5898434  // Longitude
 };
 
-const center = {
-	lat: 33.5731, // Latitude for Casablanca
-	lng: -7.5898, // Longitude for Casablanca
-};
+// const center = {
+// 	lat: 33.5731, // Latitude for Casablanca
+// 	lng: -7.5898, // Longitude for Casablanca
+// };
 
 
 const PlanCard = ({ icon, price, title, description, active, onClick }) => {
