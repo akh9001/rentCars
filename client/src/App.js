@@ -1,25 +1,161 @@
-import logo from './logo.svg';
+import Login from './components/Admin/Login';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GeneralDashboard from './containers/GeneralDashboard';
+import DashboardProducts from './containers/DashboardProducts';
+import DashboardCategories from './containers/DashboardCategories';
+import DashboardOrders from './containers/DashboardOrders';
+import DashboardSettings from './containers/DashboardSettings';
+import AdminNavbar from './components/Admin/AdminNavbar';
+import SideBar from './components/Admin/SideBar';
+import Footer from './components/Footer';
+import AddProduct from './components/Admin/DashboardBody/AddProduct'
 import './App.css';
-
+import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
+import LandingPage from "./containers/Client/LandingPage";
+import LoginCustomer from "./components/Login";
+import Register from "./components/Register";
+import CarList from './components/CarList';
+import PopularCars from "./components/PopularCars"
+import NavBar from './components/Client/NavBar';
+// import OrdersList from './components/OrdersList'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<>
+							<LandingPage />
+						</>
+					}
+				/>
+
+				<Route
+					path="/dashboard"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<GeneralDashboard />
+						</>
+					}
+				/>
+				<Route
+					path="/dashboard-products"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardProducts />
+						</>
+					}
+				/>
+
+				<Route
+					path="/dashboard-categories"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardCategories />
+						</>
+					}
+				/>
+
+				<Route
+					path="/dashboard-orders"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardOrders />
+						</>
+					}
+				/>
+
+				<Route
+					path="/seller-settings"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardSettings />
+						</>
+					}
+				/>
+
+				<Route
+					path="/Commercial-terms"
+					element={
+						<>
+							<AdminNavbar />
+							<SideBar />
+							<DashboardCommercialTerms />
+						</>
+					}
+				/>
+				<Route
+					path="/admin-login"
+					element={
+						<>
+							<Login />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
+				<Route
+					path="/add-car"
+					element={
+						<>
+							<AddProduct />
+							{/* <Footer /> */}
+						</>
+					}
+				/>
+				<Route
+					path="/login"
+					element={
+						<>
+						   <LoginCustomer />
+						</>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<>
+							<Register />
+						</>
+					}
+				/>
+
+			
+			
+			<Route
+          path="/car-list"
+          element={
+			<>
+			  <NavBar/>
+			  <CarList/>
+            </>
+          }
+       		 />
+			 <Route
+          path="/popular-cars"
+          element={
+			<>
+			<NavBar/>
+			<PopularCars/>
+		  </>
+              
+          }
+       		 />
+			</Routes>
+			 
+			<Footer />
+		</BrowserRouter>
+	);
 }
 
 export default App;
