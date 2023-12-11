@@ -59,11 +59,19 @@ const UserProfileCard = () => {
 const Sidebar = () => {
   return (
     <div className="flex flex-col p-4 bg-white border-r rounded-xl shadow-lg top-16 absolute z-50 w-64 dark:bg-gray-800 dark:border-gray-600">
-      <UserProfileCard />
-      <nav className="mt-2 flex-1">
-        <ProfileSidebar />
-      </nav>
-    </div>
+    {false ? (
+      <>
+        <UserProfileCard />
+        <nav className="mt-2 flex-1">
+          <ProfileSidebar />
+        </nav>
+      </>
+    ) : (
+      <p className="text-sm text-gray-700 p-8">
+        Hello there,Please <Link to="/login" className="text-blue-500 text-bold">sign in</Link>
+      </p>
+    )}
+  </div>
   );
 };
 

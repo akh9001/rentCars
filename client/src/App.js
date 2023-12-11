@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Login from './components/Admin/Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GeneralDashboard from './containers/GeneralDashboard';
@@ -22,9 +23,16 @@ import CarList from './components/CarList'
 import ShippingForm from './components/ShippingForm';
 import CheckoutForm from './components/CheckoutForm';
 import ProfilePage from './containers/Client/ProfilePage';
+import AdminDashboardUsers from './containers/Admin/AdminDashboardUsers';
+import CheckoutPage from './containers/Client/CheckOutPage';
+import PaymentPage from './containers/Client/PaymentPage'
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 // import trackOrder from './components/Client/Profile/TrackOrder'
 
 function App() {
+	const [stripeApikey, setStripeApiKey] = useState(true);
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -181,14 +189,33 @@ function App() {
 						<ProfilePage/>
 					}
 				/>
-				 {/* <Route
-					path="/trackOrder"
+				  <Route
+					path="/Admin-Dashboard-Users"
 					element={
-						<TrackOrder/>
+						<AdminDashboardUsers/>
 					}
-				/> */}
+				/> 
+				 <Route
+					path="/checkout"
+					element={
+						<CheckoutPage/>
+					}
+				/> 
+				
 			</Routes>
-			<Footer />
+			{stripeApikey && (
+					<Elements stripe={loadStripe(stripeApikey)}>
+					<Routes>
+						<Route
+						path="/payment"
+						element={
+							<PaymentPage />
+						}
+						/>
+					</Routes>
+					</Elements>
+				)}
+			<Footer/>
 		</BrowserRouter>
 	);
 }

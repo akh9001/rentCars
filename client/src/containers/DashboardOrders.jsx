@@ -18,7 +18,14 @@ import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/system'; 
 import SearchBar from '../components/Layout/SearchBar';
@@ -163,7 +170,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected, onEditClick } = props;
 
   return (
     <Toolbar
@@ -198,11 +205,20 @@ function EnhancedTableToolbar(props) {
       }
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+       <>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        
+          { numSelected == 1 && <Tooltip title="Update">
+            <IconButton onClick={onEditClick}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+}
+       </>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>
@@ -216,6 +232,7 @@ function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onEditClick: PropTypes.func.isRequired,
 };
 
 export default function DashboardOrders() {
@@ -225,12 +242,36 @@ export default function DashboardOrders() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  
+  const [openDialog, setOpenDialog] = useState(false); // State for controlling dialog visibility
+  const [selectedOrder, setSelectedOrder] = useState(null); // State for the selected order
+
+  // Handle the opening of the dialog with the selected order
+  const handleEditClick = (order) => {
+    setSelectedOrder(order);
+    setOpenDialog(true);
+  };
+
+   // Handle the closing of the dialog
+   const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedOrder(null);
+  };
+
+  // Handle the status update
+  const handleStatusUpdate = () => {
+    // Implement the logic to update the status
+    console.log("Updating status for:", selectedOrder);
+    handleCloseDialog();
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  // handle Select All Click Delete
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -290,7 +331,7 @@ export default function DashboardOrders() {
   return (
     <Box className="large:p-24 small:px-8 small:py-20 relative w-full">
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+      <EnhancedTableToolbar numSelected={selected.length} onEditClick={handleEditClick} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -371,6 +412,30 @@ export default function DashboardOrders() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+
+    {/* Dialog for editing order status */}
+    <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Edit Order Status</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="status"
+            label="Order Status"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={selectedOrder?.status || ''}
+            onChange={(e) =>
+              setSelectedOrder({ ...selectedOrder, status: e.target.value })
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleStatusUpdate}>Update</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

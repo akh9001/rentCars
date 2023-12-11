@@ -38,7 +38,7 @@ const Cart = ({ toggleCart }) => {
       </div>
 
       {cartItems.length === 0 ? (
-        <p className="text-lg text-center mt-4 p-10">You cart is empty!</p>
+        <p className="text-lg text-center mt-4 p-10">Your cart is empty!</p>
       ) : (
         renderCartItems
       )}

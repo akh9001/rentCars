@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
-import { getAllOrdersOfShop } from "../../redux/actions/order";
+// import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 const AllRefundOrders = () => {
@@ -13,9 +13,9 @@ const AllRefundOrders = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllOrdersOfShop(seller._id));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllOrdersOfShop(seller._id));
+  // }, [dispatch]);
 
   const refundOrders = orders && orders.filter((item) => item.status === "Processing refund"  || item.status === "Refund Success");
 

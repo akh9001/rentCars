@@ -9,14 +9,14 @@ import {
 } from "react-icons/ci";
 
 import { Link } from "react-router-dom";
-
-
+import { MdOutlineAdminPanelSettings } from "react-icons/md"
 import styles from "../../styles/styles";
 
 export default function SideBar(props) {
   
   const sidebarVisible= props.sidebarVisible;
   const toggleSidebar = props.toggleSidebar;
+  const isAdmin = true;
 
   return (
   <div className={`fixed grid large:grid-cols-5 h-full small:grid-cols-4 ${
@@ -46,10 +46,19 @@ export default function SideBar(props) {
             <Link className={styles.AdminSideList}>
               <CiReceipt size={25} className="mr-4" /> Coupons
             </Link>
+            {isAdmin &&
+
+                <>
+                 <Link to="/Admin-Dashboard-Users" className={styles.AdminSideList}>
+                   <MdOutlineAdminPanelSettings size={25} className="mr-4" /> All Users
+                 </Link>
+                </>
+
+            }
           </ul>
           <ul className="mt-8 border-t border-gray-300 opacity-50">
             <Link className={styles.AdminSideList}>
-              <CiBullhorn size={25} className="mr-4" /> FeedBack
+              <react-icons size={25} className="mr-4" /> FeedBack
             </Link>
           </ul>
         </>

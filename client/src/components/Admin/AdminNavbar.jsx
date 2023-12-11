@@ -134,7 +134,7 @@ export default function AdminNavbar() {
           </ul>
         </div>
       )}
-      <SideBar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
+        <SideBar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
     </nav>
   );
 }
