@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Login from './components/Admin/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GeneralDashboard from './containers/GeneralDashboard';
@@ -24,11 +25,17 @@ import CheckoutForm from './components/CheckoutForm';
 import OrdersList from './components/OrdersList'
 import ActivationPage from './components/verifyEmail'
 import ProfilePage from './containers/Client/ProfilePage';
+import AdminDashboardUsers from './containers/Admin/AdminDashboardUsers';
+import CheckoutPage from './containers/Client/CheckOutPage';
+import PaymentPage from './containers/Client/PaymentPage'
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 // import trackOrder from './components/Client/Profile/TrackOrder'
 
 
 const isAuthenticated = true;
 const userRole = 'customer';
+const [stripeApikey, setStripeApiKey] = useState(true);
 
 const PrivateRoute  = ({ roles, children }) => {
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
@@ -100,18 +107,6 @@ const DashboardCommercialTermsContainer = () =>
 	);
 }
 
-const AddCarContainer = () =>
-{
-	return (
-		<>
-			<AdminNavbar />
-			<SideBar />
-			<AddProduct />
-		</>
-	);
-}
-
-
 const App = () => (
 	<BrowserRouter>
 		<Routes>
@@ -126,6 +121,8 @@ const App = () => (
 			<Route path="/contact-us" element={<ContactUs />} />
 			<Route path="/car-list" element={<CarList />} />
 			<Route path="/verify-account/:token" element={<ActivationPage />} />
+			<Route path="/best-selling" element={<BestSelling />} />
+			<Route path="/catalog" element={<Catalog />} />
 
 			{/* Admin routes */}
 			<Route
@@ -153,8 +150,12 @@ const App = () => (
 				element={<PrivateRoute roles={['admin']} ><DashboardCommercialTermsContainer /> </PrivateRoute>  }
 			/>
 			<Route
-				path="/add-car"
-				element={<PrivateRoute roles={['admin']} ><AddCarContainer /> </PrivateRoute>  }
+				path="/dashboard-products/add-car"
+				element={<PrivateRoute roles={['admin']} ><DashboardAddProduct /> </PrivateRoute>  }
+			/>
+			<Route
+				path="/Admin-Dashboard-Users"
+				element={<PrivateRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateRoute>  }
 			/>
 
 			{/* Customer routes */}
@@ -170,8 +171,27 @@ const App = () => (
 				path="/order-list"
 				element={<PrivateRoute roles={['customer']}><OrdersList /> </PrivateRoute>  }
 			/>
+			<Route
+				path="/checkout"
+				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
+			/>
+			<Route
+				path="/checkout"
+				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
+			/>
 
 		</Routes>
+		{stripeApikey && (
+			<Elements stripe={loadStripe(stripeApikey)}>
+				<Routes>
+					<Route
+						path="/payment"
+						element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
+					/>
+				</Routes>
+			</Elements>
+		)}
+		<Footer />
 	</BrowserRouter>
 
 );

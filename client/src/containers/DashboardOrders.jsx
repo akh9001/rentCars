@@ -18,7 +18,14 @@ import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/system';
 // import SearchBar from '../components/Layout/SearchBar';
@@ -185,7 +192,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-	const { numSelected } = props;
+  const { numSelected, onEditClick } = props;
 
 	return (
 		<Toolbar
@@ -219,34 +226,66 @@ function EnhancedTableToolbar(props) {
 			)
 			}
 
-			{numSelected > 0 ? (
-				<Tooltip title="Delete">
-					<IconButton>
-						<DeleteIcon />
-					</IconButton>
-				</Tooltip>
-			) : (
-				<Tooltip title="Filter list">
-					<IconButton>
-						<FilterListIcon />
-					</IconButton>
-				</Tooltip>
-			)}
-		</Toolbar>
-	);
+      {numSelected > 0 ? (
+       <>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        
+          { numSelected == 1 && <Tooltip title="Update">
+            <IconButton onClick={onEditClick}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+}
+       </>
+      ) : (
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+    </Toolbar>
+  );
 }
 
 EnhancedTableToolbar.propTypes = {
-	numSelected: PropTypes.number.isRequired,
+  numSelected: PropTypes.number.isRequired,
+  onEditClick: PropTypes.func.isRequired,
 };
 
 export default function DashboardOrders() {
-	const [order, setOrder] = React.useState('asc');
-	const [orderBy, setOrderBy] = React.useState('orderDate');
-	const [selected, setSelected] = React.useState([]);
-	const [page, setPage] = React.useState(0);
-	const [dense, setDense] = React.useState(false);
-	const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('orderDate');
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  
+  const [openDialog, setOpenDialog] = useState(false); // State for controlling dialog visibility
+  const [selectedOrder, setSelectedOrder] = useState(null); // State for the selected order
+
+  // Handle the opening of the dialog with the selected order
+  const handleEditClick = (order) => {
+    setSelectedOrder(order);
+    setOpenDialog(true);
+  };
+
+   // Handle the closing of the dialog
+   const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedOrder(null);
+  };
+
+  // Handle the status update
+  const handleStatusUpdate = () => {
+    // Implement the logic to update the status
+    console.log("Updating status for:", selectedOrder);
+    handleCloseDialog();
+  };
 
 	//!   my code
 	const dispatch = useDispatch();
@@ -262,14 +301,16 @@ export default function DashboardOrders() {
 		setOrderBy(property);
 	};
 
-	const handleSelectAllClick = (event) => {
-		if (event.target.checked) {
-			const newSelected = orders.map((n) => n.id);
-			setSelected(newSelected);
-			return;
-		}
-		setSelected([]);
-	};
+  // handle Select All Click Delete
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelected = orders.map((n) => n.id);
+      setSelected(newSelected);
+      return;
+    }
+    setSelected([]);
+  };
 
 	const handleClick = (event, id) => {
 		const selectedIndex = selected.indexOf(id);
@@ -317,94 +358,114 @@ export default function DashboardOrders() {
 		[order, orderBy, page, rowsPerPage, orders],
 	);
 
-	return (
-			<Box className="large:p-24 small:px-8 small:py-20 relative w-full">
-				<Paper sx={{ width: '100%', mb: 2 }}>
-					<EnhancedTableToolbar numSelected={selected.length} />
-					<TableContainer>
-						<Table
-							sx={{ minWidth: 750 }}
-							aria-labelledby="tableTitle"
-							size={dense ? 'small' : 'medium'}
-						>
-							<EnhancedTableHead
-								numSelected={selected.length}
-								order={order}
-								orderBy={orderBy}
-								onSelectAllClick={handleSelectAllClick}
-								onRequestSort={handleRequestSort}
-								rowCount={orders.length}
-							/>
-							<TableBody>
-								{visibleRows.map((row, index) => {
-									const isItemSelected = isSelected(row.id);
-									const labelId = `enhanced-table-checkbox-${index}`;
+  return (
+    <Box className="large:p-24 small:px-8 small:py-20 relative w-full">
+      <Paper sx={{ width: '100%', mb: 2 }}>
+      <EnhancedTableToolbar numSelected={selected.length} onEditClick={handleEditClick} />
+        <TableContainer>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+          >
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={orders.length}
+            />
+            <TableBody>
+              {visibleRows.map((row, index) => {
+                const isItemSelected = isSelected(row.id);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-									return (
+                return (
+                    
+                  <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.id)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.id}
+                    selected={isItemSelected}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        color="primary"
+                        checked={isItemSelected}
+                        inputProps={{
+                          'aria-labelledby': labelId,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell
+                      component="th"
+                      id={labelId}
+                      scope="row"
+                      padding="none"
+                    >
+                      {row.orderNumber}
+                    </TableCell>
+                    <TableCell align="left">{row.customerName}</TableCell>
+                    <TableCell align="left">{row.status}</TableCell>
+                    <TableCell align="left">{row.orderDate}</TableCell>
+                  </TableRow>
+                );
+              })}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: (dense ? 33 : 53) * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={4} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={orders.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <FormControlLabel
+        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        label="Dense padding"
+      />
 
-										<TableRow
-											hover
-											onClick={(event) => handleClick(event, row.id)}
-											role="checkbox"
-											aria-checked={isItemSelected}
-											tabIndex={-1}
-											key={row.id}
-											selected={isItemSelected}
-											sx={{ cursor: 'pointer' }}
-										>
-											<TableCell padding="checkbox">
-												<Checkbox
-													color="primary"
-													checked={isItemSelected}
-													inputProps={{
-														'aria-labelledby': labelId,
-													}}
-												/>
-											</TableCell>
-											<TableCell
-												component="th"
-												id={labelId}
-												scope="row"
-												padding="none"
-											>
-												{row.id}
-											</TableCell>
-											{/* <TableCell align="left">{row.id}</TableCell> */}
-											<TableCell align="left">{row.FirstName}</TableCell>
-											<TableCell align="left">{row.LastName}</TableCell>
-											<TableCell align="left">{row.city}</TableCell>
-											<TableCell align="left">{row.price}</TableCell>
-											<TableCell align="left">{row.status}</TableCell>
-											<TableCell align="left">{row.orderDate}</TableCell>
-										</TableRow>
-									);
-								})}
-								{emptyRows > 0 && (
-									<TableRow
-										style={{
-											height: (dense ? 33 : 53) * emptyRows,
-										}}
-									>
-										<TableCell colSpan={4} />
-									</TableRow>
-								)}
-							</TableBody>
-						</Table>
-					</TableContainer>
-					<TablePagination
-						rowsPerPageOptions={[5, 10, 25]}
-						component="div"
-						count={orders.length}
-						rowsPerPage={rowsPerPage}
-						page={page}
-						onPageChange={handleChangePage}
-						onRowsPerPageChange={handleChangeRowsPerPage}
-					/>
-				</Paper>
-				<FormControlLabel
-					control={<Switch checked={dense} onChange={handleChangeDense} />}
-					label="Dense padding"
-				/>
-			</Box>
-	);
+    {/* Dialog for editing order status */}
+    <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Edit Order Status</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="status"
+            label="Order Status"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={selectedOrder?.status || ''}
+            onChange={(e) =>
+              setSelectedOrder({ ...selectedOrder, status: e.target.value })
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleStatusUpdate}>Update</Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
 }

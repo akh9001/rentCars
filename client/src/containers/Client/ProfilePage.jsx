@@ -11,13 +11,13 @@ const ProfilePage = () => {
 
 
   return (
-    <div className='bg-[#F2F2F2]'>
+    <div className='bg-[#F2F2F2]' >
       {/* {loading ? (
         <Loader />
       ) : (
         <> */}
           <LightNavBar/>
-          <div className="w-10/12 mx-auto flex bg-[#e9e9e9] p-16 rounded-xl">
+          <div className="w-10/12 mx-auto flex bg-[#e9e9e9] p-16 rounded-xl mt-12">
             <div className="w-[50px] 800px:w-[335px] sticky ">
             <ProfileSideBar active={active} setActive={setActive} />
             </div>

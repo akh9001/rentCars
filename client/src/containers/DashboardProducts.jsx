@@ -19,7 +19,7 @@ import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
-import UpdateIcon from '@mui/icons-material/Update';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { IoAddOutline } from 'react-icons/io5'
@@ -188,6 +188,7 @@ function EnhancedTableToolbar(props) {
 			)}
 
 
+{/* Delete/Update button product */}
 
 			{numSelected > 0 ? (
 				<>
@@ -198,7 +199,7 @@ function EnhancedTableToolbar(props) {
 				</Tooltip>
 				<Tooltip title="Update">
 					<IconButton>
-						<UpdateIcon />
+						<EditIcon />
 					</IconButton>
 				</Tooltip>
 				</>
