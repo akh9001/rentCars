@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Login from './components/Admin/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GeneralDashboard from './containers/GeneralDashboard';
@@ -15,7 +15,7 @@ import LandingPage from "./containers/Client/LandingPage";
 import DashboardAddProduct from "./containers/DashboardAddProduct"
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
-// import BestSelling from "./containers/Client/BestSelling";
+import BestSelling from "./containers/Client/BestSelling";
 import ProductPage from "./containers/Client/ProductPage";
 import FAQPage from "./containers/Client/FAQPage";
 import ContactUs from "./containers/Client/ContactUs";
@@ -35,7 +35,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const isAuthenticated = true;
 const userRole = 'customer';
-const [stripeApikey, setStripeApiKey] = useState(true);
+
 
 const PrivateRoute  = ({ roles, children }) => {
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
@@ -107,8 +107,11 @@ const DashboardCommercialTermsContainer = () =>
 	);
 }
 
-const App = () => (
-	<BrowserRouter>
+const App = () => {
+	const [stripeApikey, setStripeApiKey] = useState(null);
+
+	return(
+		<BrowserRouter>
 		<Routes>
 
 			{/* Public routes */}
@@ -122,7 +125,7 @@ const App = () => (
 			<Route path="/car-list" element={<CarList />} />
 			<Route path="/verify-account/:token" element={<ActivationPage />} />
 			<Route path="/best-selling" element={<BestSelling />} />
-			<Route path="/catalog" element={<Catalog />} />
+			{/* <Route path="/catalog" element={<Catalog />} /> */}
 
 			{/* Admin routes */}
 			<Route
@@ -194,6 +197,6 @@ const App = () => (
 		<Footer />
 	</BrowserRouter>
 
-);
+)};
 
 export default App;
