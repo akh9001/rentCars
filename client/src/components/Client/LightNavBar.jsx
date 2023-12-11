@@ -129,14 +129,14 @@ const LightNavBar = () => {
         </a>
       </div>
 
-        <div>
+        <div className="flex justify-center items-center">
         <AiOutlineShoppingCart
         color="#000"
         size={20}
         className="cursor-pointer hover:scale-150 duration-300"
         onClick={toggleCart}
       />
-      <span className="relative bottom-8 left-3 bg-red-400 px-1 text-white text-xs rounded-full">{cartItems.length}</span>
+      <span className="relative bottom-2 right-2 bg-red-400 px-1 text-white text-xs rounded-full">{cartItems.length}</span>
         </div>
      
       
