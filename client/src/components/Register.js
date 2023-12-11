@@ -40,6 +40,7 @@ function Register() {
 
 	return (
 		<div className="min-h-screen p-2 md:p-3 lg:grid lg:grid-cols-2 items-center content-center 	lg:gap-2 gap[0.25rem] py-5">
+			<LightNavBar />
 			<div className='lg:max-h-screen lg:flex hidden lg:pl-[11rem]'>
 				<img
 					src={carpicture}

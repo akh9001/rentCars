@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 import { BiPhotoAlbum } from "react-icons/bi";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
-import {addCar} from '../../../slices/Admin/Cars/carSlice';
+import {addCar} from '../slices/Admin/Cars/carSlice';
 import { useSelector } from 'react-redux';
 
 const carBrands = [
@@ -285,13 +286,12 @@ export default function AddCar(props) {
 
 						{/* Cancel and Save Buttons */}
 						<div className="mt-6 flex items-center justify-end gap-x-6">
-							<button
-								type="button"
-								className="text-sm font-semibold leading-6 text-gray-900"
-								onClick={props.toggleAddCarClose}
-							>
-								Cancel
-							</button>
+						<Link
+							type="button"
+							className="text-sm font-semibold leading-6 text-gray-900 inline-block bg-transparent border border-solid border-gray-900 rounded py-2 px-4 hover:bg-gray-900 hover:text-white"
+						>
+							Cancel
+						</Link>
 							<button
 								type="submit"
 								className="rounded-md bg-zinc-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

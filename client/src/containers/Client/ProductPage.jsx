@@ -66,7 +66,7 @@ const imageSliderSettings = {
 const ImageCarousel = ({ images }) => (
 	<Slider {...imageSliderSettings}>
 		{images.map((image, idx) => (
-			<div key={idx} className="large:h-[400px] h-[250px] w-full flex justify-center items-center">
+			<div key={idx} className="lg:h-[400px] h-[250px] w-full flex justify-center items-center">
 				<img src={image} alt={`Slide ${idx}`} className="rounded-xl w-full h-full object-cover" />
 			</div>
 		))}
@@ -126,7 +126,7 @@ export default function ProductPage() {
 	return (
 		<div className="bg-[#F2F2F2]">
 			<LightNavBar />
-			<div className="large:mx-36 mx-8">
+			<div className="lg:mx-36 mx-8">
 				<div className="w-full flex justify-between">
 					<div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-6 shadow-lg h-14 w-14">
 						<AiOutlineLeft size={35} />
@@ -136,16 +136,16 @@ export default function ProductPage() {
 					</div>
 				</div>
 
-				<div className="flex-col bg-white rounded-t-xl justify-center py-28 px-16 large:px-44">
-					<div className="flex flex-col lg:flex-row gap-4 items-center large:justify-between w-full mb-6">
+				<div className="flex-col bg-white rounded-t-xl justify-center py-28 px-16 lg:px-44">
+					<div className="flex flex-col lg:flex-row gap-4 items-center lg:justify-between w-full mb-6">
 						<div className="gap-4 flex ">
 							<Avatar
 								src={profile}
 								alt="Mohammed Folan"
 								sx={{ width: 72, height: 72 }}
 							/>
-							<div className="large:ml-8 mt-2 flex-col">
-								<span className="large:text-2xl  font-semibold">Mohammed Folan</span>
+							<div className="lg:ml-8 mt-2 flex-col">
+								<span className="lg:text-2xl  font-semibold">Mohammed Folan</span>
 								<div>
 									<StarIcon className="text-yellow-400" />
 									<span className="text-sm text-gray-600">
@@ -161,7 +161,7 @@ export default function ProductPage() {
 					</div>
 					<div className="flex-col ml-0 gap-4 mb-6">
 						<h3 className="font-bold text-4xl my-10">Pictures</h3>
-						<div className="container relative flex-col z-10 justify-center items-center large:mx-auto large:px-10 px-8 py-8 bg-black rounded-2xl min-w-full">
+						<div className="container relative flex-col z-10 justify-center items-center lg:mx-auto lg:px-10 px-8 py-8 bg-black rounded-2xl min-w-full">
 							<ImageCarousel images={carImages} />
 						</div>
 					</div>
@@ -171,7 +171,7 @@ export default function ProductPage() {
 					<div className="p-4">
 						<h3 className="font-bold text-4xl my-10">Specs</h3>
 						<div className="w-full mx-auto">
-							<div className="bg-black flex flex-col lg:flex-row items-center justify-around p-4 large:p-14 my-6 rounded-lg">
+							<div className="bg-black flex flex-col lg:flex-row items-center justify-around p-4 lg:p-14 my-6 rounded-lg">
 								<SpecItem icon={<FaTachometerAlt />} title="4,000" />
 								<SpecItem icon={<FaCar />} title="Auto" />
 								<SpecItem icon={<FaUserFriends />} title="4 Person" />
@@ -244,7 +244,7 @@ export default function ProductPage() {
 								<div className="flex-col justify-center items-center m-8  ">
 									<h3>Pick-up Date and Time</h3>
 
-									<button className={`flex items-center hover:shadow-lg border-zinc-500 text-xs large:text-sm shadow-sm border ${isDateRangeVisible ? ' bg-white text-black' : ' bg-none'} rounded-md p-3 m-auto`}
+									<button className={`flex items-center hover:shadow-lg border-zinc-500 text-xs lg:text-sm shadow-sm border ${isDateRangeVisible ? ' bg-white text-black' : ' bg-none'} rounded-md p-3 m-auto`}
 										onClick={toggleDateRange}>
 										<BsCalendarDate size={15} className={` mr-2 ${isDateRangeVisible ? 'text-[#3D91FF]' : 'text-zinc-700'}`} />
 										{selectedRange[0].endDate.toLocaleDateString()} - {selectedRange[0].startDate.toLocaleDateString()}
@@ -272,7 +272,7 @@ export default function ProductPage() {
 
 					<div className="flex flex-col gap-8 lg:flex-row items-center justify-between w-full my-16">
 						<h3>Total: </h3>
-						<p className="large:text-4xl text-2xl font-bold italic">300 DH <span className="large:text-3xl font-normal text-zinc-400">/ Day</span></p>
+						<p className="lg:text-4xl text-2xl font-bold italic">300 DH <span className="lg:text-3xl font-normal text-zinc-400">/ Day</span></p>
 						<button className="rounded-xl border border-black bg-yellow-400 hover:bg-yellow-500 font-semibold flex px-8 py-4 justify-center items-center">Pick Up <AiOutlineRight className="ml-2" /></button>
 					</div>
 

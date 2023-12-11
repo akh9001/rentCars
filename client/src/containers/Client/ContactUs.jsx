@@ -5,6 +5,7 @@ import LightNavBar from '../../components/Client/LightNavBar'
 import style from '../../styles/styles'
 
 const ContactUs = () => {
+
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -23,7 +24,7 @@ const ContactUs = () => {
 
 	return (
 		<div className='bg-[#F2F2F2]'>
-			<LightNavBar />
+			<LightNavBar/>
 			<div className="min-h-screen lg:flex items-stretch">
 				<div className="flex-1 hidden lg:block">
 					<img

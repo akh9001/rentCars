@@ -8,10 +8,10 @@ import DashboardSettings from './containers/DashboardSettings';
 import AdminNavbar from './components/Admin/AdminNavbar';
 import SideBar from './components/Admin/SideBar';
 import Footer from './components/Footer';
-import AddProduct from './components/Admin/DashboardBody/AddProduct'
 import './App.css';
 import DashboardCommercialTerms from "./containers/DashboardCommercialTerms";
 import LandingPage from "./containers/Client/LandingPage";
+import DashboardAddProduct from "./containers/DashboardAddProduct"
 import LoginCustomer from "./components/Login";
 import Register from "./components/Register";
 // import BestSelling from "./containers/Client/BestSelling";
@@ -23,28 +23,13 @@ import CarList from './components/CarList'
 import CheckoutForm from './components/CheckoutForm';
 import OrdersList from './components/OrdersList'
 import ActivationPage from './components/verifyEmail'
+import ProfilePage from './containers/Client/ProfilePage';
+// import trackOrder from './components/Client/Profile/TrackOrder'
 
 
 const isAuthenticated = true;
 const userRole = 'customer';
 
-// const PrivateRoute = ({ element: Element, roles, ...rest }) => {
-// 	// const isAuthenticated = useSelector(selectIsAuthenticated);
-// 	// const userRole = useSelector(selectUserRole);
-
-// 	return (
-// 		<Route
-// 			{...rest}
-// 			element={
-// 				isAuthenticated && roles.includes(userRole) ? (
-// 					<Element />
-// 				) : (
-// 					<Navigate to="/admin-login" />
-// 				)
-// 			}
-// 		/>
-// 	);
-// };
 const PrivateRoute  = ({ roles, children }) => {
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
 };
@@ -126,6 +111,7 @@ const AddCarContainer = () =>
 	);
 }
 
+
 const App = () => (
 	<BrowserRouter>
 		<Routes>
@@ -173,6 +159,10 @@ const App = () => (
 
 			{/* Customer routes */}
 			<Route
+				path="/profile"
+				element={<PrivateRoute roles={['customer']}><ProfilePage /> </PrivateRoute>  }
+			/>
+			<Route
 				path="/checkout"
 				element={<PrivateRoute roles={['customer']}><CheckoutForm /> </PrivateRoute>  }
 			/>
@@ -185,191 +175,5 @@ const App = () => (
 	</BrowserRouter>
 
 );
-
-// function App() {
-// 	return (
-// 		<BrowserRouter>
-// 			<Routes>
-// 				<Route
-// 					path="/"
-// 					element={
-// 						<LandingPage />
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/dashboard"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<GeneralDashboard />
-// 						</>
-// 					}
-// 				/>
-// 				<Route
-// 					path="/dashboard-products"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<DashboardProducts />
-// 						</>
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/dashboard-categories"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<DashboardCategories />
-// 						</>
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/dashboard-orders"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<DashboardOrders />
-// 						</>
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/seller-settings"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<DashboardSettings />
-// 						</>
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/Commercial-terms"
-// 					element={
-// 						<>
-// 							<AdminNavbar />
-// 							<SideBar />
-// 							<DashboardCommercialTerms />
-// 						</>
-// 					}
-// 				/>
-// 				<Route
-// 					path="/admin-login"
-// 					element={
-// 						<>
-// 							<Login />
-// 						</>
-// 					}
-// 				/>
-// 				<Route
-// 					path="/add-car"
-// 					element={
-// 						<>
-// 							<AddProduct />
-// 						</>
-// 					}
-// 				/>
-// 				<Route
-// 					path="/login"
-// 					element={
-// 						<>
-// 							<LoginCustomer />
-// 						</>
-// 					}
-// 				/>
-// 				<Route
-// 					path="/register"
-// 					element={
-// 						<>
-// 							<Register />
-// 						</>
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/product"
-// 					element={
-// 						<ProductPage />
-// 					}
-// 				/>
-
-// 				{/* <Route
-//           path="/best-selling"
-//           element={
-//               <BestSelling/>
-//             }
-//         /> */}
-
-// 				{/* <Route
-//           path="/catalog"
-//           element={
-//               <Catalog/>
-//             }
-//         /> */}
-
-// 				<Route
-// 					path="/faq"
-// 					element={
-// 						<FAQPage />
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/contact-us"
-// 					element={
-// 						<ContactUs />
-// 					}
-// 				/>
-
-// 				<Route
-// 					path="/car-list"
-// 					element={
-
-// 						<CarList />
-
-// 					}
-// 				/>
-// 				{/* 
-// 					// TODO   
-// 					is this the right one ?
-
-// 				*/}
-// 				<Route
-// 					path="/checkout"
-// 					element={
-
-// 						<CheckoutForm />
-
-// 					}
-// 				/>
-// 				<Route
-// 					path="/order-list"
-// 					element={
-
-// 						<OrdersList />
-
-// 					}
-// 				/>
-// 				<Route
-// 					path="/verify-account/:token"
-// 					element={
-
-// 						<ActivationPage />
-
-// 					}
-// 				/>
-// 			</Routes>
-// 			{/* <Footer /> */}
-// 		</BrowserRouter>
-// 	);
-// }
 
 export default App;

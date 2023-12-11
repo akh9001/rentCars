@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Benefits from "../../components/Client/LandingPage/Benefits";
 import BrandsSection from "../../components/Client/LandingPage/BrandsSection";
 import HowWorks from "../../components/Client/LandingPage/HowWorks";
