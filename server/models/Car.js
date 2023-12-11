@@ -36,11 +36,11 @@ const carSchema = new mongoose.Schema({
 		required: [true, "The specifications are required!"],
 		validate: {
 			validator: function (specificationsMap) {
-				const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Engine Type", "Luggage Capacity", "Passenger Capacity"];
+				const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Luggage Capacity", "Passenger Capacity"];
 				const keys = Array.from(specificationsMap.keys());
 				return requiredKeys.every((key) => keys.includes(key));
 			},
-			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type' , 'Passenger Capacity' and 'Luggage Capacity'.",
+			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type' , 'Passenger Capacity' and 'Luggage Capacity'.",
 		},
 	},
 	images : {
