@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { FiEdit3 } from "react-icons/fi";
 import profile from "../assets/profile.jpg";
+import AdminNavbar from "../components/Admin/AdminNavbar";
 
 export default function DashboardSettings() {
   const [name, setName] = useState("John Doe");
@@ -35,7 +36,7 @@ export default function DashboardSettings() {
 
   return (
     <Container component="main" maxWidth="sm" className="p-20">
-      
+
       <div className="relative flex justify-center " >
         <img
           alt="Profile"

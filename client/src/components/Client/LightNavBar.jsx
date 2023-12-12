@@ -67,7 +67,7 @@ const LightNavBar = () => {
 				<Link to="/Faq" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
 					FAQ
 				</Link>
-				<Link to="/register" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+				<Link to="/login" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
 					Sign In
 				</Link>
 				<Link to="/contact-us" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
@@ -111,13 +111,18 @@ const LightNavBar = () => {
 					FAQ
 				</a>
 
-				<a
-					href="#"
-					className=" flex items-center text-black font-semibold text-xs py-2 px-4 hover:text-white hover:bg-black duration-300"
-				>
-					<AiOutlineUsergroupAdd size={20} className="mr-2 text-black" />
-					Join Us
-				</a>
+        <div className="flex justify-center items-center">
+        <AiOutlineShoppingCart
+        color="#000"
+        size={20}
+        className="cursor-pointer hover:scale-150 duration-300"
+        onClick={toggleCart}
+      />
+      <span className="relative bottom-2 right-2 bg-red-400 px-1 text-white text-xs rounded-full">{cartItems.length}</span>
+        </div>
+     
+      
+      {isCartVisible && <Cart toggleCart={toggleCart}  />}
 
 				<a
 					href="#"

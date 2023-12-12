@@ -38,6 +38,7 @@ const addCar = async (req, res) => {
 		}
 		
 		const { vin, name, brand, available, price, discount_price, specifications, subcategory } = req.body;
+		console.log("req.body", req.body)
 		const newCar = new Car({
 			vin,
 			name,
@@ -51,7 +52,7 @@ const addCar = async (req, res) => {
 			subcategory: new ObjectId((subcategory ? subcategory : "6565f5196b3b9274e1fa1a57"))
 		});
 		try{
-			await newCar.save();
+			console.log(await newCar.save());
 			res.status(201).json({ message: "product created successfully"})
 		}
 		catch(error)

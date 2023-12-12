@@ -59,7 +59,7 @@ const UserProfileCard = () => {
 const Sidebar = () => {
   return (
     <div className="flex flex-col p-4 bg-white border-r rounded-xl shadow-lg top-16 absolute z-50 w-64 dark:bg-gray-800 dark:border-gray-600">
-    {false ? (
+    {true ? (
       <>
         <UserProfileCard />
         <nav className="mt-2 flex-1">
