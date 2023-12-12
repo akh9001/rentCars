@@ -106,7 +106,7 @@ export default function AdminNavbar() {
               <HiOutlineNewspaper size={20} color="#3E3E3E" className="mr-2" />{' '}
               Commercial terms
             </Link>
-            <Link to="/seller-settings" className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
+            <Link to="/admin-settings" className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover:bg-zinc-100">
               <LuSettings size={20} color="#3E3E3E" className="mr-2" />Settings
             </Link>
             <li className="flex items-center text-sm my-2 py-1 px-4 rounded-md cursor-pointer hover-bg-zinc-100">

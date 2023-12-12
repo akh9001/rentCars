@@ -45,10 +45,10 @@ export default function Login() {
 				{/* <h1 className="text-5xl text-slate-50 font-bold mb-10">
 					Rentcar
 				</h1> */}
-				<p className="text-5xl text-slate-50 mb-8">
+				<p className="text-3xl text-slate-50 mb-8">
 					<strong>Rent</strong>Car
 				</p>
-				<div className="flex bg-slate-50 rounded-xl p-6 md:p-10 ">
+				<div className="flex bg-white rounded-xl p-6 md:p-10 ">
 					<form className="flex flex-col w-60 md:w-80 2xl:w-96" onSubmit={handleLoginEvent}>
 						<h1 className="text-2xl font-bold mb-4 md:text-4xl">Let's Sign You In</h1>
 						<p className="font-light mb-4">Welcome back, <br /> You have been missed</p>

@@ -67,7 +67,7 @@ const LightNavBar = () => {
 				<Link to="/Faq" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
 					FAQ
 				</Link>
-				<Link to="/register" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
+				<Link to="/login" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">
 					Sign In
 				</Link>
 				<Link to="/contact-us" className="text-black font-light text-xs hover:text-white hover:bg-black hover:rounded-full hover:py-2 hover:px-4 duration-300">

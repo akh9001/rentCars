@@ -28,13 +28,14 @@ import ProfilePage from './containers/Client/ProfilePage';
 import AdminDashboardUsers from './containers/Admin/AdminDashboardUsers';
 import CheckoutPage from './containers/Client/CheckOutPage';
 import PaymentPage from './containers/Client/PaymentPage'
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
+import AdminAddUser from "./containers/Admin/AdminAddUser";
 // import trackOrder from './components/Client/Profile/TrackOrder'
 
 
 const isAuthenticated = true;
-const userRole = 'customer';
+const userRole = 'admin';
 
 
 const PrivateRoute  = ({ roles, children }) => {
@@ -107,8 +108,19 @@ const DashboardCommercialTermsContainer = () =>
 	);
 }
 
+const AdminAddUserContainer = () =>
+{
+	return (
+		<>
+			<AdminNavbar />
+			<SideBar />
+			<AdminAddUser />
+		</>
+	);
+}
+
+
 const App = () => {
-	const [stripeApikey, setStripeApiKey] = useState(null);
 
 	return(
 		<BrowserRouter>
@@ -160,6 +172,11 @@ const App = () => {
 				path="/Admin-Dashboard-Users"
 				element={<PrivateRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateRoute>  }
 			/>
+			<Route
+				path="/Admin-Dashboard-Users/Admin-add-user"
+				element={<PrivateRoute roles={['admin']}><AdminAddUserContainer /> </PrivateRoute>  }
+			/>
+
 
 			{/* Customer routes */}
 			<Route
@@ -168,7 +185,7 @@ const App = () => {
 			/>
 			<Route
 				path="/checkout"
-				element={<PrivateRoute roles={['customer']}><CheckoutForm /> </PrivateRoute>  }
+				element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>  }
 			/>
 			<Route
 				path="/order-list"
@@ -178,22 +195,14 @@ const App = () => {
 				path="/checkout"
 				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
 			/>
+
 			<Route
-				path="/checkout"
-				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
+					path="/payment"
+						element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
 			/>
 
-		</Routes>
-		{stripeApikey && (
-			<Elements stripe={loadStripe(stripeApikey)}>
-				<Routes>
-					<Route
-						path="/payment"
-						element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
-					/>
-				</Routes>
-			</Elements>
-		)}
+			</Routes>
+
 		<Footer />
 	</BrowserRouter>
 

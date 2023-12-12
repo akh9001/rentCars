@@ -31,18 +31,18 @@ const carSchema = new mongoose.Schema({
 		min: [0, 'The discount price should be positive']
 	},
 	specifications: {
-		type: Map,
-		of: mongoose.Schema.Types.Mixed,
-		required: [true, "The specifications are required!"],
-		validate: {
-			validator: function (specificationsMap) {
-				const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Engine Type", "Luggage Capacity", "Passenger Capacity"];
-				const keys = Array.from(specificationsMap.keys());
-				return requiredKeys.every((key) => keys.includes(key));
-			},
-			message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type', 'Engine Type' , 'Passenger Capacity' and 'Luggage Capacity'.",
-		},
-	},
+        type: Map,
+        of: mongoose.Schema.Types.Mixed,
+        required: [true, "The specifications are required!"],
+        validate: {
+            validator: function (specificationsMap) {
+                const requiredKeys = ["Fuel Type", "Model Year", "Vehicle Type", "Gear Type", "Luggage Capacity", "Passenger Capacity"];
+                const keys = Array.from(specificationsMap.keys());
+                return requiredKeys.every((key) => keys.includes(key));
+            },
+            message: "The 'specifications' map must contain keys: 'Fuel Type', 'Model Year', 'Vehicle Type', 'Gear Type' , 'Passenger Capacity' and 'Luggage Capacity'.",
+        },
+    },
 	images : {
 		type: [String],
 		required: true
