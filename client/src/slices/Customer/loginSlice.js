@@ -21,24 +21,37 @@ const authCustomerSlice = createSlice({
 	name: 'authCustomer',
 	initialState: {
 		loading: false,
+		isAuthenticated: false,
 		token: null,
 		user: null,
 		error: null
 	},
-	reducers: {},
+	reducers: {
+		logout: (state) => {
+			localStorage.removeItem('token');
+			localStorage.removeItem('refresh_token');
+			state.token = null;
+			state.isAuthenticated = false;
+			state.user = null;
+			state.loading = false;
+			state.error = null;
+		}
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(loginCustomer.fulfilled, (state, action) => {
 				state.loading = false;
 				state.token = action.payload.access_token;
 				state.user = jwtDecode(state.token);
-				state.data = action.payload;
+				state.isAuthenticated = true;
 			})
 			.addCase(loginCustomer.pending, (state, action) => {
 				state.loading = true;
+				state.isAuthenticated = false;
 			})
 			.addCase(loginCustomer.rejected, (state, action) => {
 				state.loading = false;
+				state.isAuthenticated = false;
 				if (action.error.message === "Request failed with status code 401")
 					state.error = "Invalid credentials";
 				else
