@@ -30,14 +30,19 @@ import CheckoutPage from './containers/Client/CheckOutPage';
 import PaymentPage from './containers/Client/PaymentPage'
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from 'react-redux';
+import { jwtDecode } from "jwt-decode";
 // import trackOrder from './components/Client/Profile/TrackOrder'
 
-
-const isAuthenticated = true;
-const userRole = 'customer';
-
+const getAccessToken = () => {
+	return localStorage.getItem('token');
+}
 
 const PrivateRoute  = ({ roles, children }) => {
+	// TODO: I should check for a better way to do it
+	const isAuthenticated = getAccessToken();
+	const userRole = isAuthenticated ? jwtDecode(isAuthenticated).role : null;
+
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
 };
 
@@ -125,7 +130,7 @@ const App = () => {
 			<Route path="/car-list" element={<CarList />} />
 			<Route path="/verify-account/:token" element={<ActivationPage />} />
 			<Route path="/best-selling" element={<BestSelling />} />
-			{/* <Route path="/catalog" element={<Catalog />} /> */}
+				<Route path="/catalog" element={<BestSelling />} />
 
 			{/* Admin routes */}
 			<Route
