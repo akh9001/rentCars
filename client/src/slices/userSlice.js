@@ -1,15 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import api from '../axios/axiosConfig';
+
+
+
+export const loginUser = createAsyncThunk('auth/loginUser', async (credentials) => {
+	try {
+		const response = await api.post('/login', credentials);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+});
 
 // Define the base URL
-const baseURL = 'http://localhost:3000';
+// const baseURL = 'http://localhost:3000';
 
 // Async thunk for loading user
 export const loadUser = createAsyncThunk(
   'user/loadUser',
-  async (_, { rejectWithValue }) => {
+	async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${baseURL}/user/getuser`, { withCredentials: true });
+		const { data } = await api.get(`/users/${userId}`, { withCredentials: true });
       return data.user;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
