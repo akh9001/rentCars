@@ -30,10 +30,10 @@ const registerSlice = createSlice({
 			})
 			.addCase(register.rejected, (state, action) => {
 				state.loading = false;
-				// if (action.error.message === "Request failed with status code 401")
-				// 	state.error = "Invalid credentials";
-				// else
-				state.error = action.error.message;
+				if (action.error.message === "Request failed with status code 400")
+					state.error = "Email already exists";
+				else
+					state.error = action.payload;
 			})
 	}
 });

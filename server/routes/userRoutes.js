@@ -5,7 +5,7 @@ const { authentication, checkUserRole, refreshToken } = require('../middleware/a
 const upload = require('../utils/upload')
 
 // * implement register route
-router.post('/', addUser);
+router.post('/', authentication, checkUserRole(["admin"]), addUser);
 
 // * implement login route
 router.post('/login', login);

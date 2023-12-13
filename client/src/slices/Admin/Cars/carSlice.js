@@ -3,22 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios'
 
 const initialState = {
-	// carData: {
-	// 	vin: "",
-	// 	name: "",
-	// 	brand: "",
-	// 	price: "",
-	// 	specifications: {
-	// 		"Fuel Type": "",
-	// 		"Model Year": "",
-	// 		"Vehicle Type": "",
-	// 		"Gear Type": "",
-	// 		"Engine Type": "",
-	// 		"Luggage Capacity": "",
-	// 		"Passenger Capacity": "",
-	// 	},
-	// 	images: [],
-	// },
 	loading: false, // Add loading field to initial state
 	data: null, // Add data field to initial state
 	error: null, // Add error field to initial state
@@ -41,7 +25,7 @@ export const addCar = createAsyncThunk(
 		const response = await axios.post(HOST_URL, carData, axiosConfig);
 		const data = await response.data;
 		console.log("response data",response.data);
-		console.log("carData",carData);
+		console.log("carData", data);
 		return data;
 	},
 );

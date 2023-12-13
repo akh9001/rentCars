@@ -13,12 +13,11 @@ const addUser = async (req, res) => {
 	// TODO Sanitize the user input
 	// * Check if the user already exist
 	const userExist = await User.findOne({email: email});
-
 	if (userExist)
-		res.status(409).json({ message: "Email address is already in use." });
-	else {
-		try {
-			const users = await User.find({},"user_name")
+	res.status(409).json({ message: "Email address is already in use." });
+else {
+	try {
+		const users = await User.find({},"user_name")
 			const username_list = users?.map(user => user.user_name);
 			const user_name = generateUniqueUsername(first_name, last_name, username_list)
 			const password = generateRandomPassword(10);
@@ -33,15 +32,32 @@ const addUser = async (req, res) => {
 				role,
 				active:true
 			});
-			await newUser.save();
+			try {
+				const savedUser = await newUser.save();
+				console.log("savedUser", savedUser);
+			}
+			catch (error) {
+				console.error('Error while saving the user:', error);
+				res.status(400).json({ message: error.message });
+			}
+			const loginUrl = `${process.env.CLIENT_URL}/admin-login`;
 
 			//* Send the user's credentials to the user's email address
-			const mailOptions = {
-				from: process.env.EMAIL, // Your email address
-				to: email, // User's email
-				subject: 'Your Credentials',
-				text: `Your username: ${user_name} \n Your password: ${password}`,
-			};
+				const mailOptions = {
+					from: process.env.EMAIL, // Your email address
+					to: email, // User's email
+					subject: 'Your Credentials',
+					html: `
+						<div style="text-align: center; padding: 20px;">
+							<img src="https://ceylanlarmercedes-benzservice.com.tr/wp-content/uploads/2023/03/2-1200x667.jpg" alt="Your Logo" style="width: 500px; height: 250px; border-radius: 5px;">
+							<h2 style="color: #3498db;">Welcome to Rent Car!</h2>
+							<p style="font-size: 16px; color: #555;">Click the following link to verify your email:</p>
+							<p style="font-size: 16px; color: #555;">Your username: ${user_name}</p>
+							<p style="font-size: 16px; color: #555;">Your password: ${password}</p>
+							<a href="${loginUrl}" style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: #fff; text-decoration: none; border-radius: 5px;">Login</a>
+						</div>
+					`
+				};
 			await transporter.sendMail(mailOptions);
 			// * Send the response
 			res.status(201).json({ message: 'User created successfully' });
@@ -120,7 +136,7 @@ const deleteUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
 	const page = parseInt(req.query.page) || 1; // Get the page number from query params
-	const perPage = 10; // Number of users per page
+	const perPage = 50; // Number of users per page
 	// Sort direction based on the 'sort' query parameter (default is ascending)
 	const sortDirection = req.query.sort === 'DESC' ? -1 : 1;
 
