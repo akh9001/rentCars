@@ -46,6 +46,13 @@ const PrivateRoute  = ({ roles, children }) => {
 
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
 };
+const PrivateAdminRoute  = ({ roles, children }) => {
+	// TODO: I should check for a better way to do it
+	const isAuthenticated = getAccessToken();
+	const userRole = isAuthenticated ? jwtDecode(isAuthenticated).role : null;
+
+	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/admin-login" />;
+};
 
 const Dashboard = () => 
 {
@@ -147,39 +154,39 @@ const App = () => {
 			{/* Admin routes */}
 			<Route
 				path="/dashboard"
-				element={<PrivateRoute roles={['admin']} > <Dashboard /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} > <Dashboard /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/dashboard-products"
-				element={<PrivateRoute roles={['admin']} ><DashboardProductsContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardProductsContainer /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/dashboard-categories"
-				element={<PrivateRoute roles={['admin']} ><DashboardCategoriesContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardCategoriesContainer /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/dashboard-orders"
-				element={<PrivateRoute roles={['admin']} ><DashboardOrdersContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardOrdersContainer /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/admin-settings"
-				element={<PrivateRoute roles={['admin']} ><DashboardSettingsContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardSettingsContainer /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/Commercial-terms"
-				element={<PrivateRoute roles={['admin']} ><DashboardCommercialTermsContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardCommercialTermsContainer /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/dashboard-products/add-car"
-				element={<PrivateRoute roles={['admin']} ><DashboardAddProduct /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><DashboardAddProduct /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/Admin-Dashboard-Users"
-				element={<PrivateRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateAdminRoute>  }
 			/>
 			<Route
 				path="/Admin-Dashboard-Users/Admin-add-user"
-				element={<PrivateRoute roles={['admin']}><AdminAddUserContainer /> </PrivateRoute>  }
+				element={<PrivateAdminRoute roles={['admin']}><AdminAddUserContainer /> </PrivateAdminRoute>  }
 			/>
 
 
