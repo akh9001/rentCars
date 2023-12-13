@@ -6,7 +6,7 @@ import axios from 'axios';
 // }
 
 const initialState = {
-	users: [],
+	customers: [],
 	status: 'idle',
 	error: null,
 };
@@ -20,37 +20,36 @@ const axiosConfig = {
 		'Content-Type': 'application/json',
 	},
 };
-const HOST_URL = 'http://localhost:3001/users';
+const HOST_URL = 'http://localhost:3001/customers';
 
-export const listUsers = createAsyncThunk(
-	"cars/getAllUsers",
+export const listCustomers = createAsyncThunk(
+	"customers/getAllCusers",
 	async (page) => {
 		const response = await axios.get(`${HOST_URL}?page=${page}`, axiosConfig);
 		const data = await response.data;
-		// console.log("response data", response.data);
 		return data;
 	}
 );
 
-const usersSlice = createSlice({
-	name: 'users',
+const customerSlice = createSlice({
+	name: 'customers',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(listUsers.pending, (state) => {
+			.addCase(listCustomers.pending, (state) => {
 				state.status = 'loading';
 			})
-			.addCase(listUsers.fulfilled, (state, action) => {
+			.addCase(listCustomers.fulfilled, (state, action) => {
 				// debugger;
 				state.status = 'succeeded';
-				state.users = action.payload.data;
+				state.customers = action.payload;
 			})
-			.addCase(listUsers.rejected, (state, action) => {
+			.addCase(listCustomers.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message;
 			});
 	},
 });
 
-export default usersSlice.reducer;
+export default customerSlice.reducer;

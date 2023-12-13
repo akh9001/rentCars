@@ -21,10 +21,9 @@ export const loginUser = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-	name: 'auth',
+	name: 'users',
 	initialState: {
 		loading: false,
-		token: null,
 		user: null,
 		error:null
 	},
@@ -33,18 +32,15 @@ const authSlice = createSlice({
 		builder
 		.addCase(loginUser.fulfilled, (state, action) => {
 			state.loading = false;
-			state.token = action.payload.access_token;
-			state.user = jwtDecode(state.token);;
+			state.error = null;
+			state.user = action.payload.data;
 		})
 		.addCase(loginUser.pending, (state, action) => {
 			state.loading = true;
 		})
 		.addCase(loginUser.rejected, (state, action) => {
 			state.loading = false;
-			if (action.error.message === "Request failed with status code 401")
-				state.error = "Invalid credentials";
-			else
-				state.error = action.error.message;
+			state.error = action.error.message;
 		})
 	}
 });

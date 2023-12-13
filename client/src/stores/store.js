@@ -10,6 +10,7 @@ import orderReducer from '../slices/Order/listOrderSlice'
 import authCustomerReducer from '../slices/Customer/loginSlice'
 import registerReducer from '../slices/Customer/registerSlice'
 import userReducer from '../slices/userSlice';
+import listCustomersReducer from '../slices/Customer/listUserSlice';
 
 const store = configureStore({
 	reducer: {
@@ -23,6 +24,7 @@ const store = configureStore({
 		authCustomer: authCustomerReducer,
 		register: registerReducer,
 		users: listUserReducer,
+		customers: listCustomersReducer,
 		// Add other reducers here if needed
 	},
 });
