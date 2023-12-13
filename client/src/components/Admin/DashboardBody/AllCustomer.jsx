@@ -10,22 +10,21 @@ import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
 // import { server } from "../../server";
 import { toast } from "react-toastify";
-import { listUsers } from "../../../slices/Admin/auth/listUserSlice";
+import { listCustomers } from "../../../slices/Customer/listUserSlice";
 
-const AllUsers = () => {
+const AllCustomers = () => {
 	const dispatch = useDispatch();
-	//   const { users } = useSelector((state) => state.user);
+	//   const { customers } = useSelector((state) => state.user);
 	const [open, setOpen] = useState(false);
 	const [userId, setUserId] = useState("");
-	const { users } = useSelector((state) => state.users);
+	const customers = useSelector((state) => state.customers);
 	useEffect(() => {
-		dispatch(listUsers());
+		dispatch(listCustomers(1));
 	}, [dispatch]);
 
-	const handleDelete = async (id, role) => {
-		const path = role === "customer" ? "customers" : "users";
+	const handleDelete = async (id) => {
 		await axios
-			.delete(`http://localhost:3000/${path}/${id}`, { withCredentials: true })
+			.delete(`http://localhost:3001/customers/${id}`, { withCredentials: true })
 			.then((res) => {
 				toast.success(res.data.message);
 			});
@@ -60,16 +59,17 @@ const AllUsers = () => {
 			},
 		},
 	];
-	console.log(users);
 	// Updated rows creation
-	const rows = users?.map((item) => {
+	console.log("##########",customers);
+	const rows = customers.customers?.map((item) => {
+		console.log("item", item);
 		return {
 			id: item._id,
 			user_name: item.user_name,
 			first_name: item.first_name,
 			last_name: item.last_name,
 			email: item.email,
-			role: item.role,
+			role: "customer",
 			created_at: item.creation_date ? item.creation_date.slice(0, 10) : '', // Check if createdAt is defined
 		};
 	}) || [];
@@ -118,4 +118,4 @@ const AllUsers = () => {
 	);
 };
 
-export default AllUsers;
+export default AllCustomers;

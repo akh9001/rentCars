@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../../components/Admin/AdminNavbar'
 import AllUsers from "../../components/Admin/DashboardBody/AllUsers";
 import { IoAddOutline } from 'react-icons/io5';
+import AllCustomers from '../../components/Admin/DashboardBody/AllCustomer';
 
 const AdminDashboardUsers = () => {
+const [selectedComponent, setSelectedComponent]	= useState('users');
+
+const handleToggleComponent = () => {
+	setSelectedComponent(selectedComponent === 'users' ? 'customers' : 'users');
+};
   return (
     <div>
     <AdminNavbar />
     <div className="w-full h-screen">
       <div className="flex items-Center justify-between w-full  ">
+		<button onClick={handleToggleComponent}>
+			{selectedComponent === 'users' ? 'Users' : 'Customers'}	
+		</button>
        
-        <AllUsers />
+				  {selectedComponent === 'users' ? <AllUsers /> : <AllCustomers />}
       
       </div>
       <div className='m-8'>

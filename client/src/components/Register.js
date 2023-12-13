@@ -15,7 +15,7 @@ function Register() {
 	const [password, setPassword] = useState('');
 
 	// Redux states
-	const { loading, error } = useSelector((state) => state.auth);
+	const { loading, error } = useSelector((state) => state.register);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const handleSubmit = (e) => {
@@ -135,6 +135,12 @@ function Register() {
 							<a className='ml-1 underline opacity-100 font-medium' href="./Login">Login</a>
 						</div>
 					</form>
+					{error && (
+						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded  mt-6" role="alert">
+							<span>{error} !</span>
+
+						</div>
+					)}
 				</div>
 			</div>
 		</div >
