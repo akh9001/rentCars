@@ -13,12 +13,13 @@ import userReducer from '../slices/userSlice';
 import listCustomersReducer from '../slices/Customer/listUserSlice';
 import addUserReducer from '../slices/Admin/auth/addUserSlice';
 import customerListCarsReducer from '../slices/Customer/Cars/listCarsSlice';
+import carDetailsReducer from '../slices/Customer/Cars/getCarSlice';
 
 const store = configureStore({
 	reducer: {
 		// user: user,
 		user: userReducer,
-		cart:cartSlice,
+		cart: cartSlice,
 		auth: authReducer,
 		car: carReducer,
 		listCars: listCarsReducer,
@@ -29,6 +30,7 @@ const store = configureStore({
 		customers: listCustomersReducer,
 		addUser: addUserReducer,
 		customerListCars: customerListCarsReducer,
+		carDetails: carDetailsReducer,
 		// Add other reducers here if needed
 	},
 });

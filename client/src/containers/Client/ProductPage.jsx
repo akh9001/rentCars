@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DateRange } from "react-date-range";
 import { BsCalendarDate } from "react-icons/bs";
 import Slider from "react-slick";
@@ -18,6 +18,12 @@ import { MdLocationOn } from "react-icons/md";
 // import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { carDetails } from '../../slices/Customer/Cars/getCarSlice';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const carImages = [luxuryCar, ElectricCars, SUVCar];
 
@@ -48,8 +54,8 @@ const imageSliderSettings = {
 
 const ImageCarousel = ({ images }) => (
 	<Slider {...imageSliderSettings}>
-		{images.map((image, idx) => (
-			<div key={idx} className="lg:h-[400px] h-[250px] w-full flex justify-center items-center">
+		{images?.map((image, idx) => (
+			<div key={idx} className="lg:h-[500px] h-[250px] w-full flex justify-center items-center">
 				<img src={image} alt={`Slide ${idx}`} className="rounded-xl w-full h-full object-cover" />
 			</div>
 		))}
@@ -70,12 +76,9 @@ const SpecItem = ({ icon, title }) => (
 
 
 export default function ProductPage() {
-
+	const dispatch = useDispatch();
 	const [isDateRangeVisible, setIsDateRangeVisible] = useState(false);
-
 	const [isMapVisible, setIsMapRangeVisible] = useState(false);
-
-
 	const [selectedRange, setSelectedRange] = useState([
 		{
 			startDate: new Date(new Date().setDate(new Date().getDate() - 30)),
@@ -96,31 +99,38 @@ export default function ProductPage() {
 		setIsMapRangeVisible(!isMapVisible);
 	};
 
+	const {car} = useSelector((state) => state.carDetails);
 
+	// Access the id parameter from the URL
+	const { id } = useParams();
+	useEffect(() => {
+		dispatch(carDetails(id));
+		console.log("carsData", car);
+	}, [dispatch]);
 
 
 	const productDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
 
 	return (
-		<div className="bg-[#F2F2F2]">
+		car && (<div className="bg-[#F2F2F2]">
 			<LightNavBar />
 			<div className="lg:mx-36 mx-8">
 				<div className="w-full flex justify-between">
-					<div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-6 shadow-lg h-14 w-14">
+					<div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-4 shadow-lg h-14 w-14">
 						<AiOutlineLeft size={35} />
 					</div>
-					<div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-6 shadow-lg h-14 w-14">
+					<div className="bg-white hover:bg-zinc-100 cursor-pointer flex justify-center items-center rounded-xl my-4 shadow-lg h-14 w-14">
 						<AiOutlineHeart size={35} />
 					</div>
 				</div>
 
-				<div className="flex-col bg-white rounded-t-xl justify-center py-28 px-16 lg:px-44">
+				<div className="flex-col bg-white rounded-t-xl justify-center py-16 px-14 lg:px-44">
 					<div className="flex flex-col lg:flex-row gap-4 items-center lg:justify-between w-full mb-6">
 						<div className="gap-4 flex ">
-							
+
 							<div className="mt-2 flex-col">
-							<span className="text-4xl font-bold">S 500 Sedan</span>
+								<span className="text-4xl font-bold">{car.brand} {car.name}</span>
 								<div>
 									<StarIcon className="text-yellow-400" />
 									<span className="text-sm text-gray-600">
@@ -130,22 +140,23 @@ export default function ProductPage() {
 							</div>
 						</div>
 
-						<div>
-							<img 
+						{/* <div>
+							<img
 								src={logo}
 								className="h-35 w-35 object-cover"
 							/>
-							
-						</div>
+						</div> */}
 					</div>
-					<div className="flex-col ml-0 gap-4 mb-6 ">
+					<Divider className="w-full mb-6" />
+					<div className="flex-col ml-0 gap-4 mb-4 ">
 						<h3 className="font-bold text-4xl my-10">Pictures</h3>
 						<div className="container relative flex-col z-20 justify-center items-center lg:mx-auto lg:px-10 px-6 py-8 rounded-2xl min-w-full">
-							<ImageCarousel className="z-30" images={carImages} />
+
+							<ImageCarousel className="z-30" images={car.images} />
 							<div className=" h-10 w-full px-[6px] flex justify-between absolute bottom-[45.8%] right-[0%] rounded-full z-10">
-								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineLeft/></div>
-								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineRight/></div>
-								</div>
+								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineLeft /></div>
+								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineRight /></div>
+							</div>
 						</div>
 					</div>
 
@@ -155,21 +166,21 @@ export default function ProductPage() {
 						<h3 className="font-bold text-4xl my-10">Specs</h3>
 						<div className="w-full mx-auto">
 							<div className="bg-black flex flex-col lg:flex-row items-center justify-around p-4 lg:p-14 my-6 rounded-lg">
-								<SpecItem icon={<FaTachometerAlt />} title="4,000" />
-								<SpecItem icon={<FaCar />} title="Auto" />
-								<SpecItem icon={<FaUserFriends />} title="4 Person" />
-								<SpecItem icon={<FaBatteryFull />} title="Electric" />
+								<SpecItem icon={<FaTachometerAlt />} title={`${car.gearType}`} />
+								<SpecItem icon={<FaCar />} title={`${car.category}`} />
+								<SpecItem icon={<FaUserFriends />} title={`${car.passengerCapacity}`} />
+								<SpecItem icon={<FaBatteryFull />} title={`${car.fuelType}`} />
 							</div>
 						</div>
 					</div>
 					<Divider className="w-full mb-6" />
 
 					<div className="p-4">
-					<h3 className="font-bold text-4xl mt-4 mb-10">Description</h3>
-					<p className="text-lg my-8">{productDescription}</p>
+						<h3 className="font-bold text-4xl mt-4 mb-10">Description</h3>
+						<p className="text-lg my-8">{productDescription}</p>
 					</div>
 
-				
+
 					<Divider className="w-full mb-6" />
 
 					<div className="p-4">
@@ -183,21 +194,21 @@ export default function ProductPage() {
 							{isMapVisible ? <GrUp size={25} className="text-zinc-700 ml-2" /> : <GrDown size={25} className="text-zinc-700 ml-2" />}
 						</div>
 
-						 {isMapVisible && (
+						{isMapVisible && (
 							<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831.0747000755434!2d-7.648567671515972!3d33.57159039832692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d3a2e5439e89%3A0xbf888b237cbe56b1!2sARK%20X%20Talent%20Factory!5e0!3m2!1sfr!2sma!4v1702472368906!5m2!1sfr!2sma"
-							width="100%"
-							height="450"
-							style={{
-								border: 0,
-								borderRadius: '10px',
-								boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Adjust shadow values as needed
-							  }}							allowFullScreen=""
-							loading="lazy"
-							referrerPolicy="no-referrer-when-downgrade"
-						  />
-						  
-						)} 
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831.0747000755434!2d-7.648567671515972!3d33.57159039832692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d3a2e5439e89%3A0xbf888b237cbe56b1!2sARK%20X%20Talent%20Factory!5e0!3m2!1sfr!2sma!4v1702472368906!5m2!1sfr!2sma"
+								width="100%"
+								height="450"
+								style={{
+									border: 0,
+									borderRadius: '10px',
+									boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Adjust shadow values as needed
+								}} allowFullScreen=""
+								loading="lazy"
+								referrerPolicy="no-referrer-when-downgrade"
+							/>
+
+						)}
 
 					</div>
 					{/* <Divider className="w-full mb-6" />
@@ -237,15 +248,14 @@ export default function ProductPage() {
 
 					<div className="flex flex-col gap-8 lg:flex-row items-center justify-between w-full my-16">
 						<h3>Total: </h3>
-						<p className="lg:text-4xl text-2xl font-bold italic">300 DH <span className="lg:text-3xl font-normal text-zinc-400">/ Day</span></p>
-						<button className="rounded-xl border border-black bg-yellow-400 hover:bg-yellow-500 font-semibold flex px-8 py-4 justify-center items-center">Pick Up <AiOutlineRight className="ml-2" /></button>
+						<p className="lg:text-4xl text-2xl font-bold italic">{car.price} DH <span className="lg:text-3xl font-normal text-zinc-400">/ Day</span></p>
+						<Link to={`../booking`}>
+							<button className="rounded-xl border border-black bg-yellow-400 hover:bg-yellow-500 font-semibold flex px-8 py-4 justify-center items-center">Pick Up <AiOutlineRight className="ml-2" /></button>
+						</Link> 
 					</div>
 
 				</div>
-
-
-
 			</div>
-		</div>
+		</div>)
 	);
 }

@@ -30,7 +30,7 @@ const CarList = () => {
 
 	useEffect(() => {
 		dispatch(listCars(1));
-		console.log("carsData", carsData);
+		// console.log("carsData", carsData);
 	}, [dispatch]);
 
 	// Event handler for changing the selected model filter
@@ -101,7 +101,7 @@ const CarList = () => {
 				</div>
 
 				{filteredCars.length === 0 ? (
-					<p className="mt-12 text-black text-lg font-bold text-center">
+					<p className="mt-12 h-screen text-black text-lg font-bold text-center">
 						Sorry, No matching cars found.
 					</p>
 				) : (

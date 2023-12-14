@@ -15,7 +15,7 @@ const Footer = () => {
   const supportLinks = [{ name: 'Contact Us', link: '/contact-us' }, /* other support links */];
 
   return (
-    <footer className=" relative bottom-0 w-full bg-black text-white">
+    <footer className="relative bottom-0 w-full bg-black text-white">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 p-16 lg:text-left text-start">
         
         {/* Logo and Social Media */}
