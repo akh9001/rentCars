@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  font-family: 'Montserrat', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Logo{
+  font-size: 1.5rem;
+  margin: 10px 6px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.rdrCalendarWrapper {
+
+    border-radius: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.customdatepickerwidth, 
+.customdatepickerwidth > div.react-datepicker-wrapper, 
+.customdatepickerwidth > div > div.react-datepicker__input-container
+.customdatepickerwidth > div > div.react-datepicker__input-container input {
+   width: 100%;
+   background: #000;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar {
+
+  transition-property: width; 
+  transition-duration: 0.1s; 
+  transition-timing-function: ease-in; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* In your global CSS file or inside a <style> tag in your component */
+.slick-prev, .slick-next {
+  z-index: 50; /* Ensure the arrows are above other elements */
+  /* Use Tailwind's shadow utility class by specifying it in a global stylesheet */
+  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -4px rgba(255, 255, 255, 0.1);
+}
+.slick-prev:before, .slick-next:before {
+  font-size: 200px; /* Use a font size that makes sense for your design */
+  color: black; /* This will set the arrow color */
 }

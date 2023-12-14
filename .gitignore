@@ -130,3 +130,8 @@ dist
 .pnp.*
 
 script.sh
+
+*/*node_modules
+
+# Some testing staff
+trush/
