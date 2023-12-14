@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from './components/Admin/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GeneralDashboard from './containers/GeneralDashboard';
@@ -20,20 +20,18 @@ import ProductPage from "./containers/Client/ProductPage";
 import FAQPage from "./containers/Client/FAQPage";
 import ContactUs from "./containers/Client/ContactUs";
 import CarList from './components/CarList'
-// import ShippingForm from './components/ShippingForm';
-import CheckoutForm from './components/CheckoutForm';
 import OrdersList from './components/OrdersList'
 import ActivationPage from './components/verifyEmail'
 import ProfilePage from './containers/Client/ProfilePage';
 import AdminDashboardUsers from './containers/Admin/AdminDashboardUsers';
-import CheckoutPage from './containers/Client/CheckOutPage';
+import CheckOutPage from './containers/Client/CheckOutPage';
 import PaymentPage from './containers/Client/PaymentPage'
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useSelector } from 'react-redux';
 import { jwtDecode } from "jwt-decode";
 import AdminAddUser from "./containers/Admin/AdminAddUser";
-// import trackOrder from './components/Client/Profile/TrackOrder'
+import BookingPage from "./containers/Client/BookingPage";
+import axios from "axios";
 
 const getAccessToken = () => {
 	return localStorage.getItem('token');
@@ -127,6 +125,23 @@ const AdminAddUserContainer = () => {
 
 const App = () => {
 
+	const [stripeApikey, setStripeApiKey] = useState("");
+
+	async function getStripeApikey() {
+		try {
+			const { data } = await axios.get("http://localhost:3001/payment/stripeapikey");
+			console.log('data:', data.stripeApikey)
+			setStripeApiKey(data.stripeApikey);
+		} catch (error) {
+			console.error("Error fetching Stripe API key:", error);
+		}
+	}
+
+	useEffect(() => {
+		getStripeApikey();
+	}, []);
+
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -186,26 +201,41 @@ const App = () => {
 				{/* Customer routes */}
 				<Route
 					path="/profile"
-					element={<PrivateRoute roles={['customer']}><ProfilePage /> </PrivateRoute>}
+					element={<ProfilePage />}
 				/>
-				<Route
-					path="/checkout"
-					element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>}
-				/>
+				{/* <Route
+				path="/checkout"
+				element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>  }
+			/> */}
 				<Route
 					path="/order-list"
 					element={<PrivateRoute roles={['customer']}><OrdersList /> </PrivateRoute>}
 				/>
+
+				<Route
+					path="/booking"
+					element={<PrivateRoute roles={['customer']}><BookingPage /></PrivateRoute>}
+				/>
+
 				<Route
 					path="/checkout"
-					element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>}
+					element={
+						<Elements stripe={loadStripe(stripeApikey)}>
+							<PrivateRoute roles={['customer']}><CheckOutPage /></PrivateRoute>
+						</Elements>
+					}
 				/>
 
-				<Route
-					path="/payment"
-					element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
-				/>
-
+				{stripeApikey && (
+					<Route
+						path="/payment"
+						element={
+							<Elements stripe={loadStripe(stripeApikey)}>
+								<PrivateRoute roles={['customer']}><PaymentPage /></PrivateRoute>
+							</Elements>
+						}
+					/>
+				)}
 			</Routes>
 
 			<Footer />

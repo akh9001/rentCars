@@ -84,7 +84,7 @@ const Payment = () => {
     };
 
     await axios
-      .post(`http://localhost:3000/order/create-order`, order, config)
+      .post(`http://localhost:3001/order/create-order`, order, config)
       .then((res) => {
         setOpen(false);
         navigate("/order/success");
@@ -109,7 +109,7 @@ const Payment = () => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:3000/payment/process`,
+        `http://localhost:3001/payment/process`,
         paymentData,
         config
       );
@@ -134,7 +134,7 @@ const Payment = () => {
           };
 
           await axios
-            .post(`http://localhost:3000/order/create-order`, order, config)
+            .post(`http://localhost:3001/order/create-order`, order, config)
             .then((res) => {
               setOpen(false);
               navigate("/order/success");
@@ -164,7 +164,7 @@ const Payment = () => {
     };
 
     await axios
-    .post(`http://localhost:3000/order/create-order`, order, config)
+    .post(`http://localhost:3001/order/create-order`, order, config)
     .then((res) => {
       setOpen(false);
       navigate("/order/success");
@@ -174,6 +174,8 @@ const Payment = () => {
       window.location.reload();
     });
   };
+
+
 
   return (
     <div className="w-full flex flex-col items-center py-8">
@@ -208,6 +210,14 @@ const PaymentInfo = ({
 }) => {
   const [select, setSelect] = useState(1);
 
+  
+  const [inputValue, setInputValue] = useState(user);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+
   return (
     <div className="w-full 800px:w-[95%] bg-[#fff] rounded-md p-5 pb-8">
       {/* select buttons */}
@@ -237,8 +247,9 @@ const PaymentInfo = ({
                     required
                     placeholder={user && user.name}
                     className=' w-full border p-1 rounded-[5px] !w-[95%] text-[#444]'
-                    value={user && user.name}
-                  />
+                    value={inputValue}
+                    onChange={handleInputChange}                    
+                    />
                 </div>
                 <div className="w-[50%]">
                   <label className="block pb-2">Exp Date</label>
@@ -341,13 +352,12 @@ const PaymentInfo = ({
         {select === 2 ? (
           <div className="w-full flex border-b">
             <div
-              className="bg-red-400 hover:bg-red-300 duration-500 text-white text-center font-bold py-3 px-6 shadow-md m-1 rounded-full cursor-pointer !bg-[#f63b60] h-[45px] text-[18px] "
-              onClick={() => setOpen(true)}
+                className="bg-yellow-400 hover:bg-yellow-600 duration-500 text-black text-center font-bold py-3 px-6 shadow-md m-4 rounded-full cursor-pointer h-[45px] text-[18px]"                onClick={() => setOpen(true)}
             >
               Pay Now
             </div>
             {open && (
-              <div className="w-full fixed top-0 left-0 bg-[#00000039] h-screen flex items-center justify-center z-[99999]">
+              <div className="lg:w-1/2 mx-auto fixed top-0 left-0 bg-[#00000039] h-screen flex items-center justify-center z-[99999]">
                 <div className="w-full 800px:w-[40%] h-screen 800px:h-[80vh] bg-white rounded-[5px] shadow flex flex-col justify-center p-8 relative overflow-y-scroll">
                   <div className="w-full flex justify-end p-3">
                     <RxCross1
@@ -399,7 +409,7 @@ const PaymentInfo = ({
               <input
                 type="submit"
                 value="Confirm"
-                className="bg-red-400 hover:bg-red-300 duration-500 text-white text-center font-bold py-3 px-6 shadow-md m-1 rounded-full cursor-pointer !bg-[#f63b60] h-[45px] text-[18px]"
+                className="bg-yellow-400 hover:bg-yellow-600 duration-500 text-black text-center font-bold py-3 px-6 shadow-md m-4 rounded-full cursor-pointer h-[45px] text-[18px]"
               />
             </form>
           </div>

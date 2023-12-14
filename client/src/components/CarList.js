@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import LightNavBar from './Client/LightNavBar';
 import CarsCard from './Client/LandingPage/Cars/CarsCard';
-// import { useDispatch, useSelector } from "react-redux";
-// import { addTocart } from "../redux/actions/cart";
-// import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../slices/cartSlice'
 import { useSelector } from 'react-redux';
-import car from '../assets/ElectricCar.jpg'
 import { listCars } from '../slices/Customer/Cars/listCarsSlice';
 
 // CarList component
@@ -44,26 +40,9 @@ const CarList = (data) => {
 		setSearchTerm(e.target.value);
 	};
 
-	// const addToCartHandler = (id) => {
-	//   const isItemExists = cart && cart.find((i) => i._id === id);
-	//   if (isItemExists) {
-	//     toast.error("Item already in cart!");
-	//   } else {
-	//     if (data.stock < 1) {
-	//       toast.error("Product stock limited!");
-	//     } else {
-	//       const cartData = { ...data, qty: 1 };
-	//       dispatch(addTocart(cartData));
-	//       toast.success("Item added to cart successfully!");
-	//     }
-	//   }
-	// };
-	// const { cart } = useSelector((state) => state.cart);
-	// const dispatch = useDispatch();
 
 	// Filter the cars based on selected model and search term
 	const filteredCars = carsData.filter((car) => {
-		console.log("$$$$$$$$$$$ car : ", car);
 		return (
 			(selectedModel === 'All' || car.brand === selectedModel) &&
 			(searchTerm === '' ||

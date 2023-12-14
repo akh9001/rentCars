@@ -5,7 +5,7 @@ import LightNavBar from '../../components/Client/LightNavBar';
 
 const PaymentPage = () => {
   return (
-    <div className='w-full min-h-screen bg-[#f6f9fc]'>
+    <div className='w-full min-h-screen bg-[#F2F2F2]'>
       <LightNavBar/>
        <br />
        <br />
