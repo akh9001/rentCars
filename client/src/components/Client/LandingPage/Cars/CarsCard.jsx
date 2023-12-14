@@ -2,8 +2,9 @@ import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { RiWheelchairFill } from "react-icons/ri";
 import { TbEngine, TbManualGearbox } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
-export default function CarsCard({ carImage, carModel, transmission, seats, fuelType, addToCartHandler, data, category, price }) {
+export default function CarsCard({ carId, carImage, carModel, transmission, seats, fuelType, addToCartHandler, category, price }) {
 
 
 
@@ -17,7 +18,7 @@ export default function CarsCard({ carImage, carModel, transmission, seats, fuel
 						className="cursor-pointer hover:bg-slate-100 rounded-full"
 						color="#444"
 						title="Add to cart"
-						onClick={() => addToCartHandler(data._id)}
+						onClick={() => addToCartHandler(carId)}
 
 					/>
 				</div>
@@ -36,7 +37,9 @@ export default function CarsCard({ carImage, carModel, transmission, seats, fuel
 				</div>
 				<div className="flex items-center justify-between text-sm">
 					<div className="text-3xl font-semibold flex"><span className='text-xs text-light mr-1 self-start'>Only</span>{price}DH<span className='ml-2 text-xl text-red-400 line-through self-end '>{price + 200}</span></div>
-					<button className="bg-black text-white mx-4 py-4 px-10 rounded-full  hover:bg-zinc-700 duration-300">Rent Now</button>
+					<Link to={`/product/${carId}`}>
+						<button className="bg-black text-white mx-4 py-4 px-10 rounded-full  hover:bg-zinc-700 duration-300">Rent Now</button>
+					</Link> 
 				</div>
 			</div>
 		</div>

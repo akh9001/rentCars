@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { listCars } from '../../slices/Customer/Cars/listCarsSlice';
 
 // CarList component
-const CarList = (data) => {
+const CarList = () => {
 	const [selectedModel, setSelectedModel] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 	const dispatch = useDispatch();
@@ -62,7 +62,6 @@ const CarList = (data) => {
 
 	// Filter the cars based on selected model and search term
 	const filteredCars = carsData.filter((car) => {
-		console.log("$$$$$$$$$$$ car : ", car);
 		return (
 			(selectedModel === 'All' || car.brand === selectedModel) &&
 			(searchTerm === '' ||
@@ -117,8 +116,9 @@ const CarList = (data) => {
 								fuelType={car.fuelType}
 								category={car.category}
 								price={car.price}
+								carId={car.id}
 								addToCartHandler={() => addToCartHandler(car.id, car.image, `${car.brand} ${car.name}`, car.gearType, car.price, car.fuelType, car.category)}
-								data={data}
+								// data={data}
 							/>
 						))}
 					</div>
