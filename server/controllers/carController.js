@@ -34,12 +34,10 @@ const addCar = async (req, res) => {
 			return next(req.fileValidationError);
 		}
 		if (!req.files || req.files?.length === 0) {
-			console.log("req.files", req.files)
 			return res.status(400).json({ message: 'No files uploaded' });
 		}
 		
 		const { vin, name, brand, available, price, discount_price, specifications, subcategory } = req.body;
-		console.log("req.body", req.body)
 		const newCar = new Car({
 			vin,
 			name,
