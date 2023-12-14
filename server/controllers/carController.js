@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const Car = require('../models/Car')
 const extractOriginalNames = require('../utils/extractOriginalName')
 const fs = require('fs');
-const perPage = 25
+const perPage = 50
 
 const removeFile = async (filePaths) => {
 	const dir = __dirname;
@@ -34,6 +34,7 @@ const addCar = async (req, res) => {
 			return next(req.fileValidationError);
 		}
 		if (!req.files || req.files?.length === 0) {
+			console.log("req.files", req.files)
 			return res.status(400).json({ message: 'No files uploaded' });
 		}
 		

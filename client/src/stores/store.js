@@ -12,6 +12,7 @@ import registerReducer from '../slices/Customer/registerSlice'
 import userReducer from '../slices/userSlice';
 import listCustomersReducer from '../slices/Customer/listUserSlice';
 import addUserReducer from '../slices/Admin/auth/addUserSlice';
+import customerListCarsReducer from '../slices/Customer/Cars/listCarsSlice';
 
 const store = configureStore({
 	reducer: {
@@ -27,6 +28,7 @@ const store = configureStore({
 		users: listUserReducer,
 		customers: listCustomersReducer,
 		addUser: addUserReducer,
+		customerListCars: customerListCarsReducer,
 		// Add other reducers here if needed
 	},
 });
