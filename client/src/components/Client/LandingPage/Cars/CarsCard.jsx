@@ -22,6 +22,7 @@ export default function CarsCard({ carImage, carModel, transmission, seats, fuel
 
                 /> 
             </div>
+            
                 <div className="font-normal space-x-2 w-full text-sm text-zinc-800 my-8 flex items-center justify-center">
                     <p className="py-3 w-32 justify-center bg-slate-100 items-center rounded-full flex">
                         <TbManualGearbox className="mx-1 text-lg"/>{transmission}

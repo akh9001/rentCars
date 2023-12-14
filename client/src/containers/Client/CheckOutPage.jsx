@@ -7,13 +7,12 @@ import CheckoutForm from '../../components/CheckoutForm';
 const CheckoutPage = () => {
   
   return (
-    <div>
+    <div className='flex-col items-center justify-center bg-[#F2F2F2]'>
         <LightNavBar/>
         <br />
         <br />
         <CheckoutSteps active={1} />
-        <CheckoutForm/>
-        {/* <Checkout /> */}
+        <Checkout />
         <br />
         <br />
     </div>

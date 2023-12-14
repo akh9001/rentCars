@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DateRange } from "react-date-range";
 import { BsCalendarDate } from "react-icons/bs";
 import Slider from "react-slick";
-import profile from "../../assets/profile.jpg";
+import logo from "../../assets/mercedes.png";
 import luxuryCar from "../../assets/LuxuryCar.jpg";
 import ElectricCars from "../../assets/ElectricCar.jpg";
 import SUVCar from "../../assets/SuvCar.jpg";
@@ -14,7 +14,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LightNavBar from "../../components/Client/LightNavBar";
 import { FaCar, FaUserFriends, FaBatteryFull, FaTachometerAlt } from "react-icons/fa";
-import { IoTimeOutline, IoCalendarClearOutline } from "react-icons/io5";
 import { MdLocationOn } from "react-icons/md";
 // import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import "react-date-range/dist/styles.css";
@@ -24,7 +23,7 @@ const carImages = [luxuryCar, ElectricCars, SUVCar];
 
 
 const location = {
-	address: '200-298 Ghandi St Casablanca, CA 94114, Morocco',
+	address: 'Rond Point Oulmes Résidence du Palais, Casablanca',
 	lat: 33.5731104, // Latitude
 	lng: -7.5898434  // Longitude
 };
@@ -35,22 +34,6 @@ const location = {
 // };
 
 
-const PlanCard = ({ icon, price, title, description, active, onClick }) => {
-	return (
-		<div className={`flex items-center overflow-hidden rounded-xl ${active ? ' shadow-xl' : '  shadow-sm'} cursor-pointer`}
-			onClick={onClick}
-		>
-			<div className={`flex lg:flex-row justify-center m-4 lg:m-0 rounded-md lg:rounded-none items-center p-4 w-[30%] h-full mr-4 ${active ? 'bg-black text-white' : 'bg-zinc-200 text-black'}`}>
-				{icon}
-			</div>
-			<div className="p-4">
-				<div className="text-lg font-bold">{title}</div>
-				<div className="text-sm py-2">{description}</div>
-				<div className="text-2xl font-semibold">{price}</div>
-			</div>
-		</div>
-	);
-};
 
 const imageSliderSettings = {
 	dots: true,
@@ -114,13 +97,9 @@ export default function ProductPage() {
 	};
 
 
-	const [activePlan, setActivePlan] = useState("daily");
-
-	const handlePlanClick = (plan) => {
-		setActivePlan(plan);
-	};
 
 
+	const productDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
 
 	return (
@@ -139,13 +118,9 @@ export default function ProductPage() {
 				<div className="flex-col bg-white rounded-t-xl justify-center py-28 px-16 lg:px-44">
 					<div className="flex flex-col lg:flex-row gap-4 items-center lg:justify-between w-full mb-6">
 						<div className="gap-4 flex ">
-							<Avatar
-								src={profile}
-								alt="Mohammed Folan"
-								sx={{ width: 72, height: 72 }}
-							/>
-							<div className="lg:ml-8 mt-2 flex-col">
-								<span className="lg:text-2xl  font-semibold">Mohammed Folan</span>
+							
+							<div className="mt-2 flex-col">
+							<span className="text-4xl font-bold">S 500 Sedan</span>
 								<div>
 									<StarIcon className="text-yellow-400" />
 									<span className="text-sm text-gray-600">
@@ -156,13 +131,21 @@ export default function ProductPage() {
 						</div>
 
 						<div>
-							<span className="text-4xl font-bold">S 500 Sedan</span>
+							<img 
+								src={logo}
+								className="h-35 w-35 object-cover"
+							/>
+							
 						</div>
 					</div>
-					<div className="flex-col ml-0 gap-4 mb-6">
+					<div className="flex-col ml-0 gap-4 mb-6 ">
 						<h3 className="font-bold text-4xl my-10">Pictures</h3>
-						<div className="container relative flex-col z-10 justify-center items-center lg:mx-auto lg:px-10 px-8 py-8 bg-black rounded-2xl min-w-full">
-							<ImageCarousel images={carImages} />
+						<div className="container relative flex-col z-20 justify-center items-center lg:mx-auto lg:px-10 px-6 py-8 rounded-2xl min-w-full">
+							<ImageCarousel className="z-30" images={carImages} />
+							<div className=" h-10 w-full px-[6px] flex justify-between absolute bottom-[45.8%] right-[0%] rounded-full z-10">
+								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineLeft/></div>
+								<div className="bg-white h-10 w-10 rounded-full shadow-md flex justify-center items-center"><AiOutlineRight/></div>
+								</div>
 						</div>
 					</div>
 
@@ -179,40 +162,14 @@ export default function ProductPage() {
 							</div>
 						</div>
 					</div>
-
 					<Divider className="w-full mb-6" />
 
-
 					<div className="p-4">
-						<h3 className="font-bold text-4xl my-10">Your Plan is <span className="font-light">{activePlan}</span> </h3>
-						<div className="flex flex-col lg:flex-row justify-start gap-4">
-							<PlanCard
-								icon={<IoTimeOutline className="text-4xl" />}
-								price="300Dh"
-								title="Daily Rent"
-								description="Best for personal appointments"
-								active={activePlan === "daily"}
-								onClick={() => handlePlanClick("daily")} // Update state to "daily"
-							/>
-							<PlanCard
-								icon={<IoCalendarClearOutline className="text-3xl" />}
-								price="1900Dh"
-								title="Weekly Rent"
-								description="Best for business appointments"
-								active={activePlan === "weekly"}
-								onClick={() => handlePlanClick("weekly")} // Update state to "weekly"
-							/>
-							<PlanCard
-								icon={<IoCalendarClearOutline className="text-3xl" />}
-								price="12900Dh"
-								title="Monthly Rent"
-								description="Best for business appointments"
-								active={activePlan === "monthly"}
-								onClick={() => handlePlanClick("monthly")}
-							/>
-						</div>
+					<h3 className="font-bold text-4xl mt-4 mb-10">Description</h3>
+					<p className="text-lg my-8">{productDescription}</p>
 					</div>
 
+				
 					<Divider className="w-full mb-6" />
 
 					<div className="p-4">
@@ -226,16 +183,24 @@ export default function ProductPage() {
 							{isMapVisible ? <GrUp size={25} className="text-zinc-700 ml-2" /> : <GrDown size={25} className="text-zinc-700 ml-2" />}
 						</div>
 
-						{/* {isMapVisible && (
-							<LoadScript googleMapsApiKey="Map-google-api">
-								<GoogleMap center={center} zoom={15}>
-									<Marker position={center} />
-								</GoogleMap>
-							</LoadScript>
-						)} */}
+						 {isMapVisible && (
+							<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831.0747000755434!2d-7.648567671515972!3d33.57159039832692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d3a2e5439e89%3A0xbf888b237cbe56b1!2sARK%20X%20Talent%20Factory!5e0!3m2!1sfr!2sma!4v1702472368906!5m2!1sfr!2sma"
+							width="100%"
+							height="450"
+							style={{
+								border: 0,
+								borderRadius: '10px',
+								boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Adjust shadow values as needed
+							  }}							allowFullScreen=""
+							loading="lazy"
+							referrerPolicy="no-referrer-when-downgrade"
+						  />
+						  
+						)} 
 
 					</div>
-					<Divider className="w-full mb-6" />
+					{/* <Divider className="w-full mb-6" />
 					<div className="p-4 my-8">
 						<h3 className="font-bold text-4xl my-10">Booking</h3>
 						<div className=" border border-zinc-500 rounded-xl flex flex-col lg:flex-row justify-center items-center bg-zinc-50">
@@ -266,7 +231,7 @@ export default function ProductPage() {
 								/>
 							)}
 						</div>
-					</div>
+					</div> */}
 
 					<Divider className="w-full mb-6" />
 

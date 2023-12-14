@@ -38,7 +38,7 @@ const ContactUs = () => {
 						<Typography variant="h4" className="mb-6 font-extrabold text-gray-800">
 							Get in Touch
 						</Typography>
-						<Typography className="mb-6 text-gray-600">
+						<Typography className="my-6 text-gray-600">
 							We're here to help and answer any question you might have.
 						</Typography>
 						<form onSubmit={handleSubmit} className="space-y-6 mt-6">

@@ -14,6 +14,14 @@
     border-radius: 10px;
 }
 
+.customdatepickerwidth, 
+.customdatepickerwidth > div.react-datepicker-wrapper, 
+.customdatepickerwidth > div > div.react-datepicker__input-container
+.customdatepickerwidth > div > div.react-datepicker__input-container input {
+   width: 100%;
+   background: #000;
+}
+
 .sidebar {
 
   transition-property: width; 

@@ -10,6 +10,9 @@ const subcategoryRoutes = require("./routes/subcategoryRoutes");
 const orderRoutes = require("./routes/orderRoutes")
 const port = process.env.PORT || 3000;
 const cors = require('cors');
+const payment = require("./routes/paymentRoutes");
+
+
 require("dotenv").config();
 
 // Read allowed origins from environment variable
@@ -35,6 +38,7 @@ app.use("/customers", customerRoutes);
 app.use("/cars", carRoutes);
 app.use('/categories', categoryRoutes); 
 app.use('/subcategories', subcategoryRoutes);
+app.use("/payment", payment);
 app.use("/orders", orderRoutes)
 
 // Catch-all route for invalid routes

@@ -92,13 +92,13 @@ const CarList = (data) => {
     <div className='bg-[#F2F2F2]'>
       <LightNavBar/>
     <div className="flex flex-col w-full">
-      <div className="flex items-center space-x-4 p-8 bg-[#F2F2F2]">
+      <div className="flex items-center justify-center space-x-4 p-8 bg-[#F2F2F2]">
         <input
           type="text"
           placeholder="Search by Car Name"
           value={searchTerm}
           onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded outline-white w-full"
+          className="p-4 border max-w-5xl border-gray-300 rounded-full outline-white w-full"
         />
         <select
           value={selectedModel}

@@ -1,10 +1,11 @@
 import React from 'react';
 import CartItem from './CartItem';
-import { AiFillCloseCircle } from 'react-icons/ai';
+import { AiFillCloseCircle, AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../../slices/cartSlice';
 import { selectCartItems, selectCartTotal } from '../../slices/cartSlice';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Cart = ({ toggleCart }) => {
   const dispatch = useDispatch();
@@ -53,12 +54,13 @@ const Cart = ({ toggleCart }) => {
             <button className="rounded-xl border border-black hover:bg-zinc-300 font-semibold flex px-8 py-4 justify-center items-center">
               Continue Shopping
             </button>
-            <button
+            <Link
               className="rounded-xl border border-black bg-yellow-400 hover:bg-yellow-500 font-bold flex px-8 py-4 justify-center items-center"
               onClick={() => toast.success('Proceeding to Checkout')}
+              to="/booking"
             >
-              Check Out
-            </button>
+              Booking <AiOutlineArrowRight className='ml-2'/>
+            </Link>
           </div>
           <p className="text-xs m-auto text-gray-600 mt-2">
             By selecting 'Check Out' you are agreeing to our Terms & Conditions

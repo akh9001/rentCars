@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from './components/Admin/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GeneralDashboard from './containers/GeneralDashboard';
@@ -26,16 +26,18 @@ import OrdersList from './components/OrdersList'
 import ActivationPage from './components/verifyEmail'
 import ProfilePage from './containers/Client/ProfilePage';
 import AdminDashboardUsers from './containers/Admin/AdminDashboardUsers';
-import CheckoutPage from './containers/Client/CheckOutPage';
+import CheckOutPage from './containers/Client/CheckOutPage';
 import PaymentPage from './containers/Client/PaymentPage'
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+ import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios"
 import AdminAddUser from "./containers/Admin/AdminAddUser";
+import BookingPage from "./containers/Client/BookingPage";
 // import trackOrder from './components/Client/Profile/TrackOrder'
 
 
 const isAuthenticated = true;
-const userRole = 'admin';
+const userRole = 'customer';
 
 
 const PrivateRoute  = ({ roles, children }) => {
@@ -122,6 +124,23 @@ const AdminAddUserContainer = () =>
 
 const App = () => {
 
+	const [stripeApikey, setStripeApiKey] = useState("");
+
+	async function getStripeApikey() {
+		try {
+		  const { data } = await axios.get("http://localhost:3001/payment/stripeapikey");
+		  console.log('data:',data.stripeApikey)
+		  setStripeApiKey(data.stripeApikey);
+		} catch (error) {
+		  console.error("Error fetching Stripe API key:", error);
+		}
+	  }
+	
+	useEffect(() => {
+		getStripeApikey();
+	  }, []);
+	
+
 	return(
 		<BrowserRouter>
 		<Routes>
@@ -181,26 +200,43 @@ const App = () => {
 			{/* Customer routes */}
 			<Route
 				path="/profile"
-				element={<PrivateRoute roles={['customer']}><ProfilePage /> </PrivateRoute>  }
+				element={<ProfilePage /> }
 			/>
-			<Route
+			{/* <Route
 				path="/checkout"
 				element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>  }
-			/>
+			/> */}
 			<Route
 				path="/order-list"
 				element={<PrivateRoute roles={['customer']}><OrdersList /> </PrivateRoute>  }
 			/>
+
 			<Route
+				path="booking"
+				element={<BookingPage/>}
+			/>
+
+			 <Route
 				path="/checkout"
-				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
-			/>
+				element={  
+					<Elements stripe={loadStripe(stripeApikey)}>
+					 <CheckOutPage/>
+					 </Elements>
+				}
+			/> 
+			
 
-			<Route
-					path="/payment"
-						element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
-			/>
 
+		 {stripeApikey && (
+          <Route
+            path="/payment"
+            element={
+				<Elements stripe={loadStripe(stripeApikey)}>
+                <PaymentPage />
+             	</Elements>
+            }
+          />
+        )}
 			</Routes>
 
 		<Footer />
