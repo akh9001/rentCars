@@ -39,14 +39,14 @@ const getAccessToken = () => {
 	return localStorage.getItem('token');
 }
 
-const PrivateRoute  = ({ roles, children }) => {
+const PrivateRoute = ({ roles, children }) => {
 	// TODO: I should check for a better way to do it
 	const isAuthenticated = getAccessToken();
 	const userRole = isAuthenticated ? jwtDecode(isAuthenticated).role : null;
 
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/login" />;
 };
-const PrivateAdminRoute  = ({ roles, children }) => {
+const PrivateAdminRoute = ({ roles, children }) => {
 	// TODO: I should check for a better way to do it
 	const isAuthenticated = getAccessToken();
 	const userRole = isAuthenticated ? jwtDecode(isAuthenticated).role : null;
@@ -54,8 +54,7 @@ const PrivateAdminRoute  = ({ roles, children }) => {
 	return isAuthenticated && roles.includes(userRole) ? children : <Navigate to="/admin-login" />;
 };
 
-const Dashboard = () => 
-{
+const Dashboard = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -64,9 +63,8 @@ const Dashboard = () =>
 		</>
 	);
 }
-	
-const DashboardProductsContainer = () =>
-{
+
+const DashboardProductsContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -75,9 +73,8 @@ const DashboardProductsContainer = () =>
 		</>
 	);
 }
-	
-const DashboardCategoriesContainer = () =>
-{
+
+const DashboardCategoriesContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -86,9 +83,8 @@ const DashboardCategoriesContainer = () =>
 		</>
 	);
 }
-	
-const DashboardOrdersContainer = () =>
-{
+
+const DashboardOrdersContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -97,9 +93,8 @@ const DashboardOrdersContainer = () =>
 		</>
 	);
 }
-	
-const DashboardSettingsContainer = () =>
-{
+
+const DashboardSettingsContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -108,9 +103,8 @@ const DashboardSettingsContainer = () =>
 		</>
 	);
 }
-	
-const DashboardCommercialTermsContainer = () =>
-{
+
+const DashboardCommercialTermsContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -120,8 +114,7 @@ const DashboardCommercialTermsContainer = () =>
 	);
 }
 
-const AdminAddUserContainer = () =>
-{
+const AdminAddUserContainer = () => {
 	return (
 		<>
 			<AdminNavbar />
@@ -134,90 +127,91 @@ const AdminAddUserContainer = () =>
 
 const App = () => {
 
-	return(
+	return (
 		<BrowserRouter>
-		<Routes>
+			<Routes>
 
-			{/* Public routes */}
-			<Route path="/" element={<LandingPage />} />
-			<Route path="/admin-login" element={<Login />} />
-			<Route path="/login" element={<LoginCustomer />} />
-			<Route path="/register" element={<Register />} />
-			<Route path="/product" element={<ProductPage />} />
-			<Route path="/faq" element={<FAQPage />} />
-			<Route path="/contact-us" element={<ContactUs />} />
-			<Route path="/car-list" element={<CarList />} />
-			<Route path="/verify-account/:token" element={<ActivationPage />} />
-			<Route path="/best-selling" element={<BestSelling />} />
+				{/* Public routes */}
+				<Route path="/" element={<LandingPage />} />
+				<Route path="/admin-login" element={<Login />} />
+				<Route path="/login" element={<LoginCustomer />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/product" element={<ProductPage />} />
+				<Route path="/faq" element={<FAQPage />} />
+				<Route path="/contact-us" element={<ContactUs />} />
+				<Route path="/car-list" element={<CarList />} />
+				<Route path="/verify-account/:token" element={<ActivationPage />} />
+				<Route path="/best-selling" element={<BestSelling />} />
 				<Route path="/catalog" element={<BestSelling />} />
 
-			{/* Admin routes */}
-			<Route
-				path="/dashboard"
-				element={<PrivateAdminRoute roles={['admin']} > <Dashboard /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/dashboard-products"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardProductsContainer /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/dashboard-categories"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardCategoriesContainer /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/dashboard-orders"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardOrdersContainer /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/admin-settings"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardSettingsContainer /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/Commercial-terms"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardCommercialTermsContainer /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/dashboard-products/add-car"
-				element={<PrivateAdminRoute roles={['admin']} ><DashboardAddProduct /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/Admin-Dashboard-Users"
-				element={<PrivateAdminRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateAdminRoute>  }
-			/>
-			<Route
-				path="/Admin-Dashboard-Users/Admin-add-user"
-				element={<PrivateAdminRoute roles={['admin']}><AdminAddUserContainer /> </PrivateAdminRoute>  }
-			/>
+				{/* Admin routes */}
+				<Route
+					path="/dashboard"
+					element={<PrivateAdminRoute roles={['admin']} > <Dashboard /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/dashboard-products"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardProductsContainer /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/dashboard-categories"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardCategoriesContainer /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/dashboard-orders"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardOrdersContainer /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/admin-settings"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardSettingsContainer /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/Commercial-terms"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardCommercialTermsContainer /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/dashboard-products/add-car"
+					element={<PrivateAdminRoute roles={['admin']} ><DashboardAddProduct /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/Admin-Dashboard-Users"
+					element={<PrivateAdminRoute roles={['admin']} ><AdminDashboardUsers /> </PrivateAdminRoute>}
+				/>
+				<Route
+					path="/Admin-Dashboard-Users/Admin-add-user"
+					element={<PrivateAdminRoute roles={['admin']}><AdminAddUserContainer /> </PrivateAdminRoute>}
+				/>
 
 
-			{/* Customer routes */}
-			<Route
-				path="/profile"
-				element={<PrivateRoute roles={['customer']}><ProfilePage /> </PrivateRoute>  }
-			/>
-			<Route
-				path="/checkout"
-				element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>  }
-			/>
-			<Route
-				path="/order-list"
-				element={<PrivateRoute roles={['customer']}><OrdersList /> </PrivateRoute>  }
-			/>
-			<Route
-				path="/checkout"
-				element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>  }
-			/>
+				{/* Customer routes */}
+				<Route
+					path="/profile"
+					element={<PrivateRoute roles={['customer']}><ProfilePage /> </PrivateRoute>}
+				/>
+				<Route
+					path="/checkout"
+					element={<PrivateRoute roles={['customer']}>< CheckoutPage /> </PrivateRoute>}
+				/>
+				<Route
+					path="/order-list"
+					element={<PrivateRoute roles={['customer']}><OrdersList /> </PrivateRoute>}
+				/>
+				<Route
+					path="/checkout"
+					element={<PrivateRoute roles={['customer']}><CheckoutPage /> </PrivateRoute>}
+				/>
 
-			<Route
+				<Route
 					path="/payment"
-						element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
-			/>
+					element={<PrivateRoute roles={['customer']}><PaymentPage /> </PrivateRoute>}
+				/>
 
 			</Routes>
 
-		<Footer />
-	</BrowserRouter>
+			<Footer />
+		</BrowserRouter>
 
-)};
+	)
+};
 
 export default App;
